@@ -28,6 +28,16 @@ pub struct LatexConfig {
     pub pdf: bool,
 }
 
+pub const LATEX_BEGIN: &str = r#"
+\begin{document}
+\maketitle
+\clearpage
+\tableofcontents
+\clearpage
+"#;
+
+pub const LATEX_FOOTER: &str = "\n\\end{document}\n";
+
 fn main() -> std::io::Result<()> {
     let mut stdin = io::stdin();
 
@@ -41,21 +51,20 @@ fn main() -> std::io::Result<()> {
         .unwrap_or_default();
 
     // read book's config values (title, authors).
-    //let mut doc = Document::new(DocumentClass::Article);
-
     let title = ctx.config.book.title.unwrap();
+    let authors = ctx.config.book.authors.join("\\and");
 
-    // create title, author, and table of contents pages.
-    //doc.preamble
-        //.title(&title)
-        //.author(&ctx.config.book.authors.join("\\and"))
-        //.use_package("amsmath")
-        //.use_package("parskip");
+    let mut latex = String::new();
 
-    //doc.push(Element::TitlePage)
-        //.push(Element::ClearPage)
-        //.push(Element::TableOfContents)
-        //.push(Element::ClearPage);
+    let latex_header = include_str!("header.tex");
+    let latex_languages = include_str!("languages.tex");
+
+    latex.push_str(&latex_header);
+    latex.push_str(&latex_languages);
+    latex.push_str(&format!("\\title{{{title}}}", title = title));
+    latex.push_str(&format!("\\author{{{authors}}}", authors = authors));
+
+    latex.push_str(&LATEX_BEGIN);
 
     // iterate through markdown source.
     let mut content = String::new();
@@ -66,19 +75,31 @@ fn main() -> std::io::Result<()> {
                 continue;
             }
 
-            // push section to doc in order to update table of contents.
-            //let section = Section::new(&ch.name);
-            //doc.push(section);
-
             content.push_str(&ch.content);
-            //latex.push_str(&markdown_to_latex(ch.content.to_string()));
+            //content.push_str("\n");
+            //content.push_str("\n");
+            latex.push_str(&markdown_to_latex(ch.content.to_string()));
         }
     }
 
-    //let mut latex = latex::print(&doc).unwrap();
-    let mut latex = String::new();
+    let mut file_md = title.clone();
+    file_md.push_str(".md");
+    let path = Path::new(&file_md);
+    let display = path.display();
+    let mut _file = match File::create(&file_md) {
+        Err(why) => panic!("couldn't create {}: {}", display, why.description()),
+        Ok(file) => file,
+    };
 
-    latex.push_str(&markdown_to_latex(content.to_string()));
+    // write to file.
+    match _file.write_all(content.as_bytes()) {
+        Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
+        Ok(_) => println!("successfully wrote to {}", display),
+    }
+
+    //latex.push_str(&markdown_to_latex(content.to_string()));
+
+    latex.push_str(&LATEX_FOOTER);
 
     // output latex file.
     if cfg.latex {
