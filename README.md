@@ -11,11 +11,25 @@
 
 An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents.
 
+Examples of PDF's generated with `mdbook-latex` include:
+
+- [mdbook User Guide]()
+- [The Rust Programming Language]()
+- [Rust By Example]() 
+- [The Edition Guide]() 
+- [The Rustc Book]() 
+- [The Cargo Book]() 
+- [The Rustdoc Book]() 
+- [The Reference]() 
+- [The Rustonomicon]() 
+- [The Unstable Book]() 
+- [The Embedded Rust Book]() 
+
 > **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release.
 
 ## Installation
 
-First, install the following two projects:
+First, install the following two programs:
 
 - [Rust](https://www.rust-lang.org/)
 - [mdbook](https://github.com/rust-lang-nursery/mdBook)
@@ -83,4 +97,4 @@ The following projects served as guidance for `mdbook-latex` (or are simply cool
 
 - [mdbook-epub](https://github.com/Michael-F-Bryan/mdbook-epub): A backend for mdbook that creates EPUB files.
 - [mdbook-linkcheck](https://github.com/Michael-F-Bryan/mdbook-linkcheck): A backend for `mdbook` that will verify URL links.
-- [crowbook](https://github.com/raphlinus/pulldown-cmark): A rich program that can generate HTML, PDF, **and** EPUB files from markdown code. Has a neat [online demo page](http://vps.crowdagger.fr/crowbook/) to try it out interactively. Similar in some respects to `mdbook`, but with an added focus on "novels and fiction". Though general enough to handle a lot of different projects.
+- [crowbook](https://github.com/lise-henry/crowbook/): A rich program that can generate HTML, PDF, **and** EPUB files from markdown code. Has a neat [online demo page](http://vps.crowdagger.fr/crowbook/) to try it out interactively. Similar in some respects to `mdbook`, but with an added focus on "novels and fiction". Though general enough to handle a lot of different projects.
