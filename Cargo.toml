@@ -1,6 +1,6 @@
 [package]
 name = "mdbook-latex"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["lbeckman314 <liam@liambeckman.com>"]
 edition = "2018"
 description = "An mdbook backend for generating LaTeX and PDF documents."
