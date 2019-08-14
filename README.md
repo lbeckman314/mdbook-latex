@@ -15,14 +15,14 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 
 Examples of PDF's generated with `mdbook-latex` include:
 
-| PDF Version                     | mdbook Source        | Online Version      | Generated LaTeX       |
-|---------------------------------|----------------------|---------------------|-----------------------|
-| [mdbook User Guide][mdbook-pdf] | [Source][mdbook-src] | [HTML][mdbook-html] | [LaTeX][mdbook-latex] |
+| Generated PDF                     | Generated LaTeX         | Source                 | Online Version        |
+| --------------------------------- | ----------------------- | ---------------------- | --------------------- |
+| [mdbook User Guide][mdbook-pdf]   | [LaTeX][mdbook-latex]   | [Source][mdbook-src]   | [HTML][mdbook-html]   |
 
-[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
+[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.0/mdBook.Documentation.pdf
+[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.0/mdBook.Documentation.tex
 [mdbook-html]: https://rust-lang-nursery.github.io/mdBook/
 [mdbook-src]: https://github.com/rust-lang-nursery/mdBook/tree/master/book-example
-[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases
 
 ## Installation
 
