@@ -6,17 +6,19 @@ extern crate mdbook;
 extern crate serde;
 #[macro_use]
 extern crate serde_derive;
-extern crate md2pdf_mdbook;
+extern crate md2tex;
 extern crate tectonic;
 
 //use latex::*;
-use md2pdf_mdbook::markdown_to_latex;
+use md2tex::markdown_to_latex;
 use mdbook::book::BookItem;
 use mdbook::renderer::RenderContext;
 use std::error::Error;
 use std::fs::{self, File};
 use std::io::{self, Write};
 use std::path::Path;
+
+use walkdir::WalkDir;
 
 // config definition.
 #[derive(Debug, Default, Serialize, Deserialize)]
@@ -39,6 +41,14 @@ pub const LATEX_BEGIN: &str = r#"
 pub const LATEX_FOOTER: &str = "\n\\end{document}\n";
 
 fn main() -> std::io::Result<()> {
+
+    //for entry in WalkDir::new("../../src") {
+        //let entry = entry.unwrap();
+        //println!("{}", entry.path().display());
+    //}
+
+    //Ok(())
+
     let mut stdin = io::stdin();
 
     // get markdown source.
@@ -52,7 +62,7 @@ fn main() -> std::io::Result<()> {
 
     // read book's config values (title, authors).
     let title = ctx.config.book.title.unwrap();
-    let authors = ctx.config.book.authors.join("\\and");
+    let authors = ctx.config.book.authors.join(" \\and ");
 
     let mut latex = String::new();
 
@@ -82,6 +92,7 @@ fn main() -> std::io::Result<()> {
         }
     }
 
+    // output markdown file.
     let mut file_md = title.clone();
     file_md.push_str(".md");
     let path = Path::new(&file_md);

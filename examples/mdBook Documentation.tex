@@ -1,0 +1,2300 @@
+\UseRawInputEncoding
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{xcolor}
+\usepackage{tabu}
+\usepackage{longtable}
+\usepackage{adjustbox}
+\usepackage{tabularx}
+\usepackage{colortbl}
+
+\usepackage{array}
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}m{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+
+
+% https://tex.stackexchange.com/questions/143015/different-column-number-in-rows
+\usepackage{booktabs,multirow,tabularx}% http://ctan.org/pkg/{booktabs,multirow,tabularx}
+\newcommand{\makecell}[1]{\begin{tabular}{c}#1\end{tabular}}
+
+% https://tex.stackexchange.com/questions/823/remove-ugly-borders-around-clickable-cross-references-and-hyperlinks
+\hypersetup{
+    colorlinks,
+    linkcolor={red!50!black},
+    citecolor={blue!50!black},
+    urlcolor={blue!80!black}
+}
+
+% https://tex.stackexchange.com/questions/215520/output-from-tree-command-in-a-listing
+\usepackage{newunicodechar}
+\newunicodechar{└}{{\smash{\raisebox{0.5ex}{\rule{0.5pt}{\dimexpr\baselineskip-1.5ex}}}\raisebox{0.5ex}{\rule{1ex}{0.5pt}}}}
+\newunicodechar{─}{{\raisebox{0.5ex}{\rule{1.5ex}{0.5pt}}}}
+\newunicodechar{├}{{\smash{\raisebox{-1ex}{\rule{0.5pt}{\baselineskip}}}\raisebox{0.5ex}{\rule{1ex}{0.5pt}}}}
+\newunicodechar{’}{{'}}
+\newunicodechar{“}{{"}}
+\newunicodechar{”}{{"}}
+
+\definecolor{commentsColor}{rgb}{0.497495, 0.497587, 0.497464}
+\definecolor{keywordsColor}{rgb}{0.000000, 0.000000, 0.635294}
+\definecolor{stringColor}{rgb}{0.558215, 0.000000, 0.135316}
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize\ttfamily,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{commentsColor}\textit,    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=tb,	                   	   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{keywordsColor}\bfseries,       % keyword style
+  language=Python,                 % the language of the code (can be overrided per snippet)
+  otherkeywords={*,...},           % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{commentsColor}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{stringColor}, % string literal style
+  prebreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\hookrightarrow}},
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  columns=fixed,                   % Using fixed column width (for e.g. nice alignment)
+  inputencoding=utf8,              % https://tex.stackexchange.com/questions/24528/having-problems-with-listings-and-utf-8-can-it-be-fixed
+  literate={└}{{\smash{\raisebox{0.5ex}{\rule{0.5pt}{\dimexpr\baselineskip-1.5ex}}}\raisebox{0.5ex}{\rule{1ex}{0.5pt}}}}1 {─}{{\raisebox{0.5ex}{\rule{1.5ex}{0.5pt}}}}1 {├}{{\smash{\raisebox{-1ex}{\rule{0.5pt}{\baselineskip}}}\raisebox{0.5ex}{\rule{1ex}{0.5pt}}}}1,
+}
+
+
+\usepackage{xcolor}
+
+\definecolor{commentsColor}{rgb}{0.497495, 0.497587, 0.497464}
+\definecolor{keywordsColor}{rgb}{0.000000, 0.000000, 0.635294}
+\definecolor{stringColor}{rgb}{0.558215, 0.000000, 0.135316}
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}
+  basicstyle=\footnotesize\ttfamily,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{commentsColor}\textit,    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=tb,	                   	   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{keywordsColor}\bfseries,       % keyword style
+  language=Python,                 % the language of the code (can be overrided per snippet)
+  otherkeywords={*,...},           % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{commentsColor}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=1,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{stringColor}, % string literal style
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname,                  % show the filename of files included with \lstinputlisting; also try caption instead of title
+  columns=fixed                    % Using fixed column width (for e.g. nice alignment)
+}
+\lstdefinelanguage{rust}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{rs}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{hbs}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
+\lstdefinelanguage{console}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{\#},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
+\lstdefinelanguage{handlebars}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
+\lstdefinelanguage{shell}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
+\lstdefinelanguage{makefile}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{\#},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
+\lstdefinelanguage{markdown}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
+\lstdefinelanguage{json}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
+\lstdefinelanguage{yaml}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
+\lstdefinelanguage{toml}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
+\lstdefinelanguage{diff}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{text}{}
+\lstdefinelanguage{cmd}{}
+\lstdefinelanguage{powershell}{}
+\title{mdBook Documentation}\author{Mathieu David \and Michael-F-Bryan}
+\begin{document}
+\maketitle
+\clearpage
+\tableofcontents
+\clearpage
+
+\section{mdBook}
+\label{mdBook}
+\label{md-book}
+
+\textbf{mdBook} is a command line tool and Rust crate to create books using Markdown
+files. It's very similar to Gitbook but written in
+\href{http://www.rust-lang.org}{Rust}.\\
+
+What you are reading serves as an example of the output of mdBook and at the
+same time as a high-level documentation.\\
+
+mdBook is free and open source, you can find the source code on
+\href{https://github.com/rust-lang-nursery/mdBook}{GitHub}. Issues and feature
+requests can be posted on the \href{https://github.com/rust-lang-nursery/mdBook/issues}{GitHub issue
+tracker}.\\
+
+\subsection{API docs}
+\label{API docs}
+\label{api-docs}
+
+Alongside this book you can also read the \href{https://docs.rs/mdbook/*/mdbook/}{API
+docs} generated by Rustdoc if you would like
+to use mdBook as a crate or write a new renderer and need a more low-level
+overview.\\
+
+\subsection{License}
+\label{License}
+\label{license}
+
+mdBook, all the source code, is released under the \href{https://www.mozilla.org/MPL/2.0/}{Mozilla Public License
+v2.0}.\\
+
+\section{Command Line Tool}
+\label{Command Line Tool}
+\label{command-line-tool}
+
+mdBook can be used either as a command line tool or a \href{https://crates.io/crates/mdbook}{Rust
+crate}. Let's focus on the command line tool
+capabilities first.\\
+
+\subsection{Install From Binaries}
+\label{Install From Binaries}
+\label{install-from-binaries}
+
+Precompiled binaries are provided for major platforms on a best-effort basis.
+Visit \href{https://github.com/rust-lang-nursery/mdBook/releases}{the releases page}
+to download the appropriate version for your platform.\\
+
+\subsection{Install From Source}
+\label{Install From Source}
+\label{install-from-source}
+
+mdBook can also be installed from source\\
+
+\subsubsection{Pre-requisite}
+\label{Pre-requisite}
+\label{pre-requisite}
+
+mdBook is written in \textbf{\href{https://www.rust-lang.org/}{Rust}} and therefore needs
+to be compiled with \textbf{Cargo}. If you haven't already installed Rust, please go
+ahead and \href{https://www.rust-lang.org/tools/install}{install it} now.\\
+
+\subsubsection{Install Crates.io version}
+\label{Install Crates.io version}
+\label{install-crates-io-version}
+
+Installing mdBook is relatively easy if you already have Rust and Cargo
+installed. You just have to type this snippet in your terminal:\\
+\begin{lstlisting}[language=bash]
+cargo install mdbook
+
+\end{lstlisting}
+
+This will fetch the source code for the latest release from
+\href{https://crates.io/}{Crates.io} and compile it. You will have to add Cargo's
+\lstinline|bin| directory to your \lstinline|PATH|.\\
+
+Run \lstinline|mdbook help| in your terminal to verify if it works. Congratulations, you
+have installed mdBook!\\
+
+\subsubsection{Install Git version}
+\label{Install Git version}
+\label{install-git-version}
+
+The \textbf{\href{https://github.com/rust-lang-nursery/mdBook}{git version}} contains all
+the latest bug-fixes and features, that will be released in the next version on
+\textbf{Crates.io}, if you can't wait until the next release. You can build the git
+version yourself. Open your terminal and navigate to the directory of you
+choice. We need to clone the git repository and then build it with Cargo.\\
+\begin{lstlisting}[language=bash]
+git clone --depth=1 https://github.com/rust-lang-nursery/mdBook.git
+cd mdBook
+cargo build --release
+
+\end{lstlisting}
+
+The executable \lstinline|mdbook| will be in the \lstinline|./target/release| folder, this should be
+added to the path.\\
+
+\section{The init command}
+\label{The init command}
+\label{the-init-command}
+
+There is some minimal boilerplate that is the same for every new book. It's for
+this purpose that mdBook includes an \lstinline|init| command.\\
+
+The \lstinline|init| command is used like this:\\
+\begin{lstlisting}[language=bash]
+mdbook init
+
+\end{lstlisting}
+
+When using the \lstinline|init| command for the first time, a couple of files will be set
+up for you:\\
+\begin{lstlisting}[language=bash]
+book-test/
+├── book
+└── src
+    ├── chapter_1.md
+    └── SUMMARY.md
+
+\end{lstlisting}
+\begin{itemize}
+\item 
+The \lstinline|src| directory is were you write your book in markdown. It contains all
+the source files, configuration files, etc.\\
+
+\item 
+The \lstinline|book| directory is where your book is rendered. All the output is ready
+to be uploaded to a server to be seen by your audience.\\
+
+\item 
+The \lstinline|SUMMARY.md| file is the most important file, it's the skeleton of your
+book and is discussed in more detail \hyperref[SUMMARY.md]{in another
+chapter}\\
+
+\end{itemize}
+
+\paragraph{Tip: Generate chapters from SUMMARY.md}
+\label{Tip: Generate chapters from SUMMARY.md}
+\label{tip-generate-chapters-from-summary-md}
+
+When a \lstinline|SUMMARY.md| file already exists, the \lstinline|init| command will first parse it
+and generate the missing files according to the paths used in the \lstinline|SUMMARY.md|.
+This allows you to think and create the whole structure of your book and then
+let mdBook generate it for you.\\
+
+\paragraph{Specify a directory}
+\label{Specify a directory}
+\label{specify-a-directory}
+
+The \lstinline|init| command can take a directory as an argument to use as the book's root
+instead of the current working directory.\\
+\begin{lstlisting}[language=bash]
+mdbook init path/to/book
+
+\end{lstlisting}
+
+\paragraph{--theme}
+\label{--theme}
+\label{theme}
+
+When you use the \lstinline|--theme| flag, the default theme will be copied into a
+directory called \lstinline|theme| in your source directory so that you can modify it.\\
+
+The theme is selectively overwritten, this means that if you don't want to
+overwrite a specific file, just delete it and the default file will be used.\\
+
+\section{The build command}
+\label{The build command}
+\label{the-build-command}
+
+The build command is used to render your book:\\
+\begin{lstlisting}[language=bash]
+mdbook build
+
+\end{lstlisting}
+
+It will try to parse your \lstinline|SUMMARY.md| file to understand the structure of your
+book and fetch the corresponding files.\\
+
+The rendered output will maintain the same directory structure as the source for
+convenience. Large books will therefore remain structured when rendered.\\
+
+\paragraph{Specify a directory}
+\label{Specify a directory}
+\label{specify-a-directory}
+
+The \lstinline|build| command can take a directory as an argument to use as the book's
+root instead of the current working directory.\\
+\begin{lstlisting}[language=bash]
+mdbook build path/to/book
+
+\end{lstlisting}
+
+\paragraph{--open}
+\label{--open}
+\label{open}
+
+When you use the \lstinline|--open| (\lstinline|-o|) flag, mdbook will open the rendered book in
+your default web browser after building it.\\
+
+\paragraph{--dest-dir}
+\label{--dest-dir}
+\label{dest-dir}
+
+The \lstinline|--dest-dir| (\lstinline|-d|) option allows you to change the output directory for the
+book. Relative paths are interpreted relative to the book's root directory. If
+not specified it will default to the value of the \lstinline|build.build-dir| key in
+\lstinline|book.toml|, or to \lstinline|./book|.\\
+
+\emph{\textbf{Note:}} \emph{Make sure to run the build command in the root directory and not in
+the source directory}\\
+
+\section{The watch command}
+\label{The watch command}
+\label{the-watch-command}
+
+The \lstinline|watch| command is useful when you want your book to be rendered on every
+file change. You could repeatedly issue \lstinline|mdbook build| every time a file is
+changed. But using \lstinline|mdbook watch| once will watch your files and will trigger a
+build automatically whenever you modify a file.\\
+
+\paragraph{Specify a directory}
+\label{Specify a directory}
+\label{specify-a-directory}
+
+The \lstinline|watch| command can take a directory as an argument to use as the book's
+root instead of the current working directory.\\
+\begin{lstlisting}[language=bash]
+mdbook watch path/to/book
+
+\end{lstlisting}
+
+\paragraph{--open}
+\label{--open}
+\label{open}
+
+When you use the \lstinline|--open| (\lstinline|-o|) option, mdbook will open the rendered book in
+your default web browser.\\
+
+\paragraph{--dest-dir}
+\label{--dest-dir}
+\label{dest-dir}
+
+The \lstinline|--dest-dir| (\lstinline|-d|) option allows you to change the output directory for the
+book. Relative paths are interpreted relative to the book's root directory. If
+not specified it will default to the value of the \lstinline|build.build-dir| key in
+\lstinline|book.toml|, or to \lstinline|./book|.\\
+
+\section{The serve command}
+\label{The serve command}
+\label{the-serve-command}
+
+The serve command is used to preview a book by serving it over HTTP at
+\lstinline|localhost:3000| by default. Additionally it watches the book's directory for
+changes, rebuilding the book and refreshing clients for each change. A websocket
+connection is used to trigger the client-side refresh.\\
+
+\emph{\textbf{Note:}} \emph{The \lstinline|serve| command is for testing a book's HTML output, and is not
+intended to be a complete HTTP server for a website.}\\
+
+\paragraph{Specify a directory}
+\label{Specify a directory}
+\label{specify-a-directory}
+
+The \lstinline|serve| command can take a directory as an argument to use as the book's
+root instead of the current working directory.\\
+\begin{lstlisting}[language=bash]
+mdbook serve path/to/book
+
+\end{lstlisting}
+
+\paragraph{Server options}
+\label{Server options}
+\label{server-options}
+
+\lstinline|serve| has four options: the HTTP port, the WebSocket port, the HTTP hostname
+to listen on, and the hostname for the browser to connect to for WebSockets.\\
+
+For example: suppose you have an nginx server for SSL termination which has a
+public address of 192.168.1.100 on port 80 and proxied that to 127.0.0.1 on port
+8000. To run use the nginx proxy do:\\
+\begin{lstlisting}[language=bash]
+mdbook serve path/to/book -p 8000 -n 127.0.0.1 --websocket-hostname 192.168.1.100
+
+\end{lstlisting}
+
+If you were to want live reloading for this you would need to proxy the
+websocket calls through nginx as well from \lstinline|192.168.1.100:<WS_PORT>| to
+\lstinline|127.0.0.1:<WS_PORT>|. The \lstinline|-w| flag allows for the websocket port to be
+configured.\\
+
+\paragraph{--open}
+\label{--open}
+\label{open}
+
+When you use the \lstinline|--open| (\lstinline|-o|) flag, mdbook will open the book in your
+default web browser after starting the server.\\
+
+\paragraph{--dest-dir}
+\label{--dest-dir}
+\label{dest-dir}
+
+The \lstinline|--dest-dir| (\lstinline|-d|) option allows you to change the output directory for the
+book. Relative paths are interpreted relative to the book's root directory. If
+not specified it will default to the value of the \lstinline|build.build-dir| key in
+\lstinline|book.toml|, or to \lstinline|./book|.\\
+
+\section{The test command}
+\label{The test command}
+\label{the-test-command}
+
+When writing a book, you sometimes need to automate some tests. For example,
+\href{https://doc.rust-lang.org/stable/book/}{The Rust Programming Book} uses a lot
+of code examples that could get outdated. Therefore it is very important for
+them to be able to automatically test these code examples.\\
+
+mdBook supports a \lstinline|test| command that will run all available tests in a book. At
+the moment, only rustdoc tests are supported, but this may be expanded upon in
+the future.\\
+
+\paragraph{Disable tests on a code block}
+\label{Disable tests on a code block}
+\label{disable-tests-on-a-code-block}
+
+rustdoc doesn't test code blocks which contain the \lstinline|ignore| attribute:\\
+\begin{lstlisting}
+```rust,ignore
+fn main() {}
+```
+
+\end{lstlisting}
+
+rustdoc also doesn't test code blocks which specify a language other than Rust:\\
+\begin{lstlisting}
+```markdown
+**Foo**: _bar_
+```
+
+\end{lstlisting}
+
+rustdoc \emph{does} test code blocks which have no language specified:\\
+\begin{lstlisting}
+```
+This is going to cause an error!
+```
+
+\end{lstlisting}
+
+\paragraph{Specify a directory}
+\label{Specify a directory}
+\label{specify-a-directory}
+
+The \lstinline|test| command can take a directory as an argument to use as the book's root
+instead of the current working directory.\\
+\begin{lstlisting}[language=bash]
+mdbook test path/to/book
+
+\end{lstlisting}
+
+\paragraph{--library-path}
+\label{--library-path}
+\label{library-path}
+
+The \lstinline|--library-path| (\lstinline|-L|) option allows you to add directories to the library
+search path used by \lstinline|rustdoc| when it builds and tests the examples. Multiple
+directories can be specified with multiple options (\lstinline|-L foo -L bar|) or with a
+comma-delimited list (\lstinline|-L foo,bar|).\\
+
+\paragraph{--dest-dir}
+\label{--dest-dir}
+\label{dest-dir}
+
+The \lstinline|--dest-dir| (\lstinline|-d|) option allows you to change the output directory for the
+book. Relative paths are interpreted relative to the book's root directory. If
+not specified it will default to the value of the \lstinline|build.build-dir| key in
+\lstinline|book.toml|, or to \lstinline|./book|.\\
+
+\section{The clean command}
+\label{The clean command}
+\label{the-clean-command}
+
+The clean command is used to delete the generated book and any other build
+artifacts.\\
+\begin{lstlisting}[language=bash]
+mdbook clean
+
+\end{lstlisting}
+
+\paragraph{Specify a directory}
+\label{Specify a directory}
+\label{specify-a-directory}
+
+The \lstinline|clean| command can take a directory as an argument to use as the book's
+root instead of the current working directory.\\
+\begin{lstlisting}[language=bash]
+mdbook clean path/to/book
+
+\end{lstlisting}
+
+\paragraph{--dest-dir}
+\label{--dest-dir}
+\label{dest-dir}
+
+The \lstinline|--dest-dir| (\lstinline|-d|) option allows you to override the book's output
+directory, which will be deleted by this command. Relative paths are interpreted
+relative to the book's root directory. If not specified it will default to the
+value of the \lstinline|build.build-dir| key in \lstinline|book.toml|, or to \lstinline|./book|.\\
+\begin{lstlisting}[language=bash]
+mdbook clean --dest-dir=path/to/book
+
+\end{lstlisting}
+
+\lstinline|path/to/book| could be absolute or relative.\\
+
+\section{Format}
+\label{Format}
+\label{format}
+
+In this section you will learn how to:\\
+\begin{itemize}
+\item Structure your book correctly
+\item Format your \lstinline|SUMMARY.md| file
+\item Configure your book using \lstinline|book.toml|
+\item Customize your theme
+\end{itemize}
+
+\section{SUMMARY.md}
+\label{SUMMARY.md}
+\label{summary-md}
+
+The summary file is used by mdBook to know what chapters to include, in what
+order they should appear, what their hierarchy is and where the source files
+are. Without this file, there is no book.\\
+
+Even though \lstinline|SUMMARY.md| is a markdown file, the formatting is very strict to
+allow for easy parsing. Let's see how you should format your \lstinline|SUMMARY.md| file.\\
+
+\paragraph{Allowed elements}
+\label{Allowed elements}
+\label{allowed-elements}
+\begin{enumerate}
+\item 
+\emph{\textbf{Title}} It's common practice to begin with a title, generally <code
+  ">\# Summary. But it is not mandatory, the
+parser just ignores it. So you can too if you feel like it.\\
+
+\item 
+\emph{\textbf{Prefix Chapter}} Before the main numbered chapters you can add a couple
+of elements that will not be numbered. This is useful for forewords,
+introductions, etc. There are however some constraints. You can not nest
+prefix chapters, they should all be on the root level. And you can not add
+prefix chapters once you have added numbered chapters.\\
+\begin{lstlisting}[language=markdown]
+[Title of prefix element](relative/path/to/markdown.md)
+
+\end{lstlisting}
+
+\item 
+\emph{\textbf{Numbered Chapter}} Numbered chapters are the main content of the book,
+they will be numbered and can be nested, resulting in a nice hierarchy
+(chapters, sub-chapters, etc.)\\
+\begin{lstlisting}[language=markdown]
+- [Title of the Chapter](relative/path/to/markdown.md)
+
+\end{lstlisting}
+
+You can either use \lstinline|-| or \lstinline|*| to indicate a numbered chapter.\\
+
+\item 
+\emph{\textbf{Suffix Chapter}} After the numbered chapters you can add a couple of
+non-numbered chapters. They are the same as prefix chapters but come after
+the numbered chapters instead of before.\\
+
+\end{enumerate}
+
+All other elements are unsupported and will be ignored at best or result in an
+error.\\
+
+\section{Configuration}
+\label{Configuration}
+\label{configuration}
+
+You can configure the parameters for your book in the \emph{\textbf{book.toml}} file.\\
+
+Here is an example of what a \emph{\textbf{book.toml}} file might look like:\\
+\begin{lstlisting}[language=toml]
+[book]
+title = "Example book"
+author = "John Doe"
+description = "The example book covers examples."
+
+[build]
+build-dir = "my-example-book"
+create-missing = false
+
+[preprocessor.index]
+
+[preprocessor.links]
+
+[output.html]
+additional-css = ["custom.css"]
+
+[output.html.search]
+limit-results = 15
+
+\end{lstlisting}
+
+\subsection{Supported configuration options}
+\label{Supported configuration options}
+\label{supported-configuration-options}
+
+It is important to note that \textbf{any} relative path specified in the
+configuration will always be taken relative from the root of the book where the
+configuration file is located.\\
+
+\subsubsection{General metadata}
+\label{General metadata}
+\label{general-metadata}
+
+This is general information about your book.\\
+\begin{itemize}
+\item \textbf{title:} The title of the book
+\item \textbf{authors:} The author(s) of the book
+\item \textbf{description:} A description for the book, which is added as meta
+information in the html \lstinline|<head>| of each page
+\item \textbf{src:} By default, the source directory is found in the directory named
+\lstinline|src| directly under the root folder. But this is configurable with the \lstinline|src|
+key in the configuration file.
+\item \textbf{language:} The main language of the book, which is used as a language attribute \lstinline|<html lang="en">| for example.
+\end{itemize}
+
+\textbf{book.toml}\\
+\begin{lstlisting}[language=toml]
+[book]
+title = "Example book"
+authors = ["John Doe", "Jane Doe"]
+description = "The example book covers examples."
+src = "my-src"  # the source files will be found in `root/my-src` instead of `root/src`
+language = "en"
+
+\end{lstlisting}
+
+\subsubsection{Build options}
+\label{Build options}
+\label{build-options}
+
+This controls the build process of your book.\\
+\begin{itemize}
+\item 
+\textbf{build-dir:} The directory to put the rendered book in. By default this is
+\lstinline|book/| in the book's root directory.\\
+
+\item 
+\textbf{create-missing:} By default, any missing files specified in \lstinline|SUMMARY.md|
+will be created when the book is built (i.e. \lstinline|create-missing = true|). If this
+is \lstinline|false| then the build process will instead exit with an error if any files
+do not exist.\\
+
+\item 
+\textbf{use-default-preprocessors:} Disable the default preprocessors of (\lstinline|links| \&
+\lstinline|index|) by setting this option to \lstinline|false|.\\
+
+If you have the same, and/or other preprocessors declared via their table
+of configuration, they will run instead.\\
+\begin{itemize}
+\item For clarity, with no preprocessor configuration, the default \lstinline|links| and
+\lstinline|index| will run.
+\item Setting \lstinline|use-default-preprocessors = false| will disable these
+default preprocessors from running.
+\item Adding \lstinline|[preprocessor.links]|, for example, will ensure, regardless of
+\lstinline|use-default-preprocessors| that \lstinline|links| it will run.
+\end{itemize}
+
+\end{itemize}
+
+\subsection{Configuring Preprocessors}
+\label{Configuring Preprocessors}
+\label{configuring-preprocessors}
+
+The following preprocessors are available and included by default:\\
+\begin{itemize}
+\item \lstinline|links|: Expand the \lstinline|{{ #playpen }}| and \lstinline|{{ #include }}| handlebars
+helpers in a chapter to include the contents of a file.
+\item \lstinline|index|: Convert all chapter files named \lstinline|README.md| into \lstinline|index.md|. That is
+to say, all \lstinline|README.md| would be rendered to an index file \lstinline|index.html| in the
+rendered book.
+\end{itemize}
+
+\textbf{book.toml}\\
+\begin{lstlisting}[language=toml]
+[build]
+build-dir = "build"
+create-missing = false
+
+[preprocessor.links]
+
+[preprocessor.index]
+
+\end{lstlisting}
+
+\subsubsection{Custom Preprocessor Configuration}
+\label{Custom Preprocessor Configuration}
+\label{custom-preprocessor-configuration}
+
+Like renderers, preprocessor will need to be given its own table (e.g.
+\lstinline|[preprocessor.mathjax]|). In the section, you may then pass extra
+configuration to the preprocessor by adding key-value pairs to the table.\\
+
+For example\\
+\begin{lstlisting}[language=toml]
+[preprocessor.links]
+# set the renderers this preprocessor will run for
+renderers = ["html"]
+some_extra_feature = true
+
+\end{lstlisting}
+
+\paragraph{Locking a Preprocessor dependency to a renderer}
+\label{Locking a Preprocessor dependency to a renderer}
+\label{locking-a-preprocessor-dependency-to-a-renderer}
+
+You can explicitly specify that a preprocessor should run for a renderer by
+binding the two together.\\
+\begin{lstlisting}[language=toml]
+[preprocessor.mathjax]
+renderers = ["html"]  # mathjax only makes sense with the HTML renderer
+
+\end{lstlisting}
+
+\subsubsection{Provide Your Own Command}
+\label{Provide Your Own Command}
+\label{provide-your-own-command}
+
+By default when you add a \lstinline|[preprocessor.foo]| table to your \lstinline|book.toml| file,
+\lstinline|mdbook| will try to invoke the \lstinline|mdbook-foo| executable. If you want to use a
+different program name or pass in command-line arguments, this behaviour can
+be overridden by adding a \lstinline|command| field.\\
+\begin{lstlisting}[language=toml]
+[preprocessor.random]
+command = "python random.py"
+
+\end{lstlisting}
+
+\subsection{Configuring Renderers}
+\label{Configuring Renderers}
+\label{configuring-renderers}
+
+\subsubsection{HTML renderer options}
+\label{HTML renderer options}
+\label{html-renderer-options}
+
+The HTML renderer has a couple of options as well. All the options for the
+renderer need to be specified under the TOML table \lstinline|[output.html]|.\\
+
+The following configuration options are available:\\
+\begin{itemize}
+\item \textbf{theme:} mdBook comes with a default theme and all the resource files needed
+for it. But if this option is set, mdBook will selectively overwrite the theme
+files with the ones found in the specified folder.
+\item \textbf{default-theme:} The theme color scheme to select by default in the
+'Change Theme' dropdown. Defaults to \lstinline|light|.
+\item \textbf{curly-quotes:} Convert straight quotes to curly quotes, except for those
+that occur in code blocks and code spans. Defaults to \lstinline|false|.
+\item \textbf{mathjax-support:} Adds support for \hyperref[MathJax Support]{MathJax}. Defaults to
+\lstinline|false|.
+\item \textbf{google-analytics:} If you use Google Analytics, this option lets you enable
+it by simply specifying your ID in the configuration file.
+\item \textbf{additional-css:} If you need to slightly change the appearance of your book
+without overwriting the whole style, you can specify a set of stylesheets that
+will be loaded after the default ones where you can surgically change the
+style.
+\item \textbf{additional-js:} If you need to add some behaviour to your book without
+removing the current behaviour, you can specify a set of JavaScript files that
+will be loaded alongside the default one.
+\item \textbf{no-section-label:} mdBook by defaults adds section label in table of
+contents column. For example, "1.", "2.1". Set this option to true to disable
+those labels. Defaults to \lstinline|false|.
+\item \textbf{playpen:} A subtable for configuring various playpen settings.
+\item \textbf{search:} A subtable for configuring the in-browser search functionality.
+mdBook must be compiled with the \lstinline|search| feature enabled (on by default).
+\item \textbf{git-repository-url:}  A url to the git repository for the book. If provided
+an icon link will be output in the menu bar of the book.
+\item \textbf{git-repository-icon:} The FontAwesome icon class to use for the git
+repository link. Defaults to \lstinline|fa-github|.
+\end{itemize}
+
+Available configuration options for the \lstinline|[output.html.playpen]| table:\\
+\begin{itemize}
+\item \textbf{editable:} Allow editing the source code. Defaults to \lstinline|false|.
+\item \textbf{copy-js:} Copy JavaScript files for the editor to the output directory.
+Defaults to \lstinline|true|.
+\end{itemize}
+
+Available configuration options for the \lstinline|[output.html.search]| table:\\
+\begin{itemize}
+\item \textbf{enable:} Enables the search feature. Defaults to \lstinline|true|.
+\item \textbf{limit-results:} The maximum number of search results. Defaults to \lstinline|30|.
+\item \textbf{teaser-word-count:} The number of words used for a search result teaser.
+Defaults to \lstinline|30|.
+\item \textbf{use-boolean-and:} Define the logical link between multiple search words. If
+true, all search words must appear in each result. Defaults to \lstinline|true|.
+\item \textbf{boost-title:} Boost factor for the search result score if a search word
+appears in the header. Defaults to \lstinline|2|.
+\item \textbf{boost-hierarchy:} Boost factor for the search result score if a search word
+appears in the hierarchy. The hierarchy contains all titles of the parent
+documents and all parent headings. Defaults to \lstinline|1|.
+\item \textbf{boost-paragraph:} Boost factor for the search result score if a search word
+appears in the text. Defaults to \lstinline|1|.
+\item \textbf{expand:} True if search should match longer results e.g. search \lstinline|micro|
+should match \lstinline|microwave|. Defaults to \lstinline|true|.
+\item \textbf{heading-split-level:} Search results will link to a section of the document
+which contains the result. Documents are split into sections by headings this
+level or less. Defaults to \lstinline|3|. (\lstinline|### This is a level 3 heading|)
+\item \textbf{copy-js:} Copy JavaScript files for the search implementation to the output
+directory. Defaults to \lstinline|true|.
+\end{itemize}
+
+This shows all available HTML output options in the \textbf{book.toml}:\\
+\begin{lstlisting}[language=toml]
+[book]
+title = "Example book"
+authors = ["John Doe", "Jane Doe"]
+description = "The example book covers examples."
+
+[output.html]
+theme = "my-theme"
+default-theme = "light"
+curly-quotes = true
+mathjax-support = false
+google-analytics = "123456"
+additional-css = ["custom.css", "custom2.css"]
+additional-js = ["custom.js"]
+no-section-label = false
+git-repository-url = "https://github.com/rust-lang-nursery/mdBook"
+git-repository-icon = "fa-github"
+
+[output.html.playpen]
+editable = false
+copy-js = true
+
+[output.html.search]
+enable = true
+limit-results = 30
+teaser-word-count = 30
+use-boolean-and = true
+boost-title = 2
+boost-hierarchy = 1
+boost-paragraph = 1
+expand = true
+heading-split-level = 3
+copy-js = true
+
+\end{lstlisting}
+
+\subsubsection{Custom Renderers}
+\label{Custom Renderers}
+\label{custom-renderers}
+
+A custom renderer can be enabled by adding a \lstinline|[output.foo]| table to your
+\lstinline|book.toml|. Similar to \hyperref[configuring-preprocessors]{preprocessors} this will
+instruct \lstinline|mdbook| to pass a representation of the book to \lstinline|mdbook-foo| for
+rendering.\\
+
+Custom renderers will have access to all configuration within their table
+(i.e. anything under \lstinline|[output.foo]|), and the command to be invoked can be
+manually specified with the \lstinline|command| field.\\
+
+\subsection{Environment Variables}
+\label{Environment Variables}
+\label{environment-variables}
+
+All configuration values can be overridden from the command line by setting the
+corresponding environment variable. Because many operating systems restrict
+environment variables to be alphanumeric characters or \lstinline|_|, the configuration
+key needs to be formatted slightly differently to the normal \lstinline|foo.bar.baz| form.\\
+
+Variables starting with \lstinline|MDBOOK_| are used for configuration. The key is created
+by removing the \lstinline|MDBOOK_| prefix and turning the resulting string into
+\lstinline|kebab-case|. Double underscores (\lstinline|__|) separate nested keys, while a single
+underscore (\lstinline|_|) is replaced with a dash (\lstinline|-|).\\
+
+For example:\\
+\begin{itemize}
+\item \lstinline|MDBOOK_foo| -> \lstinline|foo|
+\item \lstinline|MDBOOK_FOO| -> \lstinline|foo|
+\item \lstinline|MDBOOK_FOO__BAR| -> \lstinline|foo.bar|
+\item \lstinline|MDBOOK_FOO_BAR| -> \lstinline|foo-bar|
+\item \lstinline|MDBOOK_FOO_bar__baz| -> \lstinline|foo-bar.baz|
+\end{itemize}
+
+So by setting the \lstinline|MDBOOK_BOOK__TITLE| environment variable you can override the
+book's title without needing to touch your \lstinline|book.toml|.\\
+
+\textbf{Note:} To facilitate setting more complex config items, the value of an
+environment variable is first parsed as JSON, falling back to a string if the
+parse fails.\\
+
+This means, if you so desired, you could override all book metadata when
+building the book with something like\\
+\begin{lstlisting}[language=shell]
+$ export MDBOOK_BOOK="{'title': 'My Awesome Book', authors: ['Michael-F-Bryan']}"
+$ mdbook build
+
+\end{lstlisting}
+
+The latter case may be useful in situations where \lstinline|mdbook| is invoked from a
+script or CI, where it sometimes isn't possible to update the \lstinline|book.toml| before
+building.\\
+
+\section{Theme}
+\label{Theme}
+\label{theme}
+
+The default renderer uses a \href{http://handlebarsjs.com/}{handlebars} template to
+render your markdown files and comes with a default theme included in the mdBook
+binary.\\
+
+The theme is totally customizable, you can selectively replace every file from
+the theme by your own by adding a \lstinline|theme| directory next to \lstinline|src| folder in your
+project root. Create a new file with the name of the file you want to override
+and now that file will be used instead of the default file.\\
+
+Here are the files you can override:\\
+\begin{itemize}
+\item \emph{\textbf{index.hbs}} is the handlebars template.
+\item \emph{\textbf{book.css}} is the style used in the output. If you want to change the
+design of your book, this is probably the file you want to modify. Sometimes
+in conjunction with \lstinline|index.hbs| when you want to radically change the layout.
+\item \emph{\textbf{book.js}} is mostly used to add client side functionality, like hiding /
+un-hiding the sidebar, changing the theme, ...
+\item \emph{\textbf{highlight.js}} is the JavaScript that is used to highlight code snippets,
+you should not need to modify this.
+\item \emph{\textbf{highlight.css}} is the theme used for the code highlighting
+\item \emph{\textbf{favicon.png}} the favicon that will be used
+\end{itemize}
+
+Generally, when you want to tweak the theme, you don't need to override all the
+files. If you only need changes in the stylesheet, there is no point in
+overriding all the other files. Because custom files take precedence over
+built-in ones, they will not get updated with new fixes / features.\\
+
+\textbf{Note:} When you override a file, it is possible that you break some
+functionality. Therefore I recommend to use the file from the default theme as
+template and only add / modify what you need. You can copy the default theme
+into your source directory automatically by using \lstinline|mdbook init --theme| just
+remove the files you don't want to override.\\
+
+\section{index.hbs}
+\label{index.hbs}
+\label{index-hbs}
+
+\lstinline|index.hbs| is the handlebars template that is used to render the book. The
+markdown files are processed to html and then injected in that template.\\
+
+If you want to change the layout or style of your book, chances are that you
+will have to modify this template a little bit. Here is what you need to know.\\
+
+\subsection{Data}
+\label{Data}
+\label{data}
+
+A lot of data is exposed to the handlebars template with the "context". In the
+handlebars template you can access this information by using\\
+\begin{lstlisting}[language=handlebars]
+{{name_of_property}}
+
+\end{lstlisting}
+
+Here is a list of the properties that are exposed:\\
+\begin{itemize}
+\item 
+\emph{\textbf{language}} Language of the book in the form \lstinline|en|, as specified in \lstinline|book.toml| (if not specified, defaults to \lstinline|en|). To use in <code
+ "><html lang="{{ language }}"> for example.\\
+
+\item 
+\emph{\textbf{title}} Title of the book, as specified in \lstinline|book.toml|\\
+
+\item 
+\emph{\textbf{chapter\_title}} Title of the current chapter, as listed in \lstinline|SUMMARY.md|\\
+
+\item 
+\emph{\textbf{path}} Relative path to the original markdown file from the source
+directory\\
+
+\item 
+\emph{\textbf{content}} This is the rendered markdown.\\
+
+\item 
+\emph{\textbf{path\_to\_root}} This is a path containing exclusively \lstinline|../|'s that points
+to the root of the book from the current file. Since the original directory
+structure is maintained, it is useful to prepend relative links with this
+\lstinline|path_to_root|.\\
+
+\item 
+\emph{\textbf{chapters}} Is an array of dictionaries of the form\\
+\begin{lstlisting}[language=json]
+{"section": "1.2.1", "name": "name of this chapter", "path": "dir/markdown.md"}
+
+\end{lstlisting}
+
+containing all the chapters of the book. It is used for example to construct
+the table of contents (sidebar).\\
+
+\end{itemize}
+
+\subsection{Handlebars Helpers}
+\label{Handlebars Helpers}
+\label{handlebars-helpers}
+
+In addition to the properties you can access, there are some handlebars helpers
+at your disposal.\\
+
+\subsubsection{1. toc}
+\label{1. toc}
+\label{1-toc}
+
+The toc helper is used like this\\
+\begin{lstlisting}[language=handlebars]
+{{#toc}}{{/toc}}
+
+\end{lstlisting}
+
+and outputs something that looks like this, depending on the structure of your
+book\\
+\begin{lstlisting}[language=html]
+<ul class="chapter">
+    <li><a href="link/to/file.html">Some chapter</a></li>
+    <li>
+        <ul class="section">
+            <li><a href="link/to/other_file.html">Some other Chapter</a></li>
+        </ul>
+    </li>
+</ul>
+
+\end{lstlisting}
+
+If you would like to make a toc with another structure, you have access to the
+chapters property containing all the data. The only limitation at the moment
+is that you would have to do it with JavaScript instead of with a handlebars
+helper.\\
+\begin{lstlisting}[language=html]
+<script>
+var chapters = {{chapters}};
+// Processing here
+</script>
+
+\end{lstlisting}
+
+\subsubsection{2. previous / next}
+\label{2. previous / next}
+\label{2-previous-next}
+
+The previous and next helpers expose a \lstinline|link| and \lstinline|name| property to the
+previous and next chapters.\\
+
+They are used like this\\
+\begin{lstlisting}[language=handlebars]
+{{#previous}}
+    <a href="{{link}}" class="nav-chapters previous">
+        <i class="fa fa-angle-left"></i>
+    </a>
+{{/previous}}
+
+\end{lstlisting}
+
+The inner html will only be rendered if the previous / next chapter exists.
+Of course the inner html can be changed to your liking.\\
+
+\emph{If you would like other properties or helpers exposed, please \href{https://github.com/rust-lang-nursery/mdBook/issues}{create a new
+issue}}\\
+
+\section{Syntax Highlighting}
+\label{Syntax Highlighting}
+\label{syntax-highlighting}
+
+For syntax highlighting I use \href{https://highlightjs.org}{Highlight.js} with a
+custom theme.\\
+
+Automatic language detection has been turned off, so you will probably want to
+specify the programming language you use like this\\
+\begin{lstlisting}[language=markdown]```rust
+fn main() {
+    // Some code
+}
+```\end{lstlisting}
+
+\subsection{Custom theme}
+\label{Custom theme}
+\label{custom-theme}
+
+Like the rest of the theme, the files used for syntax highlighting can be
+overridden with your own.\\
+\begin{itemize}
+\item \emph{\textbf{highlight.js}} normally you shouldn't have to overwrite this file, unless
+you want to use a more recent version.
+\item \emph{\textbf{highlight.css}} theme used by highlight.js for syntax highlighting.
+\end{itemize}
+
+If you want to use another theme for \lstinline|highlight.js| download it from their
+website, or make it yourself, rename it to \lstinline|highlight.css| and put it in
+\lstinline|src/theme| (or the equivalent if you changed your source folder)\\
+
+Now your theme will be used instead of the default theme.\\
+
+\subsection{Hiding code lines}
+\label{Hiding code lines}
+\label{hiding-code-lines}
+
+There is a feature in mdBook that lets you hide code lines by prepending them
+with a \lstinline|#|.\\
+\begin{lstlisting}[language=bash]
+# fn main() {
+    let x = 5;
+    let y = 6;
+
+    println!("{}", x + y);
+# }
+
+\end{lstlisting}
+
+Will render as\\
+\begin{lstlisting}[language=rust]
+# fn main() {
+    let x = 5;
+    let y = 7;
+
+    println!("{}", x + y);
+# }
+
+\end{lstlisting}
+
+\textbf{At the moment, this only works for code examples that are annotated with
+\lstinline|rust|. Because it would collide with semantics of some programming languages.
+In the future, we want to make this configurable through the \lstinline|book.toml| so that
+everyone can benefit from it.}\\
+
+\subsection{Improve default theme}
+\label{Improve default theme}
+\label{improve-default-theme}
+
+If you think the default theme doesn't look quite right for a specific language,
+or could be improved. Feel free to \href{https://github.com/rust-lang-nursery/mdBook/issues}{submit a new
+issue} explaining what you
+have in mind and I will take a look at it.\\
+
+You could also create a pull-request with the proposed improvements.\\
+
+Overall the theme should be light and sober, without to many flashy colors.\\
+
+\section{Editor}
+\label{Editor}
+\label{editor}
+
+In addition to providing runnable code playpens, mdBook optionally allows them
+to be editable. In order to enable editable code blocks, the following needs to
+be added to the \emph{\textbf{book.toml}}:\\
+\begin{lstlisting}[language=toml]
+[output.html.playpen]
+editable = true
+
+\end{lstlisting}
+
+To make a specific block available for editing, the attribute \lstinline|editable| needs
+to be added to it:\\
+\begin{lstlisting}[language=markdown]```rust,editable
+fn main() {
+    let number = 5;
+    print!("{}", number);
+}
+```\end{lstlisting}
+
+The above will result in this editable playpen:\\
+\begin{lstlisting}[language=rust]
+fn main() {
+    let number = 5;
+    print!("{}", number);
+}
+
+\end{lstlisting}
+
+Note the new \lstinline|Undo Changes| button in the editable playpens.\\
+
+\subsection{Customizing the Editor}
+\label{Customizing the Editor}
+\label{customizing-the-editor}
+
+By default, the editor is the \href{https://ace.c9.io/}{Ace} editor, but, if desired,
+the functionality may be overriden by providing a different folder:\\
+\begin{lstlisting}[language=toml]
+[output.html.playpen]
+editable = true
+editor = "/path/to/editor"
+
+\end{lstlisting}
+
+Note that for the editor changes to function correctly, the \lstinline|book.js| inside of
+the \lstinline|theme| folder will need to be overriden as it has some couplings with the
+default Ace editor.\\
+
+\section{MathJax Support}
+\label{MathJax Support}
+\label{math-jax-support}
+
+mdBook has optional support for math equations through
+\href{https://www.mathjax.org/}{MathJax}.\\
+
+To enable MathJax, you need to add the \lstinline|mathjax-support| key to your \lstinline|book.toml|
+under the \lstinline|output.html| section.\\
+\begin{lstlisting}[language=toml]
+[output.html]
+mathjax-support = true
+
+\end{lstlisting}
+
+\textbf{Note:} The usual delimiters MathJax uses are not yet supported. You can't
+currently use \lstinline|$$ ... $$| as delimiters and the \lstinline|\[ ... \]| delimiters need an
+extra backslash to work. Hopefully this limitation will be lifted soon.\\
+
+\textbf{Note:} When you use double backslashes in MathJax blocks (for example in
+commands such as \lstinline|\begin{cases} \frac 1 2 \\ \frac 3 4 \end{cases}|) you need
+to add \emph{two extra} backslashes (e.g., \lstinline|\begin{cases} \frac 1 2 \\\\ \frac 3 4 \end{cases}|).\\
+
+\subsubsection{Inline equations}
+\label{Inline equations}
+\label{inline-equations}
+
+Inline equations are delimited by \lstinline|\\(| and \lstinline|\\)|. So for example, to render the
+following inline equation \( \int x dx = \frac{x^2}{2} + C \) you would write
+the following:\\
+\begin{lstlisting}
+\\( \int x dx = \frac{x^2}{2} + C \\)
+
+\end{lstlisting}
+
+\subsubsection{Block equations}
+\label{Block equations}
+\label{block-equations}
+
+Block equations are delimited by \lstinline|\\[| and \lstinline|\\]|. To render the following
+equation\\
+
+\[ \mu = \frac{1}{N} \textbackslash{}sum\_{i=0} x\_i \]\\
+
+you would write:\\
+\begin{lstlisting}[language=bash]
+\\[ \mu = \frac{1}{N} \sum_{i=0} x_i \\]
+
+\end{lstlisting}
+
+\section{mdBook-specific markdown}
+\label{mdBook-specific markdown}
+\label{md-book-specific-markdown}
+
+\subsection{Hiding code lines}
+\label{Hiding code lines}
+\label{hiding-code-lines}
+
+There is a feature in mdBook that lets you hide code lines by prepending them
+with a \lstinline|#|.\\
+\begin{lstlisting}[language=bash]
+# fn main() {
+    let x = 5;
+    let y = 6;
+
+    println!("{}", x + y);
+# }
+
+\end{lstlisting}
+
+Will render as\\
+\begin{lstlisting}[language=rust]
+# fn main() {
+    let x = 5;
+    let y = 7;
+
+    println!("{}", x + y);
+# }
+
+\end{lstlisting}
+
+\subsection{Including files}
+\label{Including files}
+\label{including-files}
+
+With the following syntax, you can include files into your book:\\
+\begin{lstlisting}[language=hbs]
+{{#include file.rs}}
+
+\end{lstlisting}
+
+The path to the file has to be relative from the current source file.\\
+
+mdBook will interpret included files as markdown. Since the include command
+is usually used for inserting code snippets and examples, you will often
+wrap the command with \lstinline|```| to display the file contents without
+interpretting them.\\
+\begin{lstlisting}[language=hbs]
+```
+{{#include file.rs}}
+```
+
+\end{lstlisting}
+
+\subsection{Including portions of a file}
+\label{Including portions of a file}
+\label{including-portions-of-a-file}
+
+Often you only need a specific part of the file e.g. relevant lines for an
+example. We support four different modes of partial includes:\\
+\begin{lstlisting}[language=hbs]
+{{#include file.rs:2}}
+{{#include file.rs::10}}
+{{#include file.rs:2:}}
+{{#include file.rs:2:10}}
+
+\end{lstlisting}
+
+The first command only includes the second line from file \lstinline|file.rs|. The second
+command includes all lines up to line 10, i.e. the lines from 11 till the end of
+the file are omitted. The third command includes all lines from line 2, i.e. the
+first line is omitted. The last command includes the excerpt of \lstinline|file.rs|
+consisting of lines 2 to 10.\\
+
+To avoid breaking your book when modifying included files, you can also
+include a specific section using anchors instead of line numbers.
+An anchor is a pair of matching lines. The line beginning an anchor must
+match the regex "ANCHOR:\textbackslash{}s*[\textbackslash{}w\_-]+" and similarly the ending line must match
+the regex "ANCHOR\_END:\textbackslash{}s*[\textbackslash{}w\_-]+". This allows you to put anchors in
+any kind of commented line.\\
+
+Consider the following file to include:\\
+\begin{lstlisting}[language=rs]
+/* ANCHOR: all */
+
+// ANCHOR: component
+struct Paddle {
+    hello: f32,
+}
+// ANCHOR_END: component
+
+////////// ANCHOR: system
+impl System for MySystem { ... }
+////////// ANCHOR_END: system
+
+/* ANCHOR_END: all */
+
+\end{lstlisting}
+
+Then in the book, all you have to do is:\\
+\begin{lstlisting}[language=hbs]
+Here is a component:
+```rust,no_run,noplaypen
+{{#include file.rs:component}}
+```
+
+Here is a system:
+```rust,no_run,noplaypen
+{{#include file.rs:system}}
+```
+
+This is the full file.
+```rust,no_run,noplaypen
+{{#include file.rs:all}}
+```
+
+\end{lstlisting}
+
+Lines containing anchor patterns inside the included anchor are ignored.\\
+
+\subsection{Inserting runnable Rust files}
+\label{Inserting runnable Rust files}
+\label{inserting-runnable-rust-files}
+
+With the following syntax, you can insert runnable Rust files into your book:\\
+\begin{lstlisting}[language=hbs]
+{{#playpen file.rs}}
+
+\end{lstlisting}
+
+The path to the Rust file has to be relative from the current source file.\\
+
+When play is clicked, the code snippet will be sent to the \href{https://play.rust-lang.org/}{Rust Playpen} to be
+compiled and run. The result is sent back and displayed directly underneath the
+code.\\
+
+Here is what a rendered code snippet looks like:\\
+\begin{lstlisting}[language=rust]
+fn main() {
+    println!("Hello World!");
+#
+#    // You can even hide lines! :D
+#   println!("I am hidden! Expand the code snippet to see me");
+}
+
+
+\end{lstlisting}
+
+\section{Running \lstinline|mdbook| in Continuous Integration}
+\label{ in Continuous Integration}
+\label{in-continuous-integration}
+
+While the following examples use Travis CI, their principles should
+straightforwardly transfer to other continuous integration providers as well.\\
+
+\subsection{Ensuring Your Book Builds and Tests Pass}
+\label{Ensuring Your Book Builds and Tests Pass}
+\label{ensuring-your-book-builds-and-tests-pass}
+
+Here is a sample Travis CI \lstinline|.travis.yml| configuration that ensures \lstinline|mdbook build| and \lstinline|mdbook test| run successfully. The key to fast CI turnaround times
+is caching \lstinline|mdbook| installs, so that you aren't compiling \lstinline|mdbook| on every CI
+run.\\
+\begin{lstlisting}[language=yaml]
+language: rust
+sudo: false
+
+cache:
+  - cargo
+
+rust:
+  - stable
+
+before_script:
+  - (test -x $HOME/.cargo/bin/cargo-install-update || cargo install cargo-update)
+  - (test -x $HOME/.cargo/bin/mdbook || cargo install --vers "^0.3" mdbook)
+  - cargo install-update -a
+
+script:
+  - mdbook build path/to/mybook && mdbook test path/to/mybook
+
+\end{lstlisting}
+
+\subsection{Deploying Your Book to GitHub Pages}
+\label{Deploying Your Book to GitHub Pages}
+\label{deploying-your-book-to-git-hub-pages}
+
+Following these instructions will result in your book being published to GitHub
+pages after a successful CI run on your repository's \lstinline|master| branch.\\
+
+First, create a new GitHub "Personal Access Token" with the "public\_repo"
+permissions (or "repo" for private repositories). Go to your repository's Travis
+CI settings page and add an environment variable named \lstinline|GITHUB_TOKEN| that is
+marked secure and \emph{not} shown in the logs.\\
+
+Then, append this snippet to your \lstinline|.travis.yml| and update the path to the
+\lstinline|book| directory:\\
+\begin{lstlisting}[language=yaml]
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  local-dir: path/to/mybook/book
+  keep-history: false
+  on:
+    branch: master
+
+\end{lstlisting}
+
+That's it!\\
+
+\subsubsection{Deploying to GitHub Pages manually}
+\label{Deploying to GitHub Pages manually}
+\label{deploying-to-git-hub-pages-manually}
+
+If your CI doesn't support GitHub pages, or you're deploying somewhere else
+with integrations such as Github Pages:
+\emph{note: you may want to use different tmp dirs}:\\
+\begin{lstlisting}[language=console]
+$> git worktree add /tmp/book gh-pages
+$> mdbook build
+$> rm -rf /tmp/book/* # this won't delete the .git directory
+$> cp -rp book/* /tmp/book/
+$> cd /tmp/book
+$> git add -A
+$> git commit 'new book message'
+$> git push origin gh-pages
+$> cd -
+
+\end{lstlisting}
+
+Or put this into a Makefile rule:\\
+\begin{lstlisting}[language=makefile]
+.PHONY: deploy
+deploy: book
+	@echo "====> deploying to github"
+	git worktree add /tmp/book gh-pages
+	rm -rf /tmp/book/*
+	cp -rp book/* /tmp/book/
+	cd /tmp/book && \
+		git add -A && \
+		git commit -m "deployed on $(shell date) by ${USER}" && \
+		git push origin gh-pages
+
+\end{lstlisting}
+
+\section{For Developers}
+\label{For Developers}
+\label{for-developers}
+
+While \lstinline|mdbook| is mainly used as a command line tool, you can also import the
+underlying library directly and use that to manage a book. It also has a fairly
+flexible plugin mechanism, allowing you to create your own custom tooling and
+consumers (often referred to as \emph{backends}) if you need to do some analysis of
+the book or render it in a different format.\\
+
+The \emph{For Developers} chapters are here to show you the more advanced usage of
+\lstinline|mdbook|.\\
+
+The two main ways a developer can hook into the book's build process is via,\\
+\begin{itemize}
+\item \hyperref[Preprocessors]{Preprocessors}
+\item \hyperref[Alternative Backends]{Alternative Backends}
+\end{itemize}
+
+\subsection{The Build Process}
+\label{The Build Process}
+\label{the-build-process}
+
+The process of rendering a book project goes through several steps.\\
+\begin{enumerate}
+\item Load the book\begin{itemize}
+\item Parse the \lstinline|book.toml|, falling back to the default \lstinline|Config| if it doesn't
+exist
+\item Load the book chapters into memory
+\item Discover which preprocessors/backends should be used
+\end{itemize}
+
+\item Run the preprocessors
+\item Call each backend in turn
+\end{enumerate}
+
+\subsection{Using \lstinline|mdbook| as a Library}
+\label{ as a Library}
+\label{as-a-library}
+
+The \lstinline|mdbook| binary is just a wrapper around the \lstinline|mdbook| crate, exposing its
+functionality as a command-line program. As such it is quite easy to create your
+own programs which use \lstinline|mdbook| internally, adding your own functionality (e.g.
+a custom preprocessor) or tweaking the build process.\\
+
+The easiest way to find out how to use the \lstinline|mdbook| crate is by looking at the
+\href{https://docs.rs/mdbook/*/mdbook/}{API Docs}. The top level documentation explains how one would use the
+\href{https://docs.rs/mdbook/*/mdbook/book/struct.MDBook.html}{\lstinline|MDBook|} type to load and build a book, while the \href{https://docs.rs/mdbook/*/mdbook/config/index.html}{config} module gives a good
+explanation on the configuration system.\\
+
+\section{Preprocessors}
+\label{Preprocessors}
+\label{preprocessors}
+
+A \emph{preprocessor} is simply a bit of code which gets run immediately after the
+book is loaded and before it gets rendered, allowing you to update and mutate
+the book. Possible use cases are:\\
+\begin{itemize}
+\item Creating custom helpers like \lstinline|{{#include /path/to/file.md}}|
+\item Updating links so \lstinline|[some chapter](some_chapter.md)| is automatically changed
+to \lstinline|[some chapter](some_chapter.html)| for the HTML renderer
+\item Substituting in latex-style expressions (\lstinline|$$ \frac{1}{3} $$|) with their
+mathjax equivalents
+\end{itemize}
+
+\subsection{Hooking Into MDBook}
+\label{Hooking Into MDBook}
+\label{hooking-into-md-book}
+
+MDBook uses a fairly simple mechanism for discovering third party plugins.
+A new table is added to \lstinline|book.toml| (e.g. \lstinline|preprocessor.foo| for the \lstinline|foo|
+preprocessor) and then \lstinline|mdbook| will try to invoke the \lstinline|mdbook-foo| program as
+part of the build process.\\
+
+While preprocessors can be hard-coded to specify which backend it should be run
+for (e.g. it doesn't make sense for MathJax to be used for non-HTML renderers)
+with the \lstinline|preprocessor.foo.renderer| key.\\
+\begin{lstlisting}[language=toml]
+[book]
+title = "My Book"
+authors = ["Michael-F-Bryan"]
+
+[preprocessor.foo]
+# The command can also be specified manually
+command = "python3 /path/to/foo.py"
+# Only run the `foo` preprocessor for the HTML and EPUB renderer
+renderer = ["html", "epub"]
+
+\end{lstlisting}
+
+In typical unix style, all inputs to the plugin will be written to \lstinline|stdin| as
+JSON and \lstinline|mdbook| will read from \lstinline|stdout| if it is expecting output.\\
+
+The easiest way to get started is by creating your own implementation of the
+\lstinline|Preprocessor| trait (e.g. in \lstinline|lib.rs|) and then creating a shell binary which
+translates inputs to the correct \lstinline|Preprocessor| method. For convenience, there
+is \href{https://github.com/rust-lang-nursery/mdBook/blob/master/examples/nop-preprocessor.rs}{an example no-op preprocessor} in the \lstinline|examples/| directory which can easily
+be adapted for other preprocessors.\\
+<details>
+<summary>Example no-op preprocessor</summary>
+\begin{lstlisting}[language=rust]
+// nop-preprocessors.rs
+
+use crate::nop_lib::Nop;
+use clap::{App, Arg, ArgMatches, SubCommand};
+use mdbook::book::Book;
+use mdbook::errors::Error;
+use mdbook::preprocess::{CmdPreprocessor, Preprocessor, PreprocessorContext};
+use std::io;
+use std::process;
+
+pub fn make_app() -> App<'static, 'static> {
+    App::new("nop-preprocessor")
+        .about("A mdbook preprocessor which does precisely nothing")
+        .subcommand(
+            SubCommand::with_name("supports")
+                .arg(Arg::with_name("renderer").required(true))
+                .about("Check whether a renderer is supported by this preprocessor"),
+        )
+}
+
+fn main() {
+    let matches = make_app().get_matches();
+
+    // Users will want to construct their own preprocessor here
+    let preprocessor = Nop::new();
+
+    if let Some(sub_args) = matches.subcommand_matches("supports") {
+        handle_supports(&preprocessor, sub_args);
+    } else if let Err(e) = handle_preprocessing(&preprocessor) {
+        eprintln!("{}", e);
+        process::exit(1);
+    }
+}
+
+fn handle_preprocessing(pre: &dyn Preprocessor) -> Result<(), Error> {
+    let (ctx, book) = CmdPreprocessor::parse_input(io::stdin())?;
+
+    if ctx.mdbook_version != mdbook::MDBOOK_VERSION {
+        // We should probably use the `semver` crate to check compatibility
+        // here...
+        eprintln!(
+            "Warning: The {} plugin was built against version {} of mdbook, \
+             but we're being called from version {}",
+            pre.name(),
+            mdbook::MDBOOK_VERSION,
+            ctx.mdbook_version
+        );
+    }
+
+    let processed_book = pre.run(&ctx, book)?;
+    serde_json::to_writer(io::stdout(), &processed_book)?;
+
+    Ok(())
+}
+
+fn handle_supports(pre: &dyn Preprocessor, sub_args: &ArgMatches) -> ! {
+    let renderer = sub_args.value_of("renderer").expect("Required argument");
+    let supported = pre.supports_renderer(&renderer);
+
+    // Signal whether the renderer is supported by exiting with 1 or 0.
+    if supported {
+        process::exit(0);
+    } else {
+        process::exit(1);
+    }
+}
+
+/// The actual implementation of the `Nop` preprocessor. This would usually go
+/// in your main `lib.rs` file.
+mod nop_lib {
+    use super::*;
+
+    /// A no-op preprocessor.
+    pub struct Nop;
+
+    impl Nop {
+        pub fn new() -> Nop {
+            Nop
+        }
+    }
+
+    impl Preprocessor for Nop {
+        fn name(&self) -> &str {
+            "nop-preprocessor"
+        }
+
+        fn run(&self, ctx: &PreprocessorContext, book: Book) -> Result<Book, Error> {
+            // In testing we want to tell the preprocessor to blow up by setting a
+            // particular config value
+            if let Some(nop_cfg) = ctx.config.get_preprocessor(self.name()) {
+                if nop_cfg.contains_key("blow-up") {
+                    return Err("Boom!!1!".into());
+                }
+            }
+
+            // we *are* a no-op preprocessor after all
+            Ok(book)
+        }
+
+        fn supports_renderer(&self, renderer: &str) -> bool {
+            renderer != "not-supported"
+        }
+    }
+}
+
+
+\end{lstlisting}
+</details>
+
+\subsection{Hints For Implementing A Preprocessor}
+\label{Hints For Implementing A Preprocessor}
+\label{hints-for-implementing-a-preprocessor}
+
+By pulling in \lstinline|mdbook| as a library, preprocessors can have access to the
+existing infrastructure for dealing with books.\\
+
+For example, a custom preprocessor could use the
+\href{https://docs.rs/mdbook/latest/mdbook/preprocess/trait.Preprocessor.html#method.parse_input}{\lstinline|CmdPreprocessor::parse_input()|} function to deserialize the JSON written to
+\lstinline|stdin|. Then each chapter of the \lstinline|Book| can be mutated in-place via
+\href{https://docs.rs/mdbook/latest/mdbook/book/struct.Book.html#method.for_each_mut}{\lstinline|Book::for_each_mut()|}, and then written to \lstinline|stdout| with the \lstinline|serde_json|
+crate.\\
+
+Chapters can be accessed either directly (by recursively iterating over
+chapters) or via the \lstinline|Book::for_each_mut()| convenience method.\\
+
+The \lstinline|chapter.content| is just a string which happens to be markdown. While it's
+entirely possible to use regular expressions or do a manual find \& replace,
+you'll probably want to process the input into something more computer-friendly.
+The \href{https://crates.io/crates/pulldown-cmark}{\lstinline|pulldown-cmark|} crate implements a production-quality event-based
+Markdown parser, with the \href{https://crates.io/crates/pulldown-cmark-to-cmark}{\lstinline|pulldown-cmark-to-cmark|} allowing you to
+translate events back into markdown text.\\
+
+The following code block shows how to remove all emphasis from markdown,
+without accidentally breaking the document.\\
+\begin{lstlisting}[language=rust]
+fn remove_emphasis(
+    num_removed_items: &mut usize,
+    chapter: &mut Chapter,
+) -> Result<String> {
+    let mut buf = String::with_capacity(chapter.content.len());
+
+    let events = Parser::new(&chapter.content).filter(|e| {
+        let should_keep = match *e {
+            Event::Start(Tag::Emphasis)
+            | Event::Start(Tag::Strong)
+            | Event::End(Tag::Emphasis)
+            | Event::End(Tag::Strong) => false,
+            _ => true,
+        };
+        if !should_keep {
+            *num_removed_items += 1;
+        }
+        should_keep
+    });
+
+    cmark(events, &mut buf, None).map(|_| buf).map_err(|err| {
+        Error::from(format!("Markdown serialization failed: {}", err))
+    })
+}
+
+\end{lstlisting}
+
+For everything else, have a look \href{https://github.com/rust-lang-nursery/mdBook/blob/master/examples/nop-preprocessor.rs}{at the complete example}.\\
+
+\section{Alternative Backends}
+\label{Alternative Backends}
+\label{alternative-backends}
+
+A "backend" is simply a program which \lstinline|mdbook| will invoke during the book
+rendering process. This program is passed a JSON representation of the book and
+configuration information via \lstinline|stdin|. Once the backend receives this
+information it is free to do whatever it wants.\\
+
+There are already several alternative backends on GitHub which can be used as a
+rough example of how this is accomplished in practice.\\
+\begin{itemize}
+\item \href{https://github.com/Michael-F-Bryan/mdbook-linkcheck}{mdbook-linkcheck} - a simple program for verifying the book doesn't contain
+any broken links
+\item \href{https://github.com/Michael-F-Bryan/mdbook-epub}{mdbook-epub} - an EPUB renderer
+\item \href{https://github.com/Michael-F-Bryan/mdbook-test}{mdbook-test} - a program to run the book's contents through \href{https://github.com/budziq/rust-skeptic}{rust-skeptic} to
+verify everything compiles and runs correctly (similar to \lstinline|rustdoc --test|)
+\end{itemize}
+
+This page will step you through creating your own alternative backend in the form
+of a simple word counting program. Although it will be written in Rust, there's
+no reason why it couldn't be accomplished using something like Python or Ruby.\\
+
+\subsection{Setting Up}
+\label{Setting Up}
+\label{setting-up}
+
+First you'll want to create a new binary program and add \lstinline|mdbook| as a
+dependency.\\
+\begin{lstlisting}[language=shell]
+$ cargo new --bin mdbook-wordcount
+$ cd mdbook-wordcount
+$ cargo add mdbook
+
+\end{lstlisting}
+
+When our \lstinline|mdbook-wordcount| plugin is invoked, \lstinline|mdbook| will send it a JSON
+version of \href{https://docs.rs/mdbook/*/mdbook/renderer/struct.RenderContext.html}{\lstinline|RenderContext|} via our plugin's \lstinline|stdin|. For convenience, there's
+a \href{https://docs.rs/mdbook/*/mdbook/renderer/struct.RenderContext.html#method.from_json}{\lstinline|RenderContext::from_json()|} constructor which will load a \lstinline|RenderContext|.\\
+
+This is all the boilerplate necessary for our backend to load the book.\\
+\begin{lstlisting}[language=rust]
+// src/main.rs
+extern crate mdbook;
+
+use std::io;
+use mdbook::renderer::RenderContext;
+
+fn main() {
+    let mut stdin = io::stdin();
+    let ctx = RenderContext::from_json(&mut stdin).unwrap();
+}
+
+\end{lstlisting}
+
+\textbf{Note:} The \lstinline|RenderContext| contains a \lstinline|version| field. This lets backends
+figure out whether they are compatible with the version of \lstinline|mdbook| it's being
+called by. This \lstinline|version| comes directly from the corresponding field in
+\lstinline|mdbook|'s \lstinline|Cargo.toml|.\\
+
+It is recommended that backends use the \href{https://crates.io/crates/semver}{\lstinline|semver|} crate to inspect this field
+and emit a warning if there may be a compatibility issue.\\
+
+\subsection{Inspecting the Book}
+\label{Inspecting the Book}
+\label{inspecting-the-book}
+
+Now our backend has a copy of the book, lets count how many words are in each
+chapter!\\
+
+Because the \lstinline|RenderContext| contains a \href{https://docs.rs/mdbook/*/mdbook/book/struct.Book.html}{\lstinline|Book|} field (\lstinline|book|), and a \lstinline|Book| has
+the \href{https://docs.rs/mdbook/*/mdbook/book/struct.Book.html#method.iter}{\lstinline|Book::iter()|} method for iterating over all items in a \lstinline|Book|, this step
+turns out to be just as easy as the first.\\
+\begin{lstlisting}[language=rust]
+
+fn main() {
+    let mut stdin = io::stdin();
+    let ctx = RenderContext::from_json(&mut stdin).unwrap();
+
+    for item in ctx.book.iter() {
+        if let BookItem::Chapter(ref ch) = *item {
+            let num_words = count_words(ch);
+            println!("{}: {}", ch.name, num_words);
+        }
+    }
+}
+
+fn count_words(ch: &Chapter) -> usize {
+    ch.content.split_whitespace().count()
+}
+
+\end{lstlisting}
+
+\subsection{Enabling the Backend}
+\label{Enabling the Backend}
+\label{enabling-the-backend}
+
+Now we've got the basics running, we want to actually use it. First, install the
+program.\\
+\begin{lstlisting}[language=shell]
+$ cargo install --path .
+
+\end{lstlisting}
+
+Then \lstinline|cd| to the particular book you'd like to count the words of and update its
+\lstinline|book.toml| file.\\
+\begin{lstlisting}[language=diff]
+  [book]
+  title = "mdBook Documentation"
+  description = "Create book from markdown files. Like Gitbook but implemented in Rust"
+  authors = ["Mathieu David", "Michael-F-Bryan"]
+
++ [output.html]
+
++ [output.wordcount]
+
+\end{lstlisting}
+
+When it loads a book into memory, \lstinline|mdbook| will inspect your \lstinline|book.toml| file to
+try and figure out which backends to use by looking for all \lstinline|output.*| tables.
+If none are provided it'll fall back to using the default HTML renderer.\\
+
+Notably, this means if you want to add your own custom backend you'll also need
+to make sure to add the HTML backend, even if its table just stays empty.\\
+
+Now you just need to build your book like normal, and everything should \emph{Just
+Work}.\\
+\begin{lstlisting}[language=shell]
+$ mdbook build
+...
+2018-01-16 07:31:15 [INFO] (mdbook::renderer): Invoking the "mdbook-wordcount" renderer
+mdBook: 126
+Command Line Tool: 224
+init: 283
+build: 145
+watch: 146
+serve: 292
+test: 139
+Format: 30
+SUMMARY.md: 259
+Configuration: 784
+Theme: 304
+index.hbs: 447
+Syntax highlighting: 314
+MathJax Support: 153
+Rust code specific features: 148
+For Developers: 788
+Alternative Backends: 710
+Contributors: 85
+
+\end{lstlisting}
+
+The reason we didn't need to specify the full name/path of our \lstinline|wordcount|
+backend is because \lstinline|mdbook| will try to \emph{infer} the program's name via
+convention. The executable for the \lstinline|foo| backend is typically called
+\lstinline|mdbook-foo|, with an associated \lstinline|[output.foo]| entry in the \lstinline|book.toml|. To
+explicitly tell \lstinline|mdbook| what command to invoke (it may require command-line
+arguments or be an interpreted script), you can use the \lstinline|command| field.\\
+\begin{lstlisting}[language=diff]
+  [book]
+  title = "mdBook Documentation"
+  description = "Create book from markdown files. Like Gitbook but implemented in Rust"
+  authors = ["Mathieu David", "Michael-F-Bryan"]
+
+  [output.html]
+
+  [output.wordcount]
++ command = "python /path/to/wordcount.py"
+
+\end{lstlisting}
+
+\subsection{Configuration}
+\label{Configuration}
+\label{configuration}
+
+Now imagine you don't want to count the number of words on a particular chapter
+(it might be generated text/code, etc). The canonical way to do this is via the
+usual \lstinline|book.toml| configuration file by adding items to your \lstinline|[output.foo]|
+table.\\
+
+The \lstinline|Config| can be treated roughly as a nested hashmap which lets you call
+methods like \lstinline|get()| to access the config's contents, with a
+\lstinline|get_deserialized()| convenience method for retrieving a value and automatically
+deserializing to some arbitrary type \lstinline|T|.\\
+
+To implement this, we'll create our own serializable \lstinline|WordcountConfig| struct
+which will encapsulate all configuration for this backend.\\
+
+First add \lstinline|serde| and \lstinline|serde_derive| to your \lstinline|Cargo.toml|,\\
+\begin{lstlisting}
+$ cargo add serde serde_derive
+
+\end{lstlisting}
+
+And then you can create the config struct,\\
+\begin{lstlisting}[language=rust]
+extern crate serde;
+#[macro_use]
+extern crate serde_derive;
+
+...
+
+#[derive(Debug, Default, Serialize, Deserialize)]
+#[serde(default, rename_all = "kebab-case")]
+pub struct WordcountConfig {
+  pub ignores: Vec<String>,
+}
+
+\end{lstlisting}
+
+Now we just need to deserialize the \lstinline|WordcountConfig| from our \lstinline|RenderContext|
+and then add a check to make sure we skip ignored chapters.\\
+\begin{lstlisting}[language=diff]
+  fn main() {
+      let mut stdin = io::stdin();
+      let ctx = RenderContext::from_json(&mut stdin).unwrap();
++     let cfg: WordcountConfig = ctx.config
++         .get_deserialized("output.wordcount")
++         .unwrap_or_default();
+
+      for item in ctx.book.iter() {
+          if let BookItem::Chapter(ref ch) = *item {
++             if cfg.ignores.contains(&ch.name) {
++                 continue;
++             }
++
+              let num_words = count_words(ch);
+              println!("{}: {}", ch.name, num_words);
+          }
+      }
+  }
+
+\end{lstlisting}
+
+\subsection{Output and Signalling Failure}
+\label{Output and Signalling Failure}
+\label{output-and-signalling-failure}
+
+While it's nice to print word counts to the terminal when a book is built, it
+might also be a good idea to output them to a file somewhere. \lstinline|mdbook| tells a
+backend where it should place any generated output via the \lstinline|destination| field
+in \href{https://docs.rs/mdbook/*/mdbook/renderer/struct.RenderContext.html}{\lstinline|RenderContext|}.\\
+\begin{lstlisting}[language=diff]
++ use std::fs::{self, File};
++ use std::io::{self, Write};
+- use std::io;
+  use mdbook::renderer::RenderContext;
+  use mdbook::book::{BookItem, Chapter};
+
+  fn main() {
+    ...
+
++     let _ = fs::create_dir_all(&ctx.destination);
++     let mut f = File::create(ctx.destination.join("wordcounts.txt")).unwrap();
++
+      for item in ctx.book.iter() {
+          if let BookItem::Chapter(ref ch) = *item {
+              ...
+
+              let num_words = count_words(ch);
+              println!("{}: {}", ch.name, num_words);
++             writeln!(f, "{}: {}", ch.name, num_words).unwrap();
+          }
+      }
+  }
+
+\end{lstlisting}
+
+\textbf{Note:} There is no guarantee that the destination directory exists or is
+empty (\lstinline|mdbook| may leave the previous contents to let backends do caching),
+so it's always a good idea to create it with \lstinline|fs::create_dir_all()|.\\
+
+If the destination directory already exists, don't assume it will be empty.
+To allow backends to cache the results from previous runs, \lstinline|mdbook| may leave
+old content in the directory.\\
+
+There's always the possibility that an error will occur while processing a book
+(just look at all the \lstinline|unwrap()|'s we've written already), so \lstinline|mdbook| will
+interpret a non-zero exit code as a rendering failure.\\
+
+For example, if we wanted to make sure all chapters have an \emph{even} number of
+words, erroring out if an odd number is encountered, then you may do something
+like this:\\
+\begin{lstlisting}[language=diff]
++ use std::process;
+  ...
+
+  fn main() {
+      ...
+
+      for item in ctx.book.iter() {
+          if let BookItem::Chapter(ref ch) = *item {
+              ...
+
+              let num_words = count_words(ch);
+              println!("{}: {}", ch.name, num_words);
+              writeln!(f, "{}: {}", ch.name, num_words).unwrap();
+
++             if cfg.deny_odds && num_words % 2 == 1 {
++               eprintln!("{} has an odd number of words!", ch.name);
++               process::exit(1);
+              }
+          }
+      }
+  }
+
+  #[derive(Debug, Default, Serialize, Deserialize)]
+  #[serde(default, rename_all = "kebab-case")]
+  pub struct WordcountConfig {
+      pub ignores: Vec<String>,
++     pub deny_odds: bool,
+  }
+
+\end{lstlisting}
+
+Now, if we reinstall the backend and build a book,\\
+\begin{lstlisting}[language=shell]
+$ cargo install --path . --force
+$ mdbook build /path/to/book
+...
+2018-01-16 21:21:39 [INFO] (mdbook::renderer): Invoking the "wordcount" renderer
+mdBook: 126
+Command Line Tool: 224
+init: 283
+init has an odd number of words!
+2018-01-16 21:21:39 [ERROR] (mdbook::renderer): Renderer exited with non-zero return code.
+2018-01-16 21:21:39 [ERROR] (mdbook::utils): Error: Rendering failed
+2018-01-16 21:21:39 [ERROR] (mdbook::utils):    Caused By: The "mdbook-wordcount" renderer failed
+
+\end{lstlisting}
+
+As you've probably already noticed, output from the plugin's subprocess is
+immediately passed through to the user. It is encouraged for plugins to follow
+the "rule of silence" and only generate output when necessary (e.g. an error in
+generation or a warning).\\
+
+All environment variables are passed through to the backend, allowing you to use
+the usual \lstinline|RUST_LOG| to control logging verbosity.\\
+
+\subsection{Wrapping Up}
+\label{Wrapping Up}
+\label{wrapping-up}
+
+Although contrived, hopefully this example was enough to show how you'd create
+an alternative backend for \lstinline|mdbook|. If you feel it's missing something, don't
+hesitate to create an issue in the \href{https://github.com/rust-lang-nursery/mdBook/issues}{issue tracker} so we can improve the user
+guide.\\
+
+The existing backends mentioned towards the start of this chapter should serve
+as a good example of how it's done in real life, so feel free to skim through
+the source code or ask questions.\\
+
+\section{Contributors}
+\label{Contributors}
+\label{contributors}
+
+Here is a list of the contributors who have helped improving mdBook. Big
+shout-out to them!\\
+\begin{itemize}
+\item \href{https://github.com/mdinger}{mdinger}
+\item Kevin (\href{https://github.com/kbknapp}{kbknapp})
+\item Steve Klabnik (\href{https://github.com/steveklabnik}{steveklabnik})
+\item Adam Solove (\href{https://github.com/asolove}{asolove})
+\item Wayne Nilsen (\href{https://github.com/waynenilsen}{waynenilsen})
+\item \href{https://github.com/funkill}{funnkill}
+\item Fu Gangqiang (\href{https://github.com/FuGangqiang}{FuGangqiang})
+\item \href{https://github.com/Michael-F-Bryan}{Michael-F-Bryan}
+\item Chris Spiegel (\href{https://github.com/cspiegel}{cspiegel})
+\item \href{https://github.com/projektir}{projektir}
+\item \href{https://github.com/Phaiax}{Phaiax}
+\item Matt Ickstadt (\href{https://github.com/mattico}{mattico})
+\item Weihang Lo (\href{https://github.com/weihanglo}{@weihanglo})
+\end{itemize}
+
+If you feel you're missing from this list, feel free to add yourself in a PR.\\
+
+\end{document}

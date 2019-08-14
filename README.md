@@ -11,21 +11,18 @@
 
 An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents.
 
+> **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release.
+
 Examples of PDF's generated with `mdbook-latex` include:
 
-- [mdbook User Guide]()
-- [The Rust Programming Language]()
-- [Rust By Example]() 
-- [The Edition Guide]() 
-- [The Rustc Book]() 
-- [The Cargo Book]() 
-- [The Rustdoc Book]() 
-- [The Reference]() 
-- [The Rustonomicon]() 
-- [The Unstable Book]() 
-- [The Embedded Rust Book]() 
+| PDF Version                     | mdbook Source        | Online Version      | Generated LaTeX       |
+|---------------------------------|----------------------|---------------------|-----------------------|
+| [mdbook User Guide][mdbook-pdf] | [Source][mdbook-src] | [HTML][mdbook-html] | [LaTeX][mdbook-latex] |
 
-> **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release.
+[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
+[mdbook-html]: https://rust-lang-nursery.github.io/mdBook/
+[mdbook-src]: https://github.com/rust-lang-nursery/mdBook/tree/master/book-example
+[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases
 
 ## Installation
 
@@ -74,12 +71,25 @@ Then delete the `[output.latex]` configuration in `book.toml`:
 - [Tectonic](https://tectonic-typesetting.github.io/en-US/): Creates the final PDF file from the transformed LaTeX code.
 - [md2tex](https://github.com/lbeckman314/md2tex): Transforms the markdown source to LaTeX. This is a fork of [md2pdf](https://gitea.tforgione.fr/tforgione/md2pdf/), a great utility for converting markdown code to LaTeX and PDF's.  I hope to eventually propose some of the updates back upstream. `md2tex` and `mdbook-latex` are developed in tandem, but are meant to be independent programs. Therefore, if one wishes to use an alternative markdown-to-tex conveter, they should be able to plug it in to `mdbook-latex` with ease.
 
+## How's it Work?
+
+Broadly speaking, there are three steps, or "transformations", from `mdbook` source to PDF output:
+
+1) **mdbook source to JSON-organized markdown** (`mdbook-latex`): retreives the JSON formatted data from `mdbook`. Calls `md2tex` and `tectonic` for LaTeX and PDF generation, respectively.
+2) **markdown to LaTeX** (`md2tex`): converts markdown input to LaTeX output.
+3) **LaTeX to PDF** (`tectonic`): creates PDF document from LaTeX input.
+
 ## Contributing
 
 Pull requests, forks, and plain old copy-pasting are actively encouraged! Also, I am relatively new to Rust (and programming in general) so recommendations or advice in general is always appreciated. 
 
+### I found a problem. Should I create an issue with `mdbook-latex` or `md2tex`?
+
+Either one. `mdbook-latex` can be thought of as a frontend for the LaTeX generation done by `md2tex`. So if there is a LaTeX error, you may favor creating an issue with `md2tex`. Otherwise, creating an issue with `mdbook-latex` is a good bet. But any issue is a good issue, so don't worry if it's in the "right" repository or not, I should be able to see it regardless!
+
 ## Are We Stable Yet?
 
+- [ ] Allow SVG images (convert to PNG for LaTeX).
 - [ ] Compile *The Rust Book* and *mdbook* documentation without any errors or warnings (e.g. missing Unicode characters).
 - [ ] Put "tectonic" dependency in "pdf" feature configuration.
 - [ ] Add "table of contents" mdbook toml option.
