@@ -18,8 +18,6 @@ use std::fs::{self, File};
 use std::io::{self, Write};
 use std::path::Path;
 
-use walkdir::WalkDir;
-
 // config definition.
 #[derive(Debug, Default, Serialize, Deserialize)]
 #[serde(default, rename_all = "kebab-case")]
@@ -41,14 +39,6 @@ pub const LATEX_BEGIN: &str = r#"
 pub const LATEX_FOOTER: &str = "\n\\end{document}\n";
 
 fn main() -> std::io::Result<()> {
-
-    //for entry in WalkDir::new("../../src") {
-        //let entry = entry.unwrap();
-        //println!("{}", entry.path().display());
-    //}
-
-    //Ok(())
-
     let mut stdin = io::stdin();
 
     // get markdown source.
@@ -62,7 +52,7 @@ fn main() -> std::io::Result<()> {
 
     // read book's config values (title, authors).
     let title = ctx.config.book.title.unwrap();
-    let authors = ctx.config.book.authors.join(" \\and ");
+    let authors = ctx.config.book.authors.join("\\and");
 
     let mut latex = String::new();
 
@@ -86,8 +76,6 @@ fn main() -> std::io::Result<()> {
             }
 
             content.push_str(&ch.content);
-            //content.push_str("\n");
-            //content.push_str("\n");
             latex.push_str(&markdown_to_latex(ch.content.to_string()));
         }
     }
@@ -137,6 +125,7 @@ fn main() -> std::io::Result<()> {
     // output PDF file.
     if cfg.pdf {
         // write PDF with tectonic.
+        println!("Writing PDF with Tectonic.");
         let pdf_data: Vec<u8> = tectonic::latex_to_pdf(latex).expect("processing failed");
         println!("Output PDF size is {} bytes", pdf_data.len());
 

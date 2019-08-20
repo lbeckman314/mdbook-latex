@@ -1,6 +1,6 @@
 [package]
 name = "mdbook-latex"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["lbeckman314 <liam@liambeckman.com>"]
 edition = "2018"
 description = "An mdbook backend for generating LaTeX and PDF documents."
@@ -11,6 +11,5 @@ mdbook = "0.3.1"
 serde = "1.0.98"
 serde_derive = "1.0.98"
 tectonic = "0.1.11"
-md2tex = "0.0.1"
+md2tex = "0.1.1"
 #md2tex = { path = "/home/liam/Documents/code/projects/md2tex" }
-walkdir = "2.2.9"
