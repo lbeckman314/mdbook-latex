@@ -100,6 +100,7 @@ Either one. `mdbook-latex` can be thought of as a frontend for the LaTeX generat
 - [ ] Add "examples" directory.
 - [ ] Create documentation.
 - [ ] Add option for alternative markdown-to-latex converter plugin.
+- [ ] Add option to generate PDF with [mdproof](https://img.shields.io/badge/crates.io-v0.1.2-orange.svg?longCache=true) to skip LaTeX dependencies.
 
 ## See Also
 
@@ -107,5 +108,5 @@ The following projects served as guidance for `mdbook-latex` (or are simply cool
 
 - [mdbook-epub](https://github.com/Michael-F-Bryan/mdbook-epub): A backend for mdbook that creates EPUB files.
 - [mdbook-linkcheck](https://github.com/Michael-F-Bryan/mdbook-linkcheck): A backend for `mdbook` that will verify URL links.
-- [LaTeX-rs](https://github.com/Michael-F-Bryan/latex-rs): A cool library for programatic LaTeX generation. I hope to incorporate
+- [LaTeX-rs](https://github.com/Michael-F-Bryan/latex-rs): A cool library for programatic LaTeX generation that I hope to eventually incoportate.
 - [crowbook](https://github.com/lise-henry/crowbook/): A rich program that can generate HTML, PDF, **and** EPUB files from markdown code. Has a neat [online demo page](http://vps.crowdagger.fr/crowbook/) to try it out interactively. Similar in some respects to `mdbook`, but with an added focus on "novels and fiction". Though general enough to handle a lot of different projects.
