@@ -13,16 +13,80 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 
 > **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release.
 
-Examples of PDF's generated with `mdbook-latex` include:
+## Current Status of Rust Bookshelf
 
-| Generated PDF                     | Generated LaTeX         | Source                 | Online Version        |
-| --------------------------------- | ----------------------- | ---------------------- | --------------------- |
-| [mdbook User Guide][mdbook-pdf]   | [LaTeX][mdbook-latex]   | [Source][mdbook-src]   | [HTML][mdbook-html]   |
+- 🍏 compiles successfully
+- 🍊 compiles but with warnings/errors.
+- 🍅 compilation fails/not yet attempted
 
-[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.0/mdBook.Documentation.pdf
-[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.0/mdBook.Documentation.tex
-[mdbook-html]: https://rust-lang-nursery.github.io/mdBook/
+| Compiles? | Generated PDF                              | Generated LaTeX                 | Source                     | Online Version            |
+| --------- | ---------------------------------          | -----------------------         | ----------------------     | ---------------------     |
+| 🍊        | [The Rust Programming Language][rust-pdf]  | [LaTeX][rust-latex]             | [Source][rust-src]         | [HTML][rust-html]         |
+| 🍅        | [~~mdbook User Guide~~][mdbook-pdf]        | [~~LaTeX~~][mdbook-latex]       | [Source][mdbook-src]       | [HTML][mdbook-html]       |
+| 🍅        | [~~Rust By Example~~][example-pdf]         | [~~LaTeX~~][example-latex]      | [Source][example-src]      | [HTML][example-html]      |
+| 🍅        | [~~The Edition Guide~~][edition-pdf]       | [~~LaTeX~~][edition-latex]      | [Source][edition-src]      | [HTML][edition-html]      |
+| 🍅        | [~~The Rustc Book~~][rustc-pdf]            | [~~LaTeX~~][rustc-latex]        | [Source][rustc-src]        | [HTML][rustc-html]        |
+| 🍅        | [~~The Cargo Book~~][cargo-pdf]            | [~~LaTeX~~][cargo-latex]        | [Source][cargo-src]        | [HTML][cargo-html]        |
+| 🍅        | [~~The Rustdoc Book~~][rustdoc-pdf]        | [~~LaTeX~~][rustdoc-latex]      | [Source][rustdoc-src]      | [HTML][rustdoc-html]      |
+| 🍅        | [~~The Reference~~][reference-pdf]         | [~~LaTeX~~][reference-latex]    | [Source][reference-src]    | [HTML][reference-html]    |
+| 🍅        | [~~The Rustonomicon~~][rustonomicon-pdf]   | [~~LaTeX~~][rustonomicon-latex] | [Source][rustonomicon-src] | [HTML][rustonomicon-html] |
+| 🍅        | [~~The Unstable Book~~][unstable-pdf]      | [~~LaTeX~~][unstable-latex]     | [Source][unstable-src]     | [HTML][unstable-html]     |
+| 🍅        | [~~The Embedded Rust Book~~][embedded-pdf] | [~~LaTeX~~][embedded-latex]     | [Source][embedded-src]     | [HTML][embedded-html]     |
+
+[rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.1/The.Rust.Programming.Language.pdf
+[rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.1/The.Rust.Programming.Language.tex
+[rust-src]: https://github.com/rust-lang/book
+[rust-html]: https://doc.rust-lang.org/book/
+
+[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
+[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases
 [mdbook-src]: https://github.com/rust-lang-nursery/mdBook/tree/master/book-example
+[mdbook-html]: https://rust-lang-nursery.github.io/mdBook/
+
+[example-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
+[example-latex]: https://github.com/lbeckman314/mdbook-latex/releases
+[example-src]: https://github.com/rust-lang/rust-by-example
+[example-html]: https://doc.rust-lang.org/stable/rust-by-example/
+
+[edition-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
+[edition-latex]: https://github.com/lbeckman314/mdbook-latex/releases
+[edition-src]: https://github.com/rust-lang-nursery/edition-guide
+[edition-html]: https://doc.rust-lang.org/edition-guide/index.html
+
+[rustc-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
+[rustc-latex]: https://github.com/lbeckman314/mdbook-latex/releases
+[rustc-src]: https://github.com/rust-lang/rustc-guide
+[rustc-html]: https://doc.rust-lang.org/rustc/index.html
+
+[cargo-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
+[cargo-latex]: https://github.com/lbeckman314/mdbook-latex/releases
+[cargo-src]: https://github.com/rust-lang/cargo/tree/master/src/doc
+[cargo-html]: https://doc.rust-lang.org/cargo/index.html
+
+[rustdoc-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
+[rustdoc-latex]: https://github.com/lbeckman314/mdbook-latex/releases
+[rustdoc-src]: https://github.com/rust-lang/rust/tree/master/src/doc/rustdoc
+[rustdoc-html]: https://doc.rust-lang.org/rustdoc/index.html
+
+[reference-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
+[reference-latex]: https://github.com/lbeckman314/mdbook-latex/releases
+[reference-src]: https://github.com/rust-lang-nursery/reference
+[reference-html]: https://doc.rust-lang.org/reference/index.html
+
+[rustonomicon-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
+[rustonomicon-latex]: https://github.com/lbeckman314/mdbook-latex/releases
+[rustonomicon-src]: https://github.com/rust-lang-nursery/nomicon
+[rustonomicon-html]: https://doc.rust-lang.org/nomicon/index.html
+
+[unstable-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
+[unstable-latex]: https://github.com/lbeckman314/mdbook-latex/releases
+[unstable-src]: https://github.com/rust-lang/rust/tree/master/src/doc/unstable-book
+[unstable-html]: https://doc.rust-lang.org/unstable-book/index.html
+
+[embedded-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
+[embedded-latex]: https://github.com/lbeckman314/mdbook-latex/releases
+[embedded-src]: https://github.com/rust-embedded/book
+[embedded-html]: https://rust-embedded.github.io/book/
 
 ## Installation
 
@@ -92,15 +156,15 @@ Either one. `mdbook-latex` can be thought of as a frontend for the LaTeX generat
 Below is a list of features I am currently working on (loosly in "top-down" direction).
 
 - [ ] Allow SVG images (convert to PNG for LaTeX).
-    - [ ] Save SVG's in `book/latex` directory to keep `src` clean.
     - [x] Configure [resvg](https://github.com/RazrFalcon/resvg) library to convert SVG's to PNG.
+    - [ ] Save SVG's in `book/latex` directory to keep `src` clean.
 - [ ] Compile *The Rust Book* and *mdbook* documentation without any errors or warnings (e.g. missing Unicode characters).
 - [ ] Put "tectonic" dependency in "pdf" feature configuration.
 - [ ] Add "table of contents" mdbook toml option.
 - [ ] Add "markdown" mdbook toml option.
 - [ ] Add "number of words" mdbook toml option.
 - [ ] Add "examples" directory.
-- [ ] Create documentation.
+- [ ] Create documentation and move relevent docs to md2tex.
 - [ ] Add option for alternative markdown-to-latex converter plugin.
 - [ ] Add CI/CD pipeline ([travis](https://travis-ci.org/))
 - [ ] Add test suites.
