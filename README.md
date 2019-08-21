@@ -13,7 +13,7 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 
 > **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release.
 
-## Current Status of Rust Bookshelf
+## Status of Rust Bookshelf
 
 - 🍏 compiles successfully
 - 🍊 compiles but with warnings/errors.
@@ -21,17 +21,17 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 
 | Compiles? | Generated PDF                              | Generated LaTeX                 | Source                     | Online Version            |
 | --------- | ---------------------------------          | -----------------------         | ----------------------     | ---------------------     |
-| 🍊        | [The Rust Programming Language][rust-pdf]  | [LaTeX][rust-latex]             | [Source][rust-src]         | [HTML][rust-html]         |
-| 🍅        | [~~mdbook User Guide~~][mdbook-pdf]        | [~~LaTeX~~][mdbook-latex]       | [Source][mdbook-src]       | [HTML][mdbook-html]       |
+| 🍅        | [~~Cargo Book~~][cargo-pdf]            | [~~LaTeX~~][cargo-latex]        | [Source][cargo-src]        | [HTML][cargo-html]        |
+| 🍅        | [~~Edition Guide~~][edition-pdf]       | [~~LaTeX~~][edition-latex]      | [Source][edition-src]      | [HTML][edition-html]      |
+| 🍅        | [~~Embedded Rust Book~~][embedded-pdf] | [~~LaTeX~~][embedded-latex]     | [Source][embedded-src]     | [HTML][embedded-html]     |
+| 🍅        | [~~Mdbook User Guide~~][mdbook-pdf]        | [~~LaTeX~~][mdbook-latex]       | [Source][mdbook-src]       | [HTML][mdbook-html]       |
+| 🍅        | [~~Rust Reference~~][reference-pdf]    | [~~LaTeX~~][reference-latex]    | [Source][reference-src]    | [HTML][reference-html]    |
 | 🍅        | [~~Rust By Example~~][example-pdf]         | [~~LaTeX~~][example-latex]      | [Source][example-src]      | [HTML][example-html]      |
-| 🍅        | [~~The Edition Guide~~][edition-pdf]       | [~~LaTeX~~][edition-latex]      | [Source][edition-src]      | [HTML][edition-html]      |
-| 🍅        | [~~The Rustc Book~~][rustc-pdf]            | [~~LaTeX~~][rustc-latex]        | [Source][rustc-src]        | [HTML][rustc-html]        |
-| 🍅        | [~~The Cargo Book~~][cargo-pdf]            | [~~LaTeX~~][cargo-latex]        | [Source][cargo-src]        | [HTML][cargo-html]        |
-| 🍅        | [~~The Rustdoc Book~~][rustdoc-pdf]        | [~~LaTeX~~][rustdoc-latex]      | [Source][rustdoc-src]      | [HTML][rustdoc-html]      |
-| 🍅        | [~~The Reference~~][reference-pdf]         | [~~LaTeX~~][reference-latex]    | [Source][reference-src]    | [HTML][reference-html]    |
-| 🍅        | [~~The Rustonomicon~~][rustonomicon-pdf]   | [~~LaTeX~~][rustonomicon-latex] | [Source][rustonomicon-src] | [HTML][rustonomicon-html] |
-| 🍅        | [~~The Unstable Book~~][unstable-pdf]      | [~~LaTeX~~][unstable-latex]     | [Source][unstable-src]     | [HTML][unstable-html]     |
-| 🍅        | [~~The Embedded Rust Book~~][embedded-pdf] | [~~LaTeX~~][embedded-latex]     | [Source][embedded-src]     | [HTML][embedded-html]     |
+| 🍊        | [Rust Programming Language][rust-pdf]  | [LaTeX][rust-latex]             | [Source][rust-src]         | [HTML][rust-html]         |
+| 🍅        | [~~Rustc Book~~][rustc-pdf]            | [~~LaTeX~~][rustc-latex]        | [Source][rustc-src]        | [HTML][rustc-html]        |
+| 🍅        | [~~Rustdoc Book~~][rustdoc-pdf]        | [~~LaTeX~~][rustdoc-latex]      | [Source][rustdoc-src]      | [HTML][rustdoc-html]      |
+| 🍅        | [~~Rustonomicon~~][rustonomicon-pdf]   | [~~LaTeX~~][rustonomicon-latex] | [Source][rustonomicon-src] | [HTML][rustonomicon-html] |
+| 🍅        | [~~Unstable Book~~][unstable-pdf]      | [~~LaTeX~~][unstable-latex]     | [Source][unstable-src]     | [HTML][unstable-html]     |
 
 [rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.1/The.Rust.Programming.Language.pdf
 [rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.1/The.Rust.Programming.Language.tex
@@ -127,7 +127,7 @@ Then delete the `[output.latex]` configuration in `book.toml`:
 - pdf = true
 ```
 
-## Dependencies
+## Primary Dependencies
 
 `mdbook-latex` is built upon some really wonderful projects, including:
 
@@ -145,7 +145,7 @@ Broadly speaking, there are three steps, or "transformations", from `mdbook` sou
 
 ## Contributing
 
-Pull requests, forks, and plain old copy-pasting are actively encouraged! Also, I am relatively new to Rust (and programming in general) so recommendations or advice in general is always appreciated. 
+Pull requests, forks, and plain old copy-pasting are actively encouraged! Also, I am relatively new to Rust (and programming in general) so recommendations or advice in general is always appreciated.
 
 ### I found a problem. Should I create an issue with `mdbook-latex` or `md2tex`?
 
@@ -158,15 +158,16 @@ Below is a list of features I am currently working on (loosly in "top-down" dire
 - [ ] Allow SVG images (convert to PNG for LaTeX).
     - [x] Configure [resvg](https://github.com/RazrFalcon/resvg) library to convert SVG's to PNG.
     - [ ] Save SVG's in `book/latex` directory to keep `src` clean.
-- [ ] Compile *The Rust Book* and *mdbook* documentation without any errors or warnings (e.g. missing Unicode characters).
+- [ ] Add CI/CD pipeline ([travis](https://travis-ci.org/))
+- [ ] Compile *The Rust Book* and *mdbook* documentation without any errors or warnings (e.g. missing Unicode characters). See [Status of Rust Bookshelf](#status-of-rust-bookshelf) for up to date progress.
 - [ ] Put "tectonic" dependency in "pdf" feature configuration.
 - [ ] Add "table of contents" mdbook toml option.
 - [ ] Add "markdown" mdbook toml option.
 - [ ] Add "number of words" mdbook toml option.
 - [ ] Add "examples" directory.
 - [ ] Create documentation and move relevent docs to md2tex.
+- [ ] Add option for custom LaTeX headers.
 - [ ] Add option for alternative markdown-to-latex converter plugin.
-- [ ] Add CI/CD pipeline ([travis](https://travis-ci.org/))
 - [ ] Add test suites.
 - [ ] Cross compile binaries ([trust](https://github.com/japaric/trust))
 - [ ] Add option to generate PDF with [mdproof](https://img.shields.io/badge/crates.io-v0.1.2-orange.svg?longCache=true) to skip LaTeX dependencies.
