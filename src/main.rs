@@ -24,10 +24,15 @@ use std::path::Path;
 pub struct LatexConfig {
     // chapters that will not be exported.
     pub ignores: Vec<String>,
+    // output latex file.
     pub latex: bool,
+    // output PDF.
     pub pdf: bool,
+    // output markdown file.
+    pub markdown: bool,
 }
 
+// TODO move these latex parts to seperate file.
 pub const LATEX_BEGIN: &str = r#"
 \begin{document}
 \maketitle
@@ -76,28 +81,28 @@ fn main() -> std::io::Result<()> {
             }
 
             content.push_str(&ch.content);
-            latex.push_str(&markdown_to_latex(ch.content.to_string()));
         }
     }
 
     // output markdown file.
-    let mut file_md = title.clone();
-    file_md.push_str(".md");
-    let path = Path::new(&file_md);
-    let display = path.display();
-    let mut _file = match File::create(&file_md) {
-        Err(why) => panic!("couldn't create {}: {}", display, why.description()),
-        Ok(file) => file,
-    };
+    if cfg.markdown {
+        let mut file_md = title.clone();
+        file_md.push_str(".md");
+        let path = Path::new(&file_md);
+        let display = path.display();
+        let mut _file = match File::create(&file_md) {
+            Err(why) => panic!("couldn't create {}: {}", display, why.description()),
+            Ok(file) => file,
+        };
 
-    // write to file.
-    match _file.write_all(content.as_bytes()) {
-        Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
-        Ok(_) => println!("successfully wrote to {}", display),
+        // write to file.
+        match _file.write_all(content.as_bytes()) {
+            Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
+            Ok(_) => println!("successfully wrote to {}", display),
+        }
     }
 
-    //latex.push_str(&markdown_to_latex(content.to_string()));
-
+    latex.push_str(&markdown_to_latex(content.to_string()));
     latex.push_str(&LATEX_FOOTER);
 
     // output latex file.

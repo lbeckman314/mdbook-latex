@@ -16,7 +16,7 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 ## Status of Rust Bookshelf
 
 - 🍏 compiles successfully
-- 🍊 compiles but with warnings/errors.
+- 🍊 compiles but with warnings/errors
 - 🍅 compilation fails/not yet attempted
 
 | Compiles? | Generated PDF                              | Generated LaTeX                 | Source                     | Online Version            |
