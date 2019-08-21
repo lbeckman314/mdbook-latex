@@ -89,17 +89,22 @@ Either one. `mdbook-latex` can be thought of as a frontend for the LaTeX generat
 
 ## Are We Stable Yet?
 
+Below is a list of features I am currently working on (loosly in "top-down" direction).
+
 - [ ] Allow SVG images (convert to PNG for LaTeX).
+    - [ ] Save SVG's in `book/latex` directory to keep `src` clean.
+    - [x] Configure [resvg](https://github.com/RazrFalcon/resvg) library to convert SVG's to PNG.
 - [ ] Compile *The Rust Book* and *mdbook* documentation without any errors or warnings (e.g. missing Unicode characters).
 - [ ] Put "tectonic" dependency in "pdf" feature configuration.
 - [ ] Add "table of contents" mdbook toml option.
 - [ ] Add "markdown" mdbook toml option.
 - [ ] Add "number of words" mdbook toml option.
-- [ ] Add test suites.
-- [ ] Add CI/CD pipeline ([trust](https://github.com/japaric/trust))
 - [ ] Add "examples" directory.
 - [ ] Create documentation.
 - [ ] Add option for alternative markdown-to-latex converter plugin.
+- [ ] Add CI/CD pipeline ([travis](https://travis-ci.org/))
+- [ ] Add test suites.
+- [ ] Cross compile binaries ([trust](https://github.com/japaric/trust))
 - [ ] Add option to generate PDF with [mdproof](https://img.shields.io/badge/crates.io-v0.1.2-orange.svg?longCache=true) to skip LaTeX dependencies.
 
 ## See Also
