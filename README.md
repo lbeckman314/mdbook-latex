@@ -15,23 +15,23 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 
 ## Status of Rust Bookshelf
 
-- 🍏 compiles successfully
+- ✅ compiles successfully
 - 🍊 compiles but with warnings/errors
-- 🍅 compilation fails/not yet attempted
+- ❌ compilation fails/not yet attempted
 
-| Compiles? | Generated PDF                              | Generated LaTeX                 | Source                     | Online Version            |
-| --------- | ---------------------------------          | -----------------------         | ----------------------     | ---------------------     |
-| 🍅        | [~~Cargo Book~~][cargo-pdf]            | [~~LaTeX~~][cargo-latex]        | [Source][cargo-src]        | [HTML][cargo-html]        |
-| 🍅        | [~~Edition Guide~~][edition-pdf]       | [~~LaTeX~~][edition-latex]      | [Source][edition-src]      | [HTML][edition-html]      |
-| 🍅        | [~~Embedded Rust Book~~][embedded-pdf] | [~~LaTeX~~][embedded-latex]     | [Source][embedded-src]     | [HTML][embedded-html]     |
-| 🍅        | [~~Mdbook User Guide~~][mdbook-pdf]        | [~~LaTeX~~][mdbook-latex]       | [Source][mdbook-src]       | [HTML][mdbook-html]       |
-| 🍅        | [~~Rust Reference~~][reference-pdf]    | [~~LaTeX~~][reference-latex]    | [Source][reference-src]    | [HTML][reference-html]    |
-| 🍅        | [~~Rust By Example~~][example-pdf]         | [~~LaTeX~~][example-latex]      | [Source][example-src]      | [HTML][example-html]      |
+| Compiles? | Generated PDF                          | Generated LaTeX                 | Source                     | Online Version            |
+| --------- | ---------------------------------      | -----------------------         | ----------------------     | ---------------------     |
+| ❌        | [~~Cargo Book~~][cargo-pdf]            | [~~LaTeX~~][cargo-latex]        | [Source][cargo-src]        | [HTML][cargo-html]        |
+| ❌        | [~~Edition Guide~~][edition-pdf]       | [~~LaTeX~~][edition-latex]      | [Source][edition-src]      | [HTML][edition-html]      |
+| ❌        | [~~Embedded Rust Book~~][embedded-pdf] | [~~LaTeX~~][embedded-latex]     | [Source][embedded-src]     | [HTML][embedded-html]     |
+| ❌        | [~~Mdbook User Guide~~][mdbook-pdf]    | [~~LaTeX~~][mdbook-latex]       | [Source][mdbook-src]       | [HTML][mdbook-html]       |
+| ❌        | [~~Rust Reference~~][reference-pdf]    | [~~LaTeX~~][reference-latex]    | [Source][reference-src]    | [HTML][reference-html]    |
+| ❌        | [~~Rust By Example~~][example-pdf]     | [~~LaTeX~~][example-latex]      | [Source][example-src]      | [HTML][example-html]      |
 | 🍊        | [Rust Programming Language][rust-pdf]  | [LaTeX][rust-latex]             | [Source][rust-src]         | [HTML][rust-html]         |
-| 🍅        | [~~Rustc Book~~][rustc-pdf]            | [~~LaTeX~~][rustc-latex]        | [Source][rustc-src]        | [HTML][rustc-html]        |
-| 🍅        | [~~Rustdoc Book~~][rustdoc-pdf]        | [~~LaTeX~~][rustdoc-latex]      | [Source][rustdoc-src]      | [HTML][rustdoc-html]      |
-| 🍅        | [~~Rustonomicon~~][rustonomicon-pdf]   | [~~LaTeX~~][rustonomicon-latex] | [Source][rustonomicon-src] | [HTML][rustonomicon-html] |
-| 🍅        | [~~Unstable Book~~][unstable-pdf]      | [~~LaTeX~~][unstable-latex]     | [Source][unstable-src]     | [HTML][unstable-html]     |
+| ❌        | [~~Rustc Book~~][rustc-pdf]            | [~~LaTeX~~][rustc-latex]        | [Source][rustc-src]        | [HTML][rustc-html]        |
+| ❌        | [~~Rustdoc Book~~][rustdoc-pdf]        | [~~LaTeX~~][rustdoc-latex]      | [Source][rustdoc-src]      | [HTML][rustdoc-html]      |
+| ❌        | [~~Rustonomicon~~][rustonomicon-pdf]   | [~~LaTeX~~][rustonomicon-latex] | [Source][rustonomicon-src] | [HTML][rustonomicon-html] |
+| ❌        | [~~Unstable Book~~][unstable-pdf]      | [~~LaTeX~~][unstable-latex]     | [Source][unstable-src]     | [HTML][unstable-html]     |
 
 [rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.1/The.Rust.Programming.Language.pdf
 [rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.1/The.Rust.Programming.Language.tex
