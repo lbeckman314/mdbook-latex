@@ -155,6 +155,7 @@ Either one. `mdbook-latex` can be thought of as a frontend for the LaTeX generat
 
 Below is a list of features I am currently working on (loosly in "top-down" direction).
 
+- [ ] Add support for equation delimiters "\( x^2 \)" "\[ x^2 \]". 
 - [ ] Allow SVG images (convert to PNG for LaTeX).
     - [x] Configure [resvg](https://github.com/RazrFalcon/resvg) library to convert SVG's to PNG.
     - [ ] Save SVG's in `book/latex` directory to keep `src` clean.
