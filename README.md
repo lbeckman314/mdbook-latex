@@ -4,9 +4,9 @@
 [![docs badge][docs-badge]][docs]
 
 [crates.io]: https://crates.io/crates/mdbook-latex
-[crates-badge]: https://img.shields.io/badge/crates.io-v0.1.0-orange.svg?longCache=true
+[crates-badge]: https://img.shields.io/badge/crates.io-v0.1.3-orange.svg?longCache=true
 
-[docs]: https://docs.rs/crate/mdbook-latex/0.1.0
+[docs]: https://docs.rs/crate/mdbook-latex/0.1.3
 [docs-badge]: https://docs.rs/mdbook-latex/badge.svg
 
 An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents.
@@ -24,7 +24,7 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 | ❌        | [~~Cargo Book~~][cargo-pdf]            | [~~LaTeX~~][cargo-latex]        | [Source][cargo-src]        | [HTML][cargo-html]        |
 | ❌        | [~~Edition Guide~~][edition-pdf]       | [~~LaTeX~~][edition-latex]      | [Source][edition-src]      | [HTML][edition-html]      |
 | ❌        | [~~Embedded Rust Book~~][embedded-pdf] | [~~LaTeX~~][embedded-latex]     | [Source][embedded-src]     | [HTML][embedded-html]     |
-| ❌        | [~~Mdbook User Guide~~][mdbook-pdf]    | [~~LaTeX~~][mdbook-latex]       | [Source][mdbook-src]       | [HTML][mdbook-html]       |
+| 🍊        | [Mdbook User Guide][mdbook-pdf]        | [LaTeX][mdbook-latex]           | [Source][mdbook-src]       | [HTML][mdbook-html]       |
 | ❌        | [~~Rust Reference~~][reference-pdf]    | [~~LaTeX~~][reference-latex]    | [Source][reference-src]    | [HTML][reference-html]    |
 | ❌        | [~~Rust By Example~~][example-pdf]     | [~~LaTeX~~][example-latex]      | [Source][example-src]      | [HTML][example-html]      |
 | 🍊        | [Rust Programming Language][rust-pdf]  | [LaTeX][rust-latex]             | [Source][rust-src]         | [HTML][rust-html]         |
@@ -33,13 +33,13 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 | ❌        | [~~Rustonomicon~~][rustonomicon-pdf]   | [~~LaTeX~~][rustonomicon-latex] | [Source][rustonomicon-src] | [HTML][rustonomicon-html] |
 | ❌        | [~~Unstable Book~~][unstable-pdf]      | [~~LaTeX~~][unstable-latex]     | [Source][unstable-src]     | [HTML][unstable-html]     |
 
-[rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.1/The.Rust.Programming.Language.pdf
-[rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.1/The.Rust.Programming.Language.tex
+[rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.3/The.Rust.Programming.Language.pdf
+[rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.3/The.Rust.Programming.Language.tex
 [rust-src]: https://github.com/rust-lang/book
 [rust-html]: https://doc.rust-lang.org/book/
 
-[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases
-[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases
+[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.3/mdbook.pdf
+[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.3/mdbook.tex
 [mdbook-src]: https://github.com/rust-lang-nursery/mdBook/tree/master/book-example
 [mdbook-html]: https://rust-lang-nursery.github.io/mdBook/
 

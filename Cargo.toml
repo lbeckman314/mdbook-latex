@@ -5,11 +5,13 @@ authors = ["lbeckman314 <liam@liambeckman.com>"]
 edition = "2018"
 description = "An mdbook backend for generating LaTeX and PDF documents."
 license = "MPL-2.0"
+readme = "README.md"
+repository = "https://github.com/lbeckman314/mdbook-latex"
 
 [dependencies]
 mdbook = "0.3.1"
 serde = "1.0.98"
 serde_derive = "1.0.98"
 tectonic = "0.1.11"
-md2tex = "0.1.1"
+md2tex = "0.1.2"
 #md2tex = { path = "/home/liam/Documents/code/projects/md2tex" }
