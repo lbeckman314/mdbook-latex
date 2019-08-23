@@ -107,9 +107,6 @@ main() {
         # clean directory
         reset "$path"
 
-        # build books
-        build "$book" "$book_dir"
-
         # build mdbooks with mdbook-latex
         git clone "$book"
         echo "$config" >> "$path/$book_dir"/book.toml
