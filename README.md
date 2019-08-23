@@ -15,7 +15,7 @@
 
 An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents.
 
-> **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release.
+> **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release. For what to do when `mdbook-latex` fails, see [**`mdbook-latex` failed to build my book! Now what? >:(**](#mdbook-latex-failed-to-build-my-book!-now-what%3F).
 
 ## Status of Rust Bookshelf
 
@@ -157,7 +157,7 @@ Either one. `mdbook-latex` can be thought of as a frontend for the LaTeX generat
 
 ## Are We Stable Yet?
 
-Below is a list of features I am currently working on (loosly in "top-down" direction).
+Below is a list of features I am currently working on (loosely in a "top-down" direction).
 
 - [x] Add support for equation delimiters "\( x^2 \)" "\[ x^2 \]". 
 - [ ] Allow SVG images (convert to PNG for LaTeX).
@@ -186,3 +186,84 @@ The following projects served as guidance for `mdbook-latex` (or are simply cool
 - [LaTeX-rs](https://github.com/Michael-F-Bryan/latex-rs): A cool library for programmatic LaTeX generation that I hope to eventually incorporate.
 - [crowbook](https://github.com/lise-henry/crowbook/): A rich program that can generate HTML, PDF, **and** EPUB files from markdown code. Has a neat [online demo page](http://vps.crowdagger.fr/crowbook/) to try it out interactively. Similar in some respects to `mdbook`, but with an added focus on "novels and fiction". Though general enough to handle a lot of different projects.
 - [no starch press](https://nostarch.com/Rust2018): *The Rust Programming Language* made professionally by a proper publishing company. Guranteed to have fewer errors than `mdbook-latex`!
+
+
+## `mdbook-latex` failed to build my book! Now what? >:(
+
+### Automatic Approach
+
+Oops! That means I still have more work to do. If you **absolutely need your PDF right now**, then the quicket option is to run the markdown file through an alternative markdown to LaTeX converter like [`pandoc`](https://pandoc.org/):
+
+```sh
+pandoc --from markdown --to latex book/latex/MY_BOOK.md -o book/latex/MY_BOOK.pdf
+```
+
+Or run it through a free (as in free parking) online solution:
+- https://www.markdowntopdf.com/
+- https://md2pdf.netlify.com/
+- https://dillinger.io/
+
+### Manual Approach
+
+If, however, you don't mind getting your hands dirty with LaTeX, here is my process for when the build step fails:
+
+1) Change the latex configuration in `book.toml` to only output LaTeX and markdown files:
+
+```toml
+[output.latex]
+latex = true
+pdf = false
+markdown = true
+```
+
+2) First see where `tectonic` is running into errors by manually running it and looking for `! LaTeX Error`:
+
+```sh
+tectonic book/latex/MY_BOOK.tex
+
+note: this is a BETA release; ask questions and report bugs at https://tectonic.newton.cx/
+Running TeX ...
+error: something bad happened inside TeX; its output follows:
+
+===============================================================================
+(MY_BOOK.tex
+.
+.
+.
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...
+
+l.260 \clearpage
+
+No pages of output.
+Transcript written on MY_BOOK.log.
+===============================================================================
+
+error: the TeX engine had an unrecoverable error
+caused by: halted on potentially-recoverable error as specified
+```
+
+Aha! `! LaTeX Error: Missing \begin{document}.` 
+
+In this example, `mdbook-latex` failed to output the very important `\begin{document}` line.
+
+3) Fix the grievous goof-up in your favorite editor and rerun `tectonic` (repeat this step until tectonic successfully compiles the PDF):
+
+```sh
+ed book/latex/MY_BOOK.tex
+
+tectonic book/latex/MY_BOOK.tex
+```
+
+Is it an elegant approach? No. Does it work? Sometimes. Is it a pain? Yes.
+
+### Finally
+
+If and when you get everything working again, first wish a pox on my household to release some frustration.
+
+Finally, if you're feeling especially benevolent, create an issue or get in touch with me ([liam@liambeckman.com](mailto:liam@liambeckman)) to help prevent the same errors in the future. I'm more than happy to work with you to get your document compiled! 
+
+= )

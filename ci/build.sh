@@ -62,16 +62,6 @@ ERROR='\033[0;31m'
 # No Color
 NC='\033[0m' 
 
-# build mdbooks with mdbook-latex
-build() {
-    url=$1
-    book_dir=$2
-
-    git clone "$url"
-    echo "$config" >> "$path"/book.toml
-    mdbook build "$path"
-}
-
 # reset any changes to the working tree
 reset() {
     dir=$1    
@@ -119,6 +109,11 @@ main() {
 
         # build books
         build "$book" "$book_dir"
+
+        # build mdbooks with mdbook-latex
+        git clone "$book"
+        echo "$config" >> "$path/$book_dir"/book.toml
+        mdbook build "$path/$book_dir/"
 
         ((i++))
     done
