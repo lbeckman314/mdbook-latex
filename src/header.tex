@@ -6,7 +6,12 @@
 \usepackage[T1]{fontenc}
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
+
+% https://tex.stackexchange.com/questions/219174/issue-with-page-breaks-before-section-and-toc-hyperlinks?rq=1
+\usepackage{titlesec}
 \usepackage{hyperref}
+\newcommand{\sectionbreak}{\clearpage}
+
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
 \usepackage{longtable}
@@ -14,8 +19,6 @@
 \usepackage{tabu}
 \usepackage{textcomp}
 \usepackage{xcolor}
-\usepackage{titlesec}
-\newcommand{\sectionbreak}{\clearpage}
 \usepackage{array}
 
 \newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}

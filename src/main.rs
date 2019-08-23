@@ -57,7 +57,7 @@ fn main() -> std::io::Result<()> {
 
     // read book's config values (title, authors).
     let title = ctx.config.book.title.unwrap();
-    let authors = ctx.config.book.authors.join("\\and");
+    let authors = ctx.config.book.authors.join(" \\and ");
 
     let mut latex = String::new();
 
@@ -130,7 +130,7 @@ fn main() -> std::io::Result<()> {
     // output PDF file.
     if cfg.pdf {
         // write PDF with tectonic.
-        println!("Writing PDF with Tectonic.");
+        println!("Writing PDF with Tectonic...");
         let pdf_data: Vec<u8> = tectonic::latex_to_pdf(latex).expect("processing failed");
         println!("Output PDF size is {} bytes", pdf_data.len());
 
