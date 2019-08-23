@@ -1,5 +1,8 @@
 language: rust
 
+dist: 
+  - bionic
+
 rust:
   - stable
 
@@ -9,6 +12,7 @@ cache:
 script:
   # https://tectonic-typesetting.github.io/en-US/install.html
   - sudo apt-get install libfontconfig1-dev libgraphite2-dev libharfbuzz-dev libicu-dev libssl-dev zlib1g-dev
+  - cargo install mdbook
   - cargo build
   - cargo test
   - ci/build.sh

@@ -6,15 +6,44 @@
 #   https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux/20983251#20983251
 #   https://stackoverflow.com/questions/2990414/echo-that-outputs-to-stderr
 
-# mdbooks to test
+# mdbooks to build
 # Each element is composed of the following "tuple":
 # <git url> <path to mdbook directory>
 books=(
     # mdbook
     "https://github.com/rust-lang-nursery/mdBook" "book-example"
+
     # rust programming language
     "https://github.com/rust-lang/book" ""
+
+    # rust by example
+    # "https://github.com/rust-lang/rust-by-example" ""
+
+    # edition guide
+    # "https://github.com/rust-lang-nursery/edition-guide" ""
+
+    # rustc
+    # "https://github.com/rust-lang/rustc-guide" ""
+
+    # cargo
+    # "https://github.com/rust-lang/cargo/" "src/doc"
+
+    # rustdoc
+    # "https://github.com/rust-lang/rust/" "src/doc/rustdoc"
+
+    # reference
+    # "https://github.com/rust-lang-nursery/reference" ""
+
+    # nomicon
+    # "https://github.com/rust-lang-nursery/nomicon" ""
+
+    # unstable
+    # "https://github.com/rust-lang/rust/" "src/doc/unstable-book"
+
+    # embedded
+    # "https://github.com/rust-embedded/book" ""
 )
+
 
 # mdbook-latex config
 config="
