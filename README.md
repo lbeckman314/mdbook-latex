@@ -2,12 +2,16 @@
 
 [![crates badge][crates-badge]][crates.io]
 [![docs badge][docs-badge]][docs]
+[![ci badge][ci-badge]][ci]
 
 [crates.io]: https://crates.io/crates/mdbook-latex
 [crates-badge]: https://img.shields.io/badge/crates.io-v0.1.3-orange.svg?longCache=true
 
 [docs]: https://docs.rs/crate/mdbook-latex/0.1.3
 [docs-badge]: https://docs.rs/mdbook-latex/badge.svg
+
+[ci]: https://travis-ci.org/lbeckman314/mdbook-latex
+[ci-badge]: https://api.travis-ci.org/lbeckman314/mdbook-latex.svg?branch=master
 
 An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents.
 
@@ -159,7 +163,7 @@ Below is a list of features I am currently working on (loosly in "top-down" dire
 - [ ] Allow SVG images (convert to PNG for LaTeX).
     - [x] Configure [resvg](https://github.com/RazrFalcon/resvg) library to convert SVG's to PNG.
     - [ ] Save SVG's in `book/latex` directory to keep `src` clean.
-- [ ] Add CI/CD pipeline ([travis](https://travis-ci.org/))
+- [x] Add CI/CD pipeline ([travis](https://travis-ci.org/))
 - [ ] Compile *The Rust Book* and *mdbook* documentation without any errors or warnings (e.g. missing Unicode characters). See [Status of Rust Bookshelf](#status-of-rust-bookshelf) for up to date progress.
 - [ ] Put "tectonic" dependency in "pdf" feature configuration.
 - [ ] Add "table of contents" mdbook toml option.

@@ -1,7 +1,10 @@
 #!/bin/bash
-# https://unix.stackexchange.com/questions/325490/how-to-get-last-part-of-http-link-in-bash/325492
-# https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux/20983251#20983251
-# https://stackoverflow.com/questions/2990414/echo-that-outputs-to-stderr
+# Builds mdbooks with mdbook-latex.
+
+# Sources:
+#   https://unix.stackexchange.com/questions/325490/how-to-get-last-part-of-http-link-in-bash/325492
+#   https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux/20983251#20983251
+#   https://stackoverflow.com/questions/2990414/echo-that-outputs-to-stderr
 
 # mdbooks to test
 # Each element is composed of the following "tuple":
@@ -34,9 +37,8 @@ NC='\033[0m'
 build() {
     url=$1
     book_dir=$2
-    #git clone "$url"
 
-    #git clone "$url"
+    git clone "$url"
     echo "$config" >> "$path"/book.toml
     mdbook build "$path"
 }
@@ -56,16 +58,24 @@ main() {
         exit 1
     fi
 
+    # check for mdbook
+    if [ $(cargo install --list | grep --count mdbook$) -eq 0 ]
+    then
+        cargo install mdbook
+    fi
+
     # check for mdbook-latex
     if [ $(cargo install --list | grep --count mdbook-latex) -eq 0 ]
     then
-        cargo install mdbook-latex
+        cargo install --path . --force
+        cargo test
     fi
 
     i=1
     elements="${#books[@]}"
     total="$(($elements / 2))"
 
+    # iterate over all books
     for ((n=0; n<"$elements"; n+=2))
     do
         book="${books[n]}"
