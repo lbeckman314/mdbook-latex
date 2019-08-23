@@ -175,7 +175,7 @@ Below is a list of features I am currently working on (loosely in a "top-down" d
 - [ ] Add option for alternative markdown-to-latex converter plugin.
 - [ ] Add test suites.
 - [ ] Cross compile binaries ([trust](https://github.com/japaric/trust))
-- [ ] Add option to generate PDF with [mdproof](https://img.shields.io/badge/crates.io-v0.1.2-orange.svg?longCache=true) to skip LaTeX dependencies.
+- [ ] Add option to generate PDF with [mdproof](https://github.com/Geemili/mdproof) to skip LaTeX dependencies.
 
 ## See Also
 
@@ -192,7 +192,9 @@ The following projects served as guidance for `mdbook-latex` (or are simply cool
 
 ### Automatic Approach
 
-Oops! That means I still have more work to do. If you **absolutely need your PDF right now**, then the quicket option is to run the markdown file through an alternative markdown to LaTeX converter like [`pandoc`](https://pandoc.org/):
+Oops! That means I still have more work to do. If you **absolutely need your PDF right now**, then the quicket option is to select the `print` icon in the upper right corner of the online page of your book.
+
+Another method is to run the markdown file through an alternative markdown to LaTeX converter like [`pandoc`](https://pandoc.org/):
 
 ```sh
 pandoc --from markdown --to latex book/latex/MY_BOOK.md -o book/latex/MY_BOOK.pdf

@@ -100,6 +100,8 @@ main() {
         book="${books[n]}"
         book_dir="${books[n+1]}"
         path="${book##*/}"
+
+        git clone "$book"
         title="$(cat $path/$book_dir/book.toml | grep "^title" | sed 's/.*= //;s/"//g')"
 
         echo -e "${COLOR}${BOLD}Building $i/$total:${NC} $title"
@@ -108,7 +110,6 @@ main() {
         reset "$path"
 
         # build mdbooks with mdbook-latex
-        git clone "$book"
         echo "$config" >> "$path/$book_dir"/book.toml
         mdbook build "$path/$book_dir/"
 
