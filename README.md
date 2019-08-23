@@ -5,9 +5,9 @@
 [![ci badge][ci-badge]][ci]
 
 [crates.io]: https://crates.io/crates/mdbook-latex
-[crates-badge]: https://img.shields.io/badge/crates.io-v0.1.3-orange.svg?longCache=true
+[crates-badge]: https://img.shields.io/badge/crates.io-v0.1.4-orange.svg?longCache=true
 
-[docs]: https://docs.rs/crate/mdbook-latex/0.1.3
+[docs]: https://docs.rs/crate/mdbook-latex/0.1.4
 [docs-badge]: https://docs.rs/mdbook-latex/badge.svg
 
 [ci]: https://travis-ci.org/lbeckman314/mdbook-latex
@@ -37,13 +37,13 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 | ❌        | [~~Rustonomicon~~][rustonomicon-pdf]   | [~~LaTeX~~][rustonomicon-latex] | [Source][rustonomicon-src] | [HTML][rustonomicon-html] |
 | ❌        | [~~Unstable Book~~][unstable-pdf]      | [~~LaTeX~~][unstable-latex]     | [Source][unstable-src]     | [HTML][unstable-html]     |
 
-[rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.3/The.Rust.Programming.Language.pdf
-[rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.3/The.Rust.Programming.Language.tex
+[rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.4/The.Rust.Programming.Language.pdf
+[rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.4/The.Rust.Programming.Language.tex
 [rust-src]: https://github.com/rust-lang/book
 [rust-html]: https://doc.rust-lang.org/book/
 
-[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.3/mdbook.pdf
-[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.3/mdbook.tex
+[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.4/mdbook.pdf
+[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.4/mdbook.tex
 [mdbook-src]: https://github.com/rust-lang-nursery/mdBook/tree/master/book-example
 [mdbook-html]: https://rust-lang-nursery.github.io/mdBook/
 
