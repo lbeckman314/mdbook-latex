@@ -37,13 +37,13 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 | ❌        | [~~Rustonomicon~~][rustonomicon-pdf]   | [~~LaTeX~~][rustonomicon-latex] | [Source][rustonomicon-src] | [HTML][rustonomicon-html] |
 | ❌        | [~~Unstable Book~~][unstable-pdf]      | [~~LaTeX~~][unstable-latex]     | [Source][unstable-src]     | [HTML][unstable-html]     |
 
-[rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.4/The.Rust.Programming.Language.pdf
-[rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.4/The.Rust.Programming.Language.tex
+[rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.3/The.Rust.Programming.Language.pdf
+[rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.3/The.Rust.Programming.Language.tex
 [rust-src]: https://github.com/rust-lang/book
 [rust-html]: https://doc.rust-lang.org/book/
 
-[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.4/mdbook.pdf
-[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.4/mdbook.tex
+[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.3/mdBook.Documentation.pdf
+[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.3/mdBook.Documentation.tex
 [mdbook-src]: https://github.com/rust-lang-nursery/mdBook/tree/master/book-example
 [mdbook-html]: https://rust-lang-nursery.github.io/mdBook/
 
