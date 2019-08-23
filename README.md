@@ -15,7 +15,7 @@
 
 An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents.
 
-> **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release. For what to do when `mdbook-latex` fails, see [**`mdbook-latex` failed to build my book! Now what? >:(**](#mdbook-latex-failed-to-build-my-book!-now-what%3F).
+> **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release. For what to do when `mdbook-latex` fails, see [**`mdbook-latex` failed to build my book! Now what? >:(**](#mdbook-latex-failed-to-build-my-book-now-what-).
 
 ## Status of Rust Bookshelf
 
