@@ -7,6 +7,8 @@ cache:
   - cargo
 
 script:
+  # https://tectonic-typesetting.github.io/en-US/install.html
+  - sudo apt-get install libfontconfig1-dev libgraphite2-dev libharfbuzz-dev libicu-dev libssl-dev zlib1g-dev
   - cargo build
   - cargo test
   - ci/build.sh
