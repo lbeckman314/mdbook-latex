@@ -160,9 +160,9 @@ Either one. `mdbook-latex` can be thought of as a frontend for the LaTeX generat
 Below is a list of features I am currently working on (loosely in a "top-down" direction).
 
 - [x] Add support for equation delimiters "\( x^2 \)" "\[ x^2 \]". 
-- [ ] Allow SVG images (convert to PNG for LaTeX).
+- [x] Allow SVG images (convert to PNG for LaTeX).
     - [x] Configure [resvg](https://github.com/RazrFalcon/resvg) library to convert SVG's to PNG.
-    - [ ] Save SVG's in `book/latex` directory to keep `src` clean.
+    - [x] Save SVG's in `book/latex` directory to keep `src` clean.
 - [x] Add CI/CD pipeline ([travis](https://travis-ci.org/))
 - [x] Move all LaTeX data to single template file (src/template.tex).
 - [ ] Compile *The Rust Book* and *mdbook* documentation without any errors or warnings (e.g. missing Unicode characters). See [Status of Rust Bookshelf](#status-of-rust-bookshelf) for up to date progress.

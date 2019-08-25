@@ -57,6 +57,10 @@ fn main() -> std::io::Result<()> {
     // copy template data into memory.
     let mut template = include_str!("template.tex").to_string();
 
+    // add title and author information.
+    template = template.replace(r"\title{}", &format!("\\title{{{}}}", title));
+    template = template.replace(r"\author{}", &format!("\\author{{{}}}", authors));
+
     let mut latex = String::new();
 
     // iterate through markdown source.
@@ -74,7 +78,7 @@ fn main() -> std::io::Result<()> {
 
     if cfg.markdown {
         // output markdown file.
-        output(".md".to_string(), title.clone(), &latex, &ctx.destination);
+        output(".md".to_string(), title.clone(), &content, &ctx.destination);
     }
 
     if cfg.latex || cfg.pdf {
