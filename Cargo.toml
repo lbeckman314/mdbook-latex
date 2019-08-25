@@ -13,5 +13,5 @@ mdbook = "0.3.1"
 serde = "1.0.98"
 serde_derive = "1.0.98"
 tectonic = "0.1.11"
-md2tex = "0.1.2"
-#md2tex = { path = "/home/liam/Documents/code/projects/md2tex" }
+#md2tex = "0.1.2"
+md2tex = { path = "/home/liam/Documents/code/projects/md2tex" }

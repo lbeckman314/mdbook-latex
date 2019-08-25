@@ -164,10 +164,11 @@ Below is a list of features I am currently working on (loosely in a "top-down" d
     - [x] Configure [resvg](https://github.com/RazrFalcon/resvg) library to convert SVG's to PNG.
     - [ ] Save SVG's in `book/latex` directory to keep `src` clean.
 - [x] Add CI/CD pipeline ([travis](https://travis-ci.org/))
+- [x] Move all LaTeX data to single template file (src/template.tex).
 - [ ] Compile *The Rust Book* and *mdbook* documentation without any errors or warnings (e.g. missing Unicode characters). See [Status of Rust Bookshelf](#status-of-rust-bookshelf) for up to date progress.
 - [ ] Put "tectonic" dependency in "pdf" feature configuration.
 - [ ] Add "table of contents" mdbook toml option.
-- [ ] Add "markdown" mdbook toml option.
+- [x] Add "markdown" mdbook toml option.
 - [ ] Add "number of words" mdbook toml option.
 - [ ] Add "examples" directory.
 - [ ] Create documentation and move relevent docs to md2tex.

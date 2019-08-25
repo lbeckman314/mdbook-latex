@@ -1,3 +1,4 @@
+%% Packages and Settings
 \UseRawInputEncoding
 \documentclass{article}
 \usepackage[english]{babel}
@@ -26,7 +27,6 @@
 \newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
 \newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
 
-
 % https://tex.stackexchange.com/questions/143015/different-column-number-in-rows
 \usepackage{booktabs,multirow,tabularx}% http://ctan.org/pkg/{booktabs,multirow,tabularx}
 \newcommand{\makecell}[1]{\begin{tabular}{c}#1\end{tabular}}
@@ -39,6 +39,7 @@
     urlcolor={blue!80!black}
 }
 
+%% Unicode rules.
 % https://tex.stackexchange.com/questions/215520/output-from-tree-command-in-a-listing
 \usepackage{newunicodechar}
 \newunicodechar{└}{{\smash{\raisebox{0.5ex}{\rule{0.5pt}{\dimexpr\baselineskip-1.5ex}}}\raisebox{0.5ex}{\rule{1ex}{0.5pt}}}}
@@ -48,6 +49,7 @@
 \newunicodechar{“}{{"}}
 \newunicodechar{”}{{"}}
 
+%% Code highlighting.
 \definecolor{commentsColor}{rgb}{0.497495, 0.497587, 0.497464}
 \definecolor{keywordsColor}{rgb}{0.000000, 0.000000, 0.635294}
 \definecolor{stringColor}{rgb}{0.558215, 0.000000, 0.135316}
@@ -83,4 +85,122 @@
   literate={└}{{\smash{\raisebox{0.5ex}{\rule{0.5pt}{\dimexpr\baselineskip-1.5ex}}}\raisebox{0.5ex}{\rule{1ex}{0.5pt}}}}1 {─}{{\raisebox{0.5ex}{\rule{1.5ex}{0.5pt}}}}1 {├}{{\smash{\raisebox{-1ex}{\rule{0.5pt}{\baselineskip}}}\raisebox{0.5ex}{\rule{1ex}{0.5pt}}}}1,
 }
 
+%% Language definitions.
+\lstdefinelanguage{rust}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
 
+\lstdefinelanguage{rs}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{console}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{\#},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{handlebars}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{shell}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{json}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{yaml}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{toml}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{diff}{
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{text}{}
+\lstdefinelanguage{hbs}{}
+\lstdefinelanguage{cmd}{}
+\lstdefinelanguage{powershell}{}
+\lstdefinelanguage{makefile}{}
+\lstdefinelanguage{markdown}{}
+
+%% Title and Author (retreived from book.toml)
+\title{}
+\author{}
+
+%% Begin document.
+\begin{document}
+\maketitle
+\clearpage
+\tableofcontents
+\clearpage
+
+%% mdbook-latex begin
+
+\end{document}

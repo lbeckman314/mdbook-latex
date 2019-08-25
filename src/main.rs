@@ -10,7 +10,7 @@ extern crate md2tex;
 extern crate tectonic;
 
 //use latex::*;
-use md2tex::markdown_to_latex;
+use md2tex::markdown_to_tex;
 use mdbook::book::BookItem;
 use mdbook::renderer::RenderContext;
 use std::error::Error;
@@ -24,24 +24,19 @@ use std::path::Path;
 pub struct LatexConfig {
     // chapters that will not be exported.
     pub ignores: Vec<String>,
+
     // output latex file.
     pub latex: bool,
+
     // output PDF.
     pub pdf: bool,
+
     // output markdown file.
     pub markdown: bool,
+
+    // TODO use user's LaTeX template file instead of default (template.tex).
+    // pub custom_template: bool,
 }
-
-// TODO move these latex parts to seperate file.
-pub const LATEX_BEGIN: &str = r#"
-\begin{document}
-\maketitle
-\clearpage
-\tableofcontents
-\clearpage
-"#;
-
-pub const LATEX_FOOTER: &str = "\n\\end{document}\n";
 
 fn main() -> std::io::Result<()> {
     let mut stdin = io::stdin();
@@ -59,17 +54,10 @@ fn main() -> std::io::Result<()> {
     let title = ctx.config.book.title.unwrap();
     let authors = ctx.config.book.authors.join(" \\and ");
 
+    // copy template data into memory.
+    let mut template = include_str!("template.tex").to_string();
+
     let mut latex = String::new();
-
-    let latex_header = include_str!("header.tex");
-    let latex_languages = include_str!("languages.tex");
-
-    latex.push_str(&latex_header);
-    latex.push_str(&latex_languages);
-    latex.push_str(&format!("\\title{{{title}}}", title = title));
-    latex.push_str(&format!("\\author{{{authors}}}", authors = authors));
-
-    latex.push_str(&LATEX_BEGIN);
 
     // iterate through markdown source.
     let mut content = String::new();
@@ -84,54 +72,31 @@ fn main() -> std::io::Result<()> {
         }
     }
 
-    // output markdown file.
     if cfg.markdown {
-        let mut file_md = title.clone();
-        file_md.push_str(".md");
-        let path = Path::new(&file_md);
-        let display = path.display();
-        let mut _file = match File::create(&file_md) {
-            Err(why) => panic!("couldn't create {}: {}", display, why.description()),
-            Ok(file) => file,
-        };
-
-        // write to file.
-        match _file.write_all(content.as_bytes()) {
-            Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
-            Ok(_) => println!("successfully wrote to {}", display),
-        }
+        // output markdown file.
+        output(".md".to_string(), title.clone(), &latex, &ctx.destination);
     }
 
-    latex.push_str(&markdown_to_latex(content.to_string()));
-    latex.push_str(&LATEX_FOOTER);
+    if cfg.latex || cfg.pdf {
+        // convert markdown data to LaTeX
+        latex.push_str(&markdown_to_tex(content.to_string()));
 
-    // output latex file.
+        // insert new LaTeX data into template after "%% mdbook-latex begin".
+        let begin = "mdbook-latex begin";
+        let pos = template.find(&begin).unwrap() + begin.len();
+        template.insert_str(pos, &latex);
+    }
+
     if cfg.latex {
-        let mut file_latex = title.clone();
-        file_latex.push_str(".tex");
-        let path = Path::new(&file_latex);
-        let display = path.display();
-
-        // create output directory/file.
-        let _ = fs::create_dir_all(&ctx.destination);
-
-        let mut file = match File::create(&path) {
-            Err(why) => panic!("couldn't create {}: {}", display, why.description()),
-            Ok(file) => file,
-        };
-
-        // write to file.
-        match file.write_all(latex.as_bytes()) {
-            Err(why) => panic!("couldn't write to {}: {}", display, why.description()),
-            Ok(_) => println!("successfully wrote to {}", display),
-        }
+        // output latex file.
+        output(".tex".to_string(), title.clone(), &template, &ctx.destination);
     }
 
     // output PDF file.
     if cfg.pdf {
         // write PDF with tectonic.
         println!("Writing PDF with Tectonic...");
-        let pdf_data: Vec<u8> = tectonic::latex_to_pdf(latex).expect("processing failed");
+        let pdf_data: Vec<u8> = tectonic::latex_to_pdf(&template).expect("processing failed");
         println!("Output PDF size is {} bytes", pdf_data.len());
 
         let mut pos = 0;
@@ -147,4 +112,27 @@ fn main() -> std::io::Result<()> {
     }
 
     Ok(())
+}
+
+/// Output plain text file.
+///
+/// Used for writing markdown and latex data to files.
+fn output<P: AsRef<Path>>(extension: String, mut filename: String, data: &String, destination: P) {
+    filename.push_str(&extension);
+    let path = Path::new(&filename);
+    let display = path.display();
+
+    // create output directory/file.
+    let _ = fs::create_dir_all(destination);
+
+    let mut file = match File::create(&path) {
+        Err(why) => panic!("Couldn't create {}: {}", display, why.description()),
+        Ok(file) => file,
+    };
+
+    // write to file.
+    match file.write_all(data.as_bytes()) {
+        Err(why) => panic!("Couldn't write to {}: {}", display, why.description()),
+        Ok(_) => println!("Successfully wrote to {}", display),
+    }
 }

@@ -1012,7 +1012,6 @@ dependencies = [
 [[package]]
 name = "md2tex"
 version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "Inflector 0.11.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "clap 2.33.0 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -1061,7 +1060,7 @@ dependencies = [
 name = "mdbook-latex"
 version = "0.1.4"
 dependencies = [
- "md2tex 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "md2tex 0.1.2",
  "mdbook 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.98 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_derive 1.0.98 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -2544,7 +2543,6 @@ dependencies = [
 "checksum markup5ever 0.8.1 (registry+https://github.com/rust-lang/crates.io-index)" = "f1af46a727284117e09780d05038b1ce6fc9c76cc6df183c3dae5a8955a25e21"
 "checksum matches 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)" = "7ffc5c5338469d4d3ea17d269fa8ea3512ad247247c30bd2df69e68309ed0a08"
 "checksum md-5 0.8.0 (registry+https://github.com/rust-lang/crates.io-index)" = "a18af3dcaf2b0219366cdb4e2af65a6101457b415c3d1a5c71dd9c2b7c77b9c8"
-"checksum md2tex 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)" = "041e1af3a96ff77dfbe6238a2453777e80285c562efbaf59a2bf90fa9eca8baa"
 "checksum mdbook 0.3.1 (registry+https://github.com/rust-lang/crates.io-index)" = "949bb2acb2cff9fa5c375cf9c43e70b3dba0a974d9fe01c31285d7a84d2a0fa2"
 "checksum memchr 2.2.1 (registry+https://github.com/rust-lang/crates.io-index)" = "88579771288728879b57485cc7d6b07d648c9f0141eb955f8ab7f9d45394468e"
 "checksum memmap 0.7.0 (registry+https://github.com/rust-lang/crates.io-index)" = "6585fd95e7bb50d6cc31e20d4cf9afb4e2ba16c5846fc76793f11218da9c475b"
