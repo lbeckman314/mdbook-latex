@@ -15,7 +15,7 @@
 
 An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents.
 
-> **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release. 
+> **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release.
 
 > **Failure**: For what to do when `mdbook-latex` fails, see [**`mdbook-latex` failed to build my book! Now what? >:(**](#mdbook-latex-failed-to-build-my-book-now-what-). I'm also available at [liam@liambeckman.com](mailto:liam@liambeckman) if you have any questions or suggestions!
 
@@ -161,12 +161,15 @@ Either one. `mdbook-latex` can be thought of as a frontend for the LaTeX generat
 
 Below is a list of features I am currently working on (loosely in a "top-down" direction).
 
-- [x] Add support for equation delimiters "\( x^2 \)" "\[ x^2 \]". 
+- [x] Add support for equation delimiters "\( x^2 \)" "\[ x^2 \]".
 - [x] Allow SVG images (convert to PNG for LaTeX).
     - [x] Configure [resvg](https://github.com/RazrFalcon/resvg) library to convert SVG's to PNG.
     - [x] Save SVG's in `book/latex` directory to keep `src` clean.
 - [x] Add CI/CD pipeline ([travis](https://travis-ci.org/))
 - [x] Move all LaTeX data to single template file (src/template.tex).
+- [ ] Add syntax highlighting via [syntect](https://github.com/trishume/syntect) à la [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc).
+- [ ] Add parallel transformations via [Rayon](https://github.com/rayon-rs/rayon) à la [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc).
+- [ ] Use [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc)'s method for handling events (replace `current` event).
 - [ ] Compile *The Rust Book* and *mdbook* documentation without any errors or warnings (e.g. missing Unicode characters). See [Status of Rust Bookshelf](#status-of-rust-bookshelf) for up to date progress.
 - [ ] Put "tectonic" dependency in "pdf" feature configuration.
 - [ ] Add "table of contents" mdbook toml option.
@@ -189,6 +192,7 @@ The following projects served as guidance for `mdbook-latex` (or are simply cool
 - [LaTeX-rs](https://github.com/Michael-F-Bryan/latex-rs): A cool library for programmatic LaTeX generation that I hope to eventually incorporate.
 - [crowbook](https://github.com/lise-henry/crowbook/): A rich program that can generate HTML, PDF, **and** EPUB files from markdown code. Has a neat [online demo page](http://vps.crowdagger.fr/crowbook/) to try it out interactively. Similar in some respects to `mdbook`, but with an added focus on "novels and fiction". Though general enough to handle a lot of different projects.
 - [no starch press](https://nostarch.com/Rust2018): *The Rust Programming Language* made professionally by a proper publishing company. Guranteed to have fewer errors than `mdbook-latex`!
+- [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc): A more elegant approach to markdown-LaTeX conversion via `pulldown_cmark` that that currently provided by `md2tex`. Also includes parallelism via [Rayon](https://github.com/rayon-rs/rayon) and syntax highlighting via [syntect](https://github.com/trishume/syntect)!
 
 
 ## `mdbook-latex` failed to build my book! Now what? >:(
@@ -251,7 +255,7 @@ error: the TeX engine had an unrecoverable error
 caused by: halted on potentially-recoverable error as specified
 ```
 
-Aha! `! LaTeX Error: Missing \begin{document}.` 
+Aha! `! LaTeX Error: Missing \begin{document}.`
 
 In this example, `mdbook-latex` failed to output the very important `\begin{document}` line.
 
@@ -269,6 +273,6 @@ Is it an elegant approach? No. Does it work? Sometimes. Is it a pain? Yes.
 
 If and when you get everything working again, first wish a pox on my household to release some frustration.
 
-Finally, if you're feeling especially benevolent, create an issue or get in touch with me ([liam@liambeckman.com](mailto:liam@liambeckman)) to help prevent the same errors in the future. I'm more than happy to work with you to get your document compiled! 
+Finally, if you're feeling especially benevolent, create an issue or get in touch with me ([liam@liambeckman.com](mailto:liam@liambeckman)) to help prevent the same errors in the future. I'm more than happy to work with you to get your document compiled!
 
 = )

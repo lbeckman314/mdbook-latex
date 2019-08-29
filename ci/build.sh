@@ -101,6 +101,8 @@ main() {
         book_dir="${books[n+1]}"
         path="${book##*/}"
 
+        rm -rf "./$path"
+
         git clone "$book"
         title="$(cat $path/$book_dir/book.toml | grep "^title" | sed 's/.*= //;s/"//g')"
 
