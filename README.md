@@ -192,7 +192,7 @@ The following projects served as guidance for `mdbook-latex` (or are simply cool
 - [LaTeX-rs](https://github.com/Michael-F-Bryan/latex-rs): A cool library for programmatic LaTeX generation that I hope to eventually incorporate.
 - [crowbook](https://github.com/lise-henry/crowbook/): A rich program that can generate HTML, PDF, **and** EPUB files from markdown code. Has a neat [online demo page](http://vps.crowdagger.fr/crowbook/) to try it out interactively. Similar in some respects to `mdbook`, but with an added focus on "novels and fiction". Though general enough to handle a lot of different projects.
 - [no starch press](https://nostarch.com/Rust2018): *The Rust Programming Language* made professionally by a proper publishing company. Guranteed to have fewer errors than `mdbook-latex`!
-- [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc): A more elegant approach to markdown-LaTeX conversion via `pulldown_cmark` that that currently provided by `md2tex`. Also includes parallelism via [Rayon](https://github.com/rayon-rs/rayon) and syntax highlighting via [syntect](https://github.com/trishume/syntect)!
+- [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc): A more elegant approach to markdown-LaTeX conversion via `pulldown_cmark` than that currently provided by `md2tex`. Also includes parallelism via [Rayon](https://github.com/rayon-rs/rayon) and syntax highlighting via [syntect](https://github.com/trishume/syntect)!
 
 
 ## `mdbook-latex` failed to build my book! Now what? >:(
