@@ -13,11 +13,13 @@
 [ci]: https://travis-ci.org/lbeckman314/mdbook-latex
 [ci-badge]: https://api.travis-ci.org/lbeckman314/mdbook-latex.svg?branch=master
 
-An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents.
+An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents. Utilizes [`md2tex`](https://github.com/lbeckman314/md2tex) for the markdown to LaTeX transformation, but with the goal of allowing alternative markdown to LaTeX converters. If you have developed your own markdown to LaTeX converter, I'd love to talk with you or share ideas! I'm at [liam@liambeckman.com](mailto:liam@liambeckman).
+
+`mdbook-latex` does not cover the gamut of the [CommonMark spec](https://spec.commonmark.org/) (yet!), but is simply a best-effort attempt by a self-professed Rust noob.
 
 > **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release.
 
-> **Failure**: For what to do when `mdbook-latex` fails, see [**`mdbook-latex` failed to build my book! Now what? >:(**](#mdbook-latex-failed-to-build-my-book-now-what-). I'm also available at [liam@liambeckman.com](mailto:liam@liambeckman) if you have any questions or suggestions!
+> **Failure**: For what to do if and when `mdbook-latex` fails, see [**`mdbook-latex` failed to build my book! Now what? >:(**](#mdbook-latex-failed-to-build-my-book-now-what-). I'm also available via [e-mail](mailto:liam@liambeckman) if you have any questions or suggestions!
 
 ## Status of Rust Bookshelf
 
@@ -167,6 +169,7 @@ Below is a list of features I am currently working on (loosely in a "top-down" d
     - [x] Save SVG's in `book/latex` directory to keep `src` clean.
 - [x] Add CI/CD pipeline ([travis](https://travis-ci.org/))
 - [x] Move all LaTeX data to single template file (src/template.tex).
+- [ ] Add support for raw HTML tables.
 - [ ] Add syntax highlighting via [syntect](https://github.com/trishume/syntect) à la [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc).
 - [ ] Add parallel transformations via [Rayon](https://github.com/rayon-rs/rayon) à la [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc).
 - [ ] Use [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc)'s method for handling events (replace `current` event).
@@ -182,6 +185,7 @@ Below is a list of features I am currently working on (loosely in a "top-down" d
 - [ ] Add test suites.
 - [ ] Cross compile binaries ([trust](https://github.com/japaric/trust))
 - [ ] Add option to generate PDF with [mdproof](https://github.com/Geemili/mdproof) to skip LaTeX dependencies.
+- [ ] Complete acordance with the [CommonMark spec](https://spec.commonmark.org/).
 
 ## See Also
 
