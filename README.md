@@ -13,6 +13,21 @@
 [ci]: https://travis-ci.org/lbeckman314/mdbook-latex
 [ci-badge]: https://api.travis-ci.org/lbeckman314/mdbook-latex.svg?branch=master
 
+- [Status of Rust Bookshelf](#status-of-rust-bookshelf)
+- [Installation](#installation)
+- [Uninstallation](#uninstallation)
+- [Primary Dependencies](#primary-dependencies)
+- [How's it Work?](#hows-it-work)
+- [Contributing](#contributing)
+  * [I found a problem. Should I create an issue with `mdbook-latex` or `md2tex`?](#i-found-a-problem-should-i-create-an-issue-with-mdbook-latex-or-md2tex)
+- [Are We Stable Yet?](#are-we-stable-yet)
+- [See Also](#see-also)
+- [`mdbook-latex` failed to build my book! Now what? >:(](#mdbook-latex-failed-to-build-my-book-now-what-)
+  * [Automatic Approach](#automatic-approach)
+  * [Manual Approach](#manual-approach)
+  * [Finally](#finally)
+
+
 An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents. Utilizes [`md2tex`](https://github.com/lbeckman314/md2tex) for the markdown to LaTeX transformation, but with the goal of allowing alternative markdown to LaTeX converters. If you have developed your own markdown to LaTeX converter, I'd love to talk with you or share ideas! I'm at [liam@liambeckman.com](mailto:liam@liambeckman).
 
 `mdbook-latex` does not cover the gamut of the [CommonMark spec](https://spec.commonmark.org/) (yet!), but is simply a best-effort attempt by a self-professed Rust noob.
@@ -113,11 +128,12 @@ Finally, add the following `toml` configuration to `book.toml`.
 
 ```toml
 [output.latex]
-latex = true
-pdf = true
+latex    = true  # default = true
+pdf      = true  # default = false
+markdown = true  # default = false
 ```
 
-The next `mdbook build` command will produce LaTeX and PDF files in the `book/latex/` directory.
+The next `mdbook build` command will produce LaTeX and PDF files (and the markdown file of your mdbook) in the `book/latex/` directory.
 
 ## Uninstallation
 
@@ -131,8 +147,9 @@ Then delete the `[output.latex]` configuration in `book.toml`:
 
 ```diff
 - [output.latex]
-- latex = true
-- pdf = true
+- latex    = true
+- pdf      = true
+- markdown = true
 ```
 
 ## Primary Dependencies
@@ -172,7 +189,7 @@ Below is a list of features I am currently working on (loosely in a "top-down" d
 - [ ] Add support for raw HTML tables.
 - [ ] Add syntax highlighting via [syntect](https://github.com/trishume/syntect) à la [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc).
 - [ ] Add parallel transformations via [Rayon](https://github.com/rayon-rs/rayon) à la [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc).
-- [ ] Use [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc)'s method for handling events (replace `current` event).
+- [ ] Use [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc)'s method for handling events (replace `current` event with `fold`).
 - [ ] Compile *The Rust Book* and *mdbook* documentation without any errors or warnings (e.g. missing Unicode characters). See [Status of Rust Bookshelf](#status-of-rust-bookshelf) for up to date progress.
 - [ ] Put "tectonic" dependency in "pdf" feature configuration.
 - [ ] Add "table of contents" mdbook toml option.
