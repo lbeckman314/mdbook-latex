@@ -184,7 +184,7 @@ Below is a list of features I am currently working on (loosely in a "top-down" d
     - [x] Save SVG's in `book/latex` directory to keep `src` clean.
 - [x] Add CI/CD pipeline ([travis](https://travis-ci.org/))
 - [x] Move all LaTeX data to single template file (src/template.tex).
-- [ ] Add support for raw HTML tables.
+- [ ] Add support for HTML codeblocks.
 - [ ] Add syntax highlighting via [syntect](https://github.com/trishume/syntect) à la [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc).
 - [ ] Add parallel transformations via [Rayon](https://github.com/rayon-rs/rayon) à la [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc).
 - [ ] Use [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc)'s method for handling events (replace `current` event with `fold`).
