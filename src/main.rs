@@ -34,8 +34,8 @@ pub struct LatexConfig {
     // output markdown file.
     pub markdown: bool,
 
-    // TODO use user's LaTeX template file instead of default (template.tex).
-    // pub custom_template: bool,
+    // use user's LaTeX template file instead of default (template.tex).
+    pub custom_template: Option<String>,
 }
 
 fn main() -> std::io::Result<()> {
@@ -55,7 +55,13 @@ fn main() -> std::io::Result<()> {
     let authors = ctx.config.book.authors.join(" \\and ");
 
     // copy template data into memory.
-    let mut template = include_str!("template.tex").to_string();
+    let mut template = if let Some(custom_template) = cfg.custom_template {
+            let mut custom_template_path = ctx.root;
+            custom_template_path.push(custom_template);
+            std::fs::read_to_string(custom_template_path)?
+        } else {
+            include_str!("template.tex").to_string()
+        };
 
     // add title and author information.
     template = template.replace(r"\title{}", &format!("\\title{{{}}}", title));
