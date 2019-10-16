@@ -21,7 +21,7 @@ install:
       } ElseIf ($Env:TARGET -eq 'i686-pc-windows-gnu') {
         $Env:PATH += ';C:\msys64\mingw32\bin'
       }
-  - C:\msys64\usr\bin\bash -lc "pacman --noconfirm --force -S --needed mingw-w64-x86_64-{fontconfig,harfbuzz,harfbuzz-icu,icu-uc,freetype,graphite2}"
+  - C:\msys64\usr\bin\bash -lc "pacman --noconfirm -S --needed mingw-w64-x86_64-{fontconfig,harfbuzz,icu,freetype,graphite2}"
   - curl -sSf -o rustup-init.exe https://win.rustup.rs/
   - rustup-init.exe -y --default-host %TARGET% --default-toolchain %RUST_VERSION%
   - set PATH=%PATH%;C:\Users\appveyor\.cargo\bin
