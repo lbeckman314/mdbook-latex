@@ -36,7 +36,7 @@ matrix:
 before_install:
   - set -e
   - rustup self update
-  - sudo apt-get install -y freetype2 harfbuzz
+  - sudo apt-get install -y libfreetype6
 
 install:
   - sh ci/install.sh
