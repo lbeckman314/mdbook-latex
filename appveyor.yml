@@ -15,6 +15,7 @@ environment:
     #- TARGET: x86_64-pc-windows-msvc
 
 install:
+    - bash -lc "pacman --noconfirm --force -S --needed mingw-w64-x86_64-{fontconfig,harfbuzz,harfbuzz-icu,icu-uc,freetype,graphite2}"
   - ps: >-
       If ($Env:TARGET -eq 'x86_64-pc-windows-gnu') {
         $Env:PATH += ';C:\msys64\mingw64\bin'
