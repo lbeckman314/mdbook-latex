@@ -295,3 +295,28 @@ If and when you get everything working again, first wish a pox on my household t
 Finally, if you're feeling especially benevolent, create an issue or get in touch with me ([liam@liambeckman.com](mailto:liam@liambeckman)) to help prevent the same errors in the future. I'm more than happy to work with you to get your document compiled!
 
 = )
+
+
+## Status of Binary Releases
+
+- ✅ binary available
+- ❌ binary not available
+
+| Binary?   | Target                                                             |
+| --------- | ---------                                                          |
+| ❌        | [~~armv7-unknown-linux-gnueabihf~~][armv7-unknown-linux-gnueabihf] |
+| ❌        | [~~i686-pc-windows-gnu~~][i686-pc-windows-gnu]                     |
+| ❌        | [~~i686-unknown-linux-gnu~~][i686-unknown-linux-gnu]               |
+| ❌        | [~~x86_64-apple-darwin~~][x86_64-apple-darwin]                     |
+| ❌        | [~~x86_64-pc-windows-gnu~~][x86_64-pc-windows-gnu]                 |
+| ❌        | [~~x86_64-unknown-freebsd~~][x86_64-unknown-freebsd]               |
+| ❌        | [~~x86_64-unknown-linux-gnu~~][x86_64-unknown-linux-gnu]           |
+
+
+[x86_64-unknown-linux-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
+[i686-unknown-linux-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
+[armv7-unknown-linux-gnueabihf]: https://github.com/lbeckman314/mdbook-latex/releases/
+[x86_64-apple-darwin]: https://github.com/lbeckman314/mdbook-latex/releases/
+[x86_64-unknown-freebsd]: https://github.com/lbeckman314/mdbook-latex/releases/
+[i686-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
+[x86_64-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
