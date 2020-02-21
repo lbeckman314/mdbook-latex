@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>README.html</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+
+</head>
+
+<body>
+
+<h1>mdbook-latex</h1>
+
+<p align="center">
+<h1>mdbook-latex</h1>
+
+<p><img src="mdbook-latex.png" alt="mdbook-latex logo" /></p>
+
+<p><a href="https://crates.io/crates/mdbook-latex"><img src="https://img.shields.io/badge/crates.io-v0.1.5-orange.svg?longCache=true" alt="crates badge" /></a>
+<a href="https://docs.rs/crate/mdbook-latex/0.1.5"><img src="https://docs.rs/mdbook-latex/badge.svg" alt="docs badge" /></a>
+<a href="https://travis-ci.org/lbeckman314/mdbook-latex"><img src="https://api.travis-ci.org/lbeckman314/mdbook-latex.svg?branch=master" alt="ci badge" /></a></p>
+</p>
+
+<p><img src="mdbook-latex.png" alt="mdbook-latex logo" /></p>
+
+<p><a href="https://crates.io/crates/mdbook-latex"><img src="https://img.shields.io/badge/crates.io-v0.1.5-orange.svg?longCache=true" alt="crates badge" /></a>
+<a href="https://docs.rs/crate/mdbook-latex/0.1.5"><img src="https://docs.rs/mdbook-latex/badge.svg" alt="docs badge" /></a>
+<a href="https://travis-ci.org/lbeckman314/mdbook-latex"><img src="https://api.travis-ci.org/lbeckman314/mdbook-latex.svg?branch=master" alt="ci badge" /></a></p>
+
+<ul>
+<li><a href="#status-of-rust-bookshelf">Status of Rust Bookshelf</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#uninstallation">Uninstallation</a></li>
+<li><a href="#primary-dependencies">Primary Dependencies</a></li>
+<li><a href="#hows-it-work">How's it Work?</a></li>
+<li><a href="#contributing">Contributing</a>
+<ul>
+<li><a href="#i-found-a-problem-should-i-create-an-issue-with-mdbook-latex-or-md2tex">I found a problem. Should I create an issue with <code>mdbook-latex</code> or <code>md2tex</code>?</a></li>
+</ul></li>
+<li><a href="#are-we-stable-yet">Are We Stable Yet?</a></li>
+<li><a href="#see-also">See Also</a></li>
+<li><a href="#mdbook-latex-failed-to-build-my-book-now-what-"><code>mdbook-latex</code> failed to build my book! Now what? >:(</a>
+<ul>
+<li><a href="#automatic-approach">Automatic Approach</a></li>
+<li><a href="#manual-approach">Manual Approach</a></li>
+<li><a href="#finally">Finally</a></li>
+</ul></li>
+</ul>
+
+<p>An <a href="https://github.com/rust-lang-nursery/mdBook">mdbook</a> backend for generating LaTeX and PDF documents. Utilizes <a href="https://github.com/lbeckman314/md2tex"><code>md2tex</code></a> for the markdown to LaTeX transformation, but with the goal of allowing alternative markdown to LaTeX converters. If you have developed your own markdown to LaTeX converter, I'd love to talk with you or share ideas! I'm at <a href="mailto:liam@liambeckman">liam@liambeckman.com</a>.</p>
+
+<blockquote>
+  <p><strong>Warning</strong>: Not yet stable — may eat, shred, and atomize your laundry! See the <a href="#are-we-stable-yet%3F"><strong>Are We Stable Yet?</strong></a> section for a roadmap to the production release.</p>
+
+<p><strong>Failure</strong>: For what to do if and when <code>mdbook-latex</code> fails, see <a href="#mdbook-latex-failed-to-build-my-book-now-what-"><strong><code>mdbook-latex</code> failed to build my book! Now what? >:(</strong></a>. I'm also available via <a href="mailto:liam@liambeckman">e-mail</a> if you have any questions or suggestions!</p>
+</blockquote>
+
+<h2>Status of Rust Bookshelf</h2>
+
+<ul>
+<li>✅ compiles successfully</li>
+<li>🍊 compiles but with warnings/errors</li>
+<li>❌ compilation fails/not yet attempted</li>
+</ul>
+
+<p>| Compiles? | Generated PDF                          | Generated LaTeX                 | Source                     | Online Version            |
+| --------- | ---------------------------------      | -----------------------         | ----------------------     | ---------------------     |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~Cargo Book~~</a>            | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~LaTeX~~</a>        | <a href="https://github.com/rust-lang/cargo/tree/master/src/doc">Source</a>        | <a href="https://doc.rust-lang.org/cargo/index.html">HTML</a>        |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~Edition Guide~~</a>       | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~LaTeX~~</a>      | <a href="https://github.com/rust-lang-nursery/edition-guide">Source</a>      | <a href="https://doc.rust-lang.org/edition-guide/index.html">HTML</a>      |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~Embedded Rust Book~~</a> | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~LaTeX~~</a>     | <a href="https://github.com/rust-embedded/book">Source</a>     | <a href="https://rust-embedded.github.io/book/">HTML</a>     |
+| 🍊        | <a href="https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.5/mdBook.Documentation.pdf">Mdbook User Guide</a>        | <a href="https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.5/mdBook.Documentation.tex">LaTeX</a>           | <a href="https://github.com/rust-lang-nursery/mdBook/tree/master/book-example">Source</a>       | <a href="https://rust-lang-nursery.github.io/mdBook/">HTML</a>       |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~Rust Reference~~</a>    | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~LaTeX~~</a>    | <a href="https://github.com/rust-lang-nursery/reference">Source</a>    | <a href="https://doc.rust-lang.org/reference/index.html">HTML</a>    |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~Rust By Example~~</a>     | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~LaTeX~~</a>      | <a href="https://github.com/rust-lang/rust-by-example">Source</a>      | <a href="https://doc.rust-lang.org/stable/rust-by-example/">HTML</a>      |
+| 🍊        | <a href="https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.5/The.Rust.Programming.Language.pdf">Rust Programming Language</a>  | <a href="https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.5/The.Rust.Programming.Language.tex">LaTeX</a>             | <a href="https://github.com/rust-lang/book">Source</a>         | <a href="https://doc.rust-lang.org/book/">HTML</a>         |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~Rustc Book~~</a>            | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~LaTeX~~</a>        | <a href="https://github.com/rust-lang/rustc-guide">Source</a>        | <a href="https://doc.rust-lang.org/rustc/index.html">HTML</a>        |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~Rustdoc Book~~</a>        | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~LaTeX~~</a>      | <a href="https://github.com/rust-lang/rust/tree/master/src/doc/rustdoc">Source</a>      | <a href="https://doc.rust-lang.org/rustdoc/index.html">HTML</a>      |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~Rustonomicon~~</a>   | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~LaTeX~~</a> | <a href="https://github.com/rust-lang-nursery/nomicon">Source</a> | <a href="https://doc.rust-lang.org/nomicon/index.html">HTML</a> |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~Unstable Book~~</a>      | <a href="https://github.com/lbeckman314/mdbook-latex/releases">~~LaTeX~~</a>     | <a href="https://github.com/rust-lang/rust/tree/master/src/doc/unstable-book">Source</a>     | <a href="https://doc.rust-lang.org/unstable-book/index.html">HTML</a>     |</p>
+
+<h2>Installation</h2>
+
+<p>First, install the following two programs:</p>
+
+<ul>
+<li><a href="https://www.rust-lang.org/">Rust</a></li>
+<li><a href="https://github.com/rust-lang-nursery/mdBook">mdbook</a></li>
+</ul>
+
+<p>Then, to install <code>mdbook-latex</code>, enter the following in a shell:</p>
+
+<p><code>sh
+cargo install mdbook-latex
+</code></p>
+
+<p>Finally, add the following <code>toml</code> configuration to <code>book.toml</code>.</p>
+
+<p><code>toml
+[output.latex]
+latex    = true  # default = true
+pdf      = true  # default = false
+markdown = true  # default = false
+</code></p>
+
+<p>The next <code>mdbook build</code> command will produce LaTeX and PDF files (and the markdown file of your mdbook) in the <code>book/latex/</code> directory.</p>
+
+<h2>Uninstallation</h2>
+
+<p>To uninstall <code>mdbook-latex</code>, enter the following in a shell:</p>
+
+<p><code>sh
+cargo uninstall mdbook-latex
+</code></p>
+
+<p>Then delete the <code>[output.latex]</code> configuration in <code>book.toml</code>:</p>
+
+<p><code>diff
+- [output.latex]
+- latex    = true
+- pdf      = true
+- markdown = true
+</code></p>
+
+<h2>Primary Dependencies</h2>
+
+<p><code>mdbook-latex</code> is built upon some really wonderful projects, including:</p>
+
+<ul>
+<li><a href="https://github.com/raphlinus/pulldown-cmark">pulldown-cmark</a>: Parses the markdown source AST.</li>
+<li><a href="https://tectonic-typesetting.github.io/en-US/">Tectonic</a>: Creates the final PDF file from the transformed LaTeX code.</li>
+<li><a href="https://github.com/lbeckman314/md2tex">md2tex</a>: Transforms the markdown source to LaTeX. This is a fork of <a href="https://gitea.tforgione.fr/tforgione/md2pdf/">md2pdf</a>, a great utility for converting markdown code to LaTeX and PDF's.  I hope to eventually propose some of the updates back upstream. <code>md2tex</code> and <code>mdbook-latex</code> are developed in tandem, but are meant to be independent programs. Therefore, if one wishes to use an alternative markdown-to-tex conveter, they should be able to plug it in to <code>mdbook-latex</code> with ease.</li>
+</ul>
+
+<h2>How's it Work?</h2>
+
+<p>Broadly speaking, there are three steps, or "transformations", from <code>mdbook</code> source to PDF output:</p>
+
+<p>1) <strong>mdbook source to JSON-organized markdown</strong> (<code>mdbook-latex</code>): retreives the JSON formatted data from <code>mdbook</code>. Calls <code>md2tex</code> and <code>tectonic</code> for LaTeX and PDF generation, respectively.
+2) <strong>markdown to LaTeX</strong> (<code>md2tex</code>): converts markdown input to LaTeX output.
+3) <strong>LaTeX to PDF</strong> (<code>tectonic</code>): creates PDF document from LaTeX input.</p>
+
+<h2>Contributing</h2>
+
+<p>Pull requests, forks, and plain old copy-pasting are actively encouraged! Also, I am relatively new to Rust (and programming in general) so recommendations or advice in general is always appreciated.</p>
+
+<h3>I found a problem. Should I create an issue with <code>mdbook-latex</code> or <code>md2tex</code>?</h3>
+
+<p>Either one. <code>mdbook-latex</code> can be thought of as a frontend for the LaTeX generation done by <code>md2tex</code>. So if there is a LaTeX error, you may favor creating an issue with <code>md2tex</code>. Otherwise, creating an issue with <code>mdbook-latex</code> is a good bet. But any issue is a good issue, so don't worry if it's in the "right" repository or not, I should be able to see it regardless!</p>
+
+<h2>Are We Stable Yet?</h2>
+
+<p>Below is a list of features I am currently working on (loosely in a "top-down" direction).</p>
+
+<ul>
+<li>[x] Add support for equation delimiters "( x^2 )" "[ x^2 ]".</li>
+<li>[x] Allow SVG images (convert to PNG for LaTeX).
+<ul>
+<li>[x] Configure <a href="https://github.com/RazrFalcon/resvg">resvg</a> library to convert SVG's to PNG.</li>
+<li>[x] Save SVG's in <code>book/latex</code> directory to keep <code>src</code> clean.</li>
+</ul></li>
+<li>[x] Add CI/CD pipeline (<a href="https://travis-ci.org/">travis</a>)</li>
+<li>[x] Move all LaTeX data to single template file (src/template.tex).</li>
+<li>[ ] Add support for raw HTML tables.</li>
+<li>[ ] Add syntax highlighting via <a href="https://github.com/trishume/syntect">syntect</a> à la <a href="https://github.com/ratmice/lumpy-leandoc">lumpy-leandoc</a>.</li>
+<li>[ ] Add parallel transformations via <a href="https://github.com/rayon-rs/rayon">Rayon</a> à la <a href="https://github.com/ratmice/lumpy-leandoc">lumpy-leandoc</a>.</li>
+<li>[ ] Use <a href="https://github.com/ratmice/lumpy-leandoc">lumpy-leandoc</a>'s method for handling events (replace <code>current</code> event with <code>fold</code>).</li>
+<li>[ ] Compile <em>The Rust Book</em> and <em>mdbook</em> documentation without any errors or warnings (e.g. missing Unicode characters). See <a href="#status-of-rust-bookshelf">Status of Rust Bookshelf</a> for up to date progress.</li>
+<li>[ ] Put "tectonic" dependency in "pdf" feature configuration.</li>
+<li>[ ] Add "table of contents" mdbook toml option.</li>
+<li>[x] Add "markdown" mdbook toml option.</li>
+<li>[ ] Add "number of words" mdbook toml option.</li>
+<li>[ ] Add "examples" directory.</li>
+<li>[ ] Create documentation and move relevent docs to md2tex.</li>
+<li>[ ] Add option for custom LaTeX headers.</li>
+<li>[ ] Add option for alternative markdown-to-latex converter plugin.</li>
+<li>[ ] Add test suites.</li>
+<li>[ ] Cross compile binaries (<a href="https://github.com/japaric/trust">trust</a>)</li>
+<li>[ ] Add option to generate PDF with <a href="https://github.com/Geemili/mdproof">mdproof</a> to skip LaTeX dependencies.</li>
+<li>[ ] Complete acordance with the <a href="https://spec.commonmark.org/">CommonMark spec</a>.</li>
+</ul>
+
+<h2>See Also</h2>
+
+<p>The following projects served as guidance for <code>mdbook-latex</code> (or are simply cool enough that they deserve to be shared!):</p>
+
+<ul>
+<li><a href="https://github.com/Michael-F-Bryan/mdbook-epub">mdbook-epub</a>: A backend for mdbook that creates EPUB files.</li>
+<li><a href="https://github.com/Michael-F-Bryan/mdbook-linkcheck">mdbook-linkcheck</a>: A backend for <code>mdbook</code> that will verify URL links.</li>
+<li><a href="https://github.com/Michael-F-Bryan/latex-rs">LaTeX-rs</a>: A cool library for programmatic LaTeX generation that I hope to eventually incorporate.</li>
+<li><a href="https://github.com/lise-henry/crowbook/">crowbook</a>: A rich program that can generate HTML, PDF, <strong>and</strong> EPUB files from markdown code. Has a neat <a href="http://vps.crowdagger.fr/crowbook/">online demo page</a> to try it out interactively. Similar in some respects to <code>mdbook</code>, but with an added focus on "novels and fiction". Though general enough to handle a lot of different projects.</li>
+<li><a href="https://nostarch.com/Rust2018">no starch press</a>: <em>The Rust Programming Language</em> made professionally by a proper publishing company. Guranteed to have fewer errors than <code>mdbook-latex</code>!</li>
+<li><a href="https://github.com/ratmice/lumpy-leandoc">lumpy-leandoc</a>: A more elegant approach to markdown-LaTeX conversion via <code>pulldown_cmark</code> than that currently provided by <code>md2tex</code>. Also includes parallelism via <a href="https://github.com/rayon-rs/rayon">Rayon</a> and syntax highlighting via <a href="https://github.com/trishume/syntect">syntect</a>!</li>
+</ul>
+
+<h2><code>mdbook-latex</code> failed to build my book! Now what? >:(</h2>
+
+<h3>Automatic Approach</h3>
+
+<p>Oops! That means I still have more work to do. If you <strong>absolutely need your PDF right now</strong>, then the quicket option is to select the <code>print</code> icon in the upper right corner of the online page of your book.</p>
+
+<p>Another method is to run the markdown file through an alternative markdown to LaTeX converter like <a href="https://pandoc.org/"><code>pandoc</code></a>:</p>
+
+<p><code>sh
+pandoc --from markdown --to latex book/latex/MY_BOOK.md -o book/latex/MY_BOOK.pdf
+</code></p>
+
+<p>Or run it through a free (as in free parking) online solution:
+- https://www.markdowntopdf.com/
+- https://md2pdf.netlify.com/
+- https://dillinger.io/</p>
+
+<h3>Manual Approach</h3>
+
+<p>If, however, you don't mind getting your hands dirty with LaTeX, here is my process for when the build step fails:</p>
+
+<p>1) Change the latex configuration in <code>book.toml</code> to only output LaTeX and markdown files:</p>
+
+<p><code>toml
+[output.latex]
+latex = true
+pdf = false
+markdown = true
+</code></p>
+
+<p>2) First see where <code>tectonic</code> is running into errors by manually running it and looking for <code>! LaTeX Error</code>:</p>
+
+<p>```sh
+tectonic book/latex/MY_BOOK.tex</p>
+
+<p>note: this is a BETA release; ask questions and report bugs at https://tectonic.newton.cx/
+Running TeX ...
+error: something bad happened inside TeX; its output follows:</p>
+
+<p>===============================================================================
+(MY_BOOK.tex
+.
+.
+.
+! LaTeX Error: Missing \begin{document}.</p>
+
+<p>See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...</p>
+
+<p>l.260 \clearpage</p>
+
+<p>No pages of output.</p>
+
+<h1>Transcript written on MY_BOOK.log.</h1>
+
+<p>error: the TeX engine had an unrecoverable error
+caused by: halted on potentially-recoverable error as specified
+```</p>
+
+<p>Aha! <code>! LaTeX Error: Missing \begin{document}.</code></p>
+
+<p>In this example, <code>mdbook-latex</code> failed to output the very important <code>\begin{document}</code> line.</p>
+
+<p>3) Fix the grievous goof-up in your favorite editor and rerun <code>tectonic</code> (repeat this step until tectonic successfully compiles the PDF):</p>
+
+<p>```sh
+ed book/latex/MY_BOOK.tex</p>
+
+<p>tectonic book/latex/MY_BOOK.tex
+```</p>
+
+<p>Is it an elegant approach? No. Does it work? Sometimes. Is it a pain? Yes.</p>
+
+<h3>Finally</h3>
+
+<p>If and when you get everything working again, first wish a pox on my household to release some frustration.</p>
+
+<p>Finally, if you're feeling especially benevolent, create an issue or get in touch with me (<a href="mailto:liam@liambeckman">liam@liambeckman.com</a>) to help prevent the same errors in the future. I'm more than happy to work with you to get your document compiled!</p>
+
+<p>= )</p>
+
+<h2>Status of Binary Releases</h2>
+
+<ul>
+<li>✅ binary available</li>
+<li>❌ binary not available</li>
+</ul>
+
+<p>| Binary?   | Target                                                             |
+| --------- | ---------                                                          |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases/">~~armv7-unknown-linux-gnueabihf~~</a> |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases/">~~i686-pc-windows-gnu~~</a>                     |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases/">~~i686-unknown-linux-gnu~~</a>               |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases/">~~x86<em>64-apple-darwin~~</a>                     |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases/">~~x86</em>64-pc-windows-gnu~~</a>                 |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases/">~~x86<em>64-unknown-freebsd~~</a>               |
+| ❌        | <a href="https://github.com/lbeckman314/mdbook-latex/releases/">~~x86</em>64-unknown-linux-gnu~~</a>           |</p>
+
+</body>
+</html>

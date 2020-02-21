@@ -1,5 +1,15 @@
 # mdbook-latex
 
+<h1>mdbook-latex</h1>
+
+<p><img src="mdbook-latex.png" alt="mdbook-latex logo" /></p>
+
+<p align="center">
+<a href="https://crates.io/crates/mdbook-latex"><img src="https://img.shields.io/badge/crates.io-v0.1.5-orange.svg?longCache=true" alt="crates badge" /></a>
+<a href="https://docs.rs/crate/mdbook-latex/0.1.5"><img src="https://docs.rs/mdbook-latex/badge.svg" alt="docs badge" /></a>
+<a href="https://travis-ci.org/lbeckman314/mdbook-latex"><img src="https://api.travis-ci.org/lbeckman314/mdbook-latex.svg?branch=master" alt="ci badge" /></a>
+</p>
+
 ![mdbook-latex logo][logo]
 
 [logo]: mdbook-latex.png
