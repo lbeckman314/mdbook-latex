@@ -18,8 +18,8 @@ matrix:
     # TODO BSD, OSX, Windows targets.
 
 before_install:
+  - set -e
   - rustup self update
-  - sh bootstrap.sh
 
 install:
   - sh ci/install.sh
