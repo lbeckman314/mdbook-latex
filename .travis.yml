@@ -13,30 +13,13 @@ env:
 matrix:
   include:
     # Linux
-    #- env: TARGET=arm-unknown-linux-gnueabi
-    #- env: TARGET=armv7-unknown-linux-gnueabihf
-    #- env: TARGET=i686-unknown-linux-gnu
-    #- env: TARGET=i686-unknown-linux-musl
     - env: TARGET=x86_64-unknown-linux-gnu
-    #- env: TARGET=x86_64-unknown-linux-musl
 
-    ## OSX
-    #- env: TARGET=i686-apple-darwin
-      #os: osx
-    #- env: TARGET=x86_64-apple-darwin
-      #os: osx
-
-    ## *BSD
-    #- env: TARGET=i686-unknown-freebsd DISABLE_TESTS=1
-    #- env: TARGET=x86_64-unknown-freebsd DISABLE_TESTS=1
-
-    ## Windows
-    #- env: TARGET=x86_64-pc-windows-gnu
+    # TODO BSD, OSX, Windows targets.
 
 before_install:
-  - set -e
   - rustup self update
-  - sudo apt-get install -y freetype2 harfbuzz
+  - sh bootstrap.sh
 
 install:
   - sh ci/install.sh
