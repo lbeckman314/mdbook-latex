@@ -1,5 +1,15 @@
 # mdbook-latex
 
+<h1>mdbook-latex</h1>
+
+<p><img src="mdbook-latex.png" alt="mdbook-latex logo" /></p>
+
+<p align="center">
+<a href="https://crates.io/crates/mdbook-latex"><img src="https://img.shields.io/badge/crates.io-v0.1.5-orange.svg?longCache=true" alt="crates badge" /></a>
+<a href="https://docs.rs/crate/mdbook-latex/0.1.5"><img src="https://docs.rs/mdbook-latex/badge.svg" alt="docs badge" /></a>
+<a href="https://travis-ci.org/lbeckman314/mdbook-latex"><img src="https://api.travis-ci.org/lbeckman314/mdbook-latex.svg?branch=master" alt="ci badge" /></a>
+</p>
+
 ![mdbook-latex logo][logo]
 
 [logo]: mdbook-latex.png
@@ -11,7 +21,7 @@
 [crates.io]: https://crates.io/crates/mdbook-latex
 [crates-badge]: https://img.shields.io/badge/crates.io-v0.1.5-orange.svg?longCache=true
 
-[docs]: https://docs.rs/crate/mdbook-latex
+[docs]: https://docs.rs/crate/mdbook-latex/0.1.5
 [docs-badge]: https://docs.rs/mdbook-latex/badge.svg
 
 [ci]: https://travis-ci.org/lbeckman314/mdbook-latex
@@ -30,7 +40,7 @@
   * [Automatic Approach](#automatic-approach)
   * [Manual Approach](#manual-approach)
   * [Finally](#finally)
-- [Status of Binary Releases](#status-of-binary-releases)
+
 
 An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents. Utilizes [`md2tex`](https://github.com/lbeckman314/md2tex) for the markdown to LaTeX transformation, but with the goal of allowing alternative markdown to LaTeX converters. If you have developed your own markdown to LaTeX converter, I'd love to talk with you or share ideas! I'm at [liam@liambeckman.com](mailto:liam@liambeckman).
 
@@ -188,7 +198,7 @@ Below is a list of features I am currently working on (loosely in a "top-down" d
     - [x] Save SVG's in `book/latex` directory to keep `src` clean.
 - [x] Add CI/CD pipeline ([travis](https://travis-ci.org/))
 - [x] Move all LaTeX data to single template file (src/template.tex).
-- [ ] Add support for HTML codeblocks.
+- [ ] Add support for raw HTML tables.
 - [ ] Add syntax highlighting via [syntect](https://github.com/trishume/syntect) à la [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc).
 - [ ] Add parallel transformations via [Rayon](https://github.com/rayon-rs/rayon) à la [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc).
 - [ ] Use [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc)'s method for handling events (replace `current` event with `fold`).
@@ -294,9 +304,12 @@ Is it an elegant approach? No. Does it work? Sometimes. Is it a pain? Yes.
 
 ### Finally
 
-If you're feeling especially adventurous, create an issue or get in touch with me ([liam@liambeckman.com](mailto:liam@liambeckman)) to help prevent the same errors in the future. I'm more than happy to work with you to get your document compiled!
+If and when you get everything working again, first wish a pox on my household to release some frustration.
 
-:^)
+Finally, if you're feeling especially benevolent, create an issue or get in touch with me ([liam@liambeckman.com](mailto:liam@liambeckman)) to help prevent the same errors in the future. I'm more than happy to work with you to get your document compiled!
+
+= )
+
 
 ## Status of Binary Releases
 
@@ -311,13 +324,13 @@ If you're feeling especially adventurous, create an issue or get in touch with m
 | ❌        | [~~x86_64-apple-darwin~~][x86_64-apple-darwin]                     |
 | ❌        | [~~x86_64-pc-windows-gnu~~][x86_64-pc-windows-gnu]                 |
 | ❌        | [~~x86_64-unknown-freebsd~~][x86_64-unknown-freebsd]               |
-| ✅        | [x86_64-unknown-linux-gnu][x86_64-unknown-linux-gnu]           |
+| ❌        | [~~x86_64-unknown-linux-gnu~~][x86_64-unknown-linux-gnu]           |
 
-[armv7-unknown-linux-gnueabihf]: https://github.com/lbeckman314/mdbook-latex/releases/
-[i686-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
+
+[x86_64-unknown-linux-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
 [i686-unknown-linux-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
+[armv7-unknown-linux-gnueabihf]: https://github.com/lbeckman314/mdbook-latex/releases/
 [x86_64-apple-darwin]: https://github.com/lbeckman314/mdbook-latex/releases/
 [x86_64-unknown-freebsd]: https://github.com/lbeckman314/mdbook-latex/releases/
-[x86_64-unknown-linux-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
-[x86_64-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/mdbook-latex-v0.1.24-x86_64-unknown-linux-gnu.tar.gz
-
+[i686-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
+[x86_64-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
