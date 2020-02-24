@@ -9,7 +9,7 @@
 [![ci badge][ci-badge]][ci]
 
 [crates.io]: https://crates.io/crates/mdbook-latex
-[crates-badge]: https://img.shields.io/badge/crates.io-v0.1.5-orange.svg?longCache=true
+[crates-badge]: https://img.shields.io/badge/crates.io-v0.1.24-orange.svg?longCache=true
 
 [docs]: https://docs.rs/crate/mdbook-latex
 [docs-badge]: https://docs.rs/mdbook-latex/badge.svg
@@ -58,13 +58,13 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 | ❌        | [~~Rustonomicon~~][rustonomicon-pdf]   | [~~LaTeX~~][rustonomicon-latex] | [Source][rustonomicon-src] | [HTML][rustonomicon-html] |
 | ❌        | [~~Unstable Book~~][unstable-pdf]      | [~~LaTeX~~][unstable-latex]     | [Source][unstable-src]     | [HTML][unstable-html]     |
 
-[rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.5/The.Rust.Programming.Language.pdf
-[rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.5/The.Rust.Programming.Language.tex
+[rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/The.Rust.Programming.Language.pdf
+[rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/The.Rust.Programming.Language.tex
 [rust-src]: https://github.com/rust-lang/book
 [rust-html]: https://doc.rust-lang.org/book/
 
-[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.5/mdBook.Documentation.pdf
-[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.5/mdBook.Documentation.tex
+[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/mdBook.Documentation.pdf
+[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/mdBook.Documentation.tex
 [mdbook-src]: https://github.com/rust-lang-nursery/mdBook/tree/master/book-example
 [mdbook-html]: https://rust-lang-nursery.github.io/mdBook/
 
@@ -188,7 +188,7 @@ Below is a list of features I am currently working on (loosely in a "top-down" d
     - [x] Save SVG's in `book/latex` directory to keep `src` clean.
 - [x] Add CI/CD pipeline ([travis](https://travis-ci.org/))
 - [x] Move all LaTeX data to single template file (src/template.tex).
-- [ ] Add support for HTML codeblocks.
+- [ ] Add support for raw HTML tables.
 - [ ] Add syntax highlighting via [syntect](https://github.com/trishume/syntect) à la [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc).
 - [ ] Add parallel transformations via [Rayon](https://github.com/rayon-rs/rayon) à la [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc).
 - [ ] Use [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc)'s method for handling events (replace `current` event with `fold`).
@@ -296,7 +296,7 @@ Is it an elegant approach? No. Does it work? Sometimes. Is it a pain? Yes.
 
 If you're feeling especially adventurous, create an issue or get in touch with me ([liam@liambeckman.com](mailto:liam@liambeckman)) to help prevent the same errors in the future. I'm more than happy to work with you to get your document compiled!
 
-:^)
+: ^ )
 
 ## Status of Binary Releases
 
