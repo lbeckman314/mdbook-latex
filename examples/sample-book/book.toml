@@ -1,0 +1,13 @@
+[book]
+title = "My Book"
+authors = ["liam"]
+multilingual = false
+src = "src"
+
+[output.html]
+
+[output.latex]
+latex    = true   # default = true
+pdf      = false  # default = false
+markdown = true  # default = false
+
