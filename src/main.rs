@@ -1,15 +1,10 @@
-// latex \and operator for multiple authors
-//   https://tex.stackexchange.com/questions/4805/whats-the-correct-use-of-author-when-multiple-authors
-
-//extern crate latex;
+extern crate md2tex;
 extern crate mdbook;
 extern crate serde;
 #[macro_use]
 extern crate serde_derive;
-extern crate md2tex;
 extern crate tectonic;
 
-//use latex::*;
 use md2tex::markdown_to_tex;
 use mdbook::book::BookItem;
 use mdbook::renderer::RenderContext;
@@ -17,44 +12,50 @@ use std::error::Error;
 use std::fs::{self, File};
 use std::io::{self, Write};
 use std::path::Path;
+use pulldown_cmark::{Event, Options, Parser, Tag};
+use std::path::PathBuf;
 
 // config definition.
 #[derive(Debug, Default, Serialize, Deserialize)]
 #[serde(default, rename_all = "kebab-case")]
 pub struct LatexConfig {
-    // chapters that will not be exported.
+    // Chapters that will not be exported.
     pub ignores: Vec<String>,
 
-    // output latex file.
+    // Output latex file.
     pub latex: bool,
 
-    // output PDF.
+    // Output PDF.
     pub pdf: bool,
 
-    // output markdown file.
+    // Output markdown file.
     pub markdown: bool,
 
-    // use user's LaTeX template file instead of default (template.tex).
+    // Use user's LaTeX template file instead of default (template.tex).
     pub custom_template: Option<String>,
 }
 
 fn main() -> std::io::Result<()> {
     let mut stdin = io::stdin();
 
-    // get markdown source.
+    // Get markdown source.
     let ctx = RenderContext::from_json(&mut stdin).unwrap();
+    println!("{:?}", ctx);
 
-    // get configuration options.
-    let cfg: LatexConfig = ctx
-        .config
-        .get_deserialized("output.latex")
-        .unwrap_or_default();
+    // Get configuration options from book.toml.
+    let cfg: LatexConfig = ctx.config
+                              .get_deserialized("output.latex")
+                              .unwrap_or_default();
 
-    // read book's config values (title, authors).
+    //if !cfg.latex && !cfg.pdf && !cfg.markdown {
+        //Err("No configurations selected.")
+    //}
+
+    // Read book's config values (title, authors).
     let title = ctx.config.book.title.unwrap();
     let authors = ctx.config.book.authors.join(" \\and ");
 
-    // copy template data into memory.
+    // Copy template data into memory.
     let mut template = if let Some(custom_template) = cfg.custom_template {
             let mut custom_template_path = ctx.root;
             custom_template_path.push(custom_template);
@@ -63,48 +64,47 @@ fn main() -> std::io::Result<()> {
             include_str!("template.tex").to_string()
         };
 
-    // add title and author information.
+    // Add title and author information.
     template = template.replace(r"\title{}", &format!("\\title{{{}}}", title));
     template = template.replace(r"\author{}", &format!("\\author{{{}}}", authors));
 
     let mut latex = String::new();
 
-    // iterate through markdown source.
+    // Iterate through markdown source.
     let mut content = String::new();
     for item in ctx.book.iter() {
-        // iterate through each chapter.
+        // Iterate through each chapter.
         if let BookItem::Chapter(ref ch) = *item {
             if cfg.ignores.contains(&ch.name) {
                 continue;
             }
 
-            content.push_str(&ch.content);
+            // Add chapter path to relative links.
+            //let path_prefix = get_path_prefix(&ch.path);
+            content.push_str(&path_adder(&ch.content, &ch.path.parent()));
         }
     }
 
     if cfg.markdown {
-        // output markdown file.
+        // Output markdown file.
         output(".md".to_string(), title.clone(), &content, &ctx.destination);
     }
 
     if cfg.latex || cfg.pdf {
-        // convert markdown data to LaTeX
-        latex.push_str(&markdown_to_tex(content.to_string()));
-
-        // insert new LaTeX data into template after "%% mdbook-latex begin".
+        // Insert new LaTeX data into template after "%% mdbook-latex begin".
         let begin = "mdbook-latex begin";
         let pos = template.find(&begin).unwrap() + begin.len();
         template.insert_str(pos, &latex);
     }
 
     if cfg.latex {
-        // output latex file.
+        // Output latex file.
         output(".tex".to_string(), title.clone(), &template, &ctx.destination);
     }
 
-    // output PDF file.
+    // Output PDF file.
     if cfg.pdf {
-        // write PDF with tectonic.
+        // Write PDF with tectonic.
         println!("Writing PDF with Tectonic...");
         let pdf_data: Vec<u8> = tectonic::latex_to_pdf(&template).expect("processing failed");
         println!("Output PDF size is {} bytes", pdf_data.len());
@@ -132,7 +132,7 @@ fn output<P: AsRef<Path>>(extension: String, mut filename: String, data: &String
     let path = Path::new(&filename);
     let display = path.display();
 
-    // create output directory/file.
+    // Create output directory/file.
     let _ = fs::create_dir_all(destination);
 
     let mut file = match File::create(&path) {
@@ -140,9 +140,41 @@ fn output<P: AsRef<Path>>(extension: String, mut filename: String, data: &String
         Ok(file) => file,
     };
 
-    // write to file.
+    // Write to file.
     match file.write_all(data.as_bytes()) {
         Err(why) => panic!("Couldn't write to {}: {}", display, why.description()),
         Ok(_) => println!("Successfully wrote to {}", display),
     }
 }
+
+///
+fn path_adder(content: &str, chapter_path: &PathBuf) -> String {
+    let mut output = String::new();
+    let mut options = Options::empty();
+    let parser = Parser::new_ext(content, options);
+    for event in parser {
+        match event {
+            Event::Start(Tag::Image(_, path, title)) => {
+                // TODO Append chapter_path to path.
+            }
+            _ => (),
+        }
+    }
+
+    output
+}
+
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn test_path_adder() {
+        let content = "![xyz](./xyz.png)";
+        let path = Path::new("/a/b/c");
+        let new_path = path_adder(content, &path);
+        assert_eq!(new_path, "![xyz])(/a/b/c/./xyz.png)";
+    }
+}
+
