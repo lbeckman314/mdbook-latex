@@ -17,6 +17,3 @@ tectonic = "0.1.12"
 md2tex = { path = "/home/liam/Documents/code/md2tex" }
 pulldown-cmark = "0.7.0"
 
-[profile.release]
-panic = "abort"
-
