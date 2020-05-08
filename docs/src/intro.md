@@ -1,15 +1,5 @@
 # mdbook-latex
 
-<h1>mdbook-latex</h1>
-
-<p><img src="mdbook-latex.png" alt="mdbook-latex logo" /></p>
-
-<p align="center">
-<a href="https://crates.io/crates/mdbook-latex"><img src="https://img.shields.io/badge/crates.io-v0.1.5-orange.svg?longCache=true" alt="crates badge" /></a>
-<a href="https://docs.rs/crate/mdbook-latex/0.1.5"><img src="https://docs.rs/mdbook-latex/badge.svg" alt="docs badge" /></a>
-<a href="https://travis-ci.org/lbeckman314/mdbook-latex"><img src="https://api.travis-ci.org/lbeckman314/mdbook-latex.svg?branch=master" alt="ci badge" /></a>
-</p>
-
 ![mdbook-latex logo][logo]
 
 [logo]: mdbook-latex.png
@@ -19,9 +9,9 @@
 [![ci badge][ci-badge]][ci]
 
 [crates.io]: https://crates.io/crates/mdbook-latex
-[crates-badge]: https://img.shields.io/badge/crates.io-v0.1.5-orange.svg?longCache=true
+[crates-badge]: https://img.shields.io/badge/crates.io-v0.1.24-orange.svg?longCache=true
 
-[docs]: https://docs.rs/crate/mdbook-latex/0.1.5
+[docs]: https://docs.rs/crate/mdbook-latex
 [docs-badge]: https://docs.rs/mdbook-latex/badge.svg
 
 [ci]: https://travis-ci.org/lbeckman314/mdbook-latex
@@ -40,7 +30,7 @@
   * [Automatic Approach](#automatic-approach)
   * [Manual Approach](#manual-approach)
   * [Finally](#finally)
-
+- [Status of Binary Releases](#status-of-binary-releases)
 
 An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents. Utilizes [`md2tex`](https://github.com/lbeckman314/md2tex) for the markdown to LaTeX transformation, but with the goal of allowing alternative markdown to LaTeX converters. If you have developed your own markdown to LaTeX converter, I'd love to talk with you or share ideas! I'm at [liam@liambeckman.com](mailto:liam@liambeckman).
 
@@ -68,13 +58,13 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 | ❌        | [~~Rustonomicon~~][rustonomicon-pdf]   | [~~LaTeX~~][rustonomicon-latex] | [Source][rustonomicon-src] | [HTML][rustonomicon-html] |
 | ❌        | [~~Unstable Book~~][unstable-pdf]      | [~~LaTeX~~][unstable-latex]     | [Source][unstable-src]     | [HTML][unstable-html]     |
 
-[rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.5/The.Rust.Programming.Language.pdf
-[rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.5/The.Rust.Programming.Language.tex
+[rust-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/The.Rust.Programming.Language.pdf
+[rust-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/The.Rust.Programming.Language.tex
 [rust-src]: https://github.com/rust-lang/book
 [rust-html]: https://doc.rust-lang.org/book/
 
-[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.5/mdBook.Documentation.pdf
-[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.5/mdBook.Documentation.tex
+[mdbook-pdf]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/mdBook.Documentation.pdf
+[mdbook-latex]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/mdBook.Documentation.tex
 [mdbook-src]: https://github.com/rust-lang-nursery/mdBook/tree/master/book-example
 [mdbook-html]: https://rust-lang-nursery.github.io/mdBook/
 
@@ -300,16 +290,13 @@ ed book/latex/MY_BOOK.tex
 tectonic book/latex/MY_BOOK.tex
 ```
 
-Is it an elegant approach? No. Does it work? Sometimes. Is it a pain? Yes.
+Is it an elegant approach? No. Does it work? Sometimes. Is it a pain? Always.
 
 ### Finally
 
-If and when you get everything working again, first wish a pox on my household to release some frustration.
+If you're feeling especially adventurous, create an issue or get in touch with me ([liam@liambeckman.com](mailto:liam@liambeckman)) to help prevent the same errors in the future. I'm more than happy to work with you to get your document compiled!
 
-Finally, if you're feeling especially benevolent, create an issue or get in touch with me ([liam@liambeckman.com](mailto:liam@liambeckman)) to help prevent the same errors in the future. I'm more than happy to work with you to get your document compiled!
-
-= )
-
+: ^ )
 
 ## Status of Binary Releases
 
@@ -324,13 +311,13 @@ Finally, if you're feeling especially benevolent, create an issue or get in touc
 | ❌        | [~~x86_64-apple-darwin~~][x86_64-apple-darwin]                     |
 | ❌        | [~~x86_64-pc-windows-gnu~~][x86_64-pc-windows-gnu]                 |
 | ❌        | [~~x86_64-unknown-freebsd~~][x86_64-unknown-freebsd]               |
-| ❌        | [~~x86_64-unknown-linux-gnu~~][x86_64-unknown-linux-gnu]           |
+| ✅        | [x86_64-unknown-linux-gnu][x86_64-unknown-linux-gnu]           |
 
-
-[x86_64-unknown-linux-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
-[i686-unknown-linux-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
 [armv7-unknown-linux-gnueabihf]: https://github.com/lbeckman314/mdbook-latex/releases/
+[i686-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
+[i686-unknown-linux-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
 [x86_64-apple-darwin]: https://github.com/lbeckman314/mdbook-latex/releases/
 [x86_64-unknown-freebsd]: https://github.com/lbeckman314/mdbook-latex/releases/
-[i686-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
-[x86_64-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
+[x86_64-unknown-linux-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
+[x86_64-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/mdbook-latex-v0.1.24-x86_64-unknown-linux-gnu.tar.gz
+

@@ -1,0 +1,6 @@
+[book]
+authors = ["liam beckman"]
+language = "en"
+multilingual = false
+src = "src"
+title = "mdbook-latex"
