@@ -1,1 +1,1 @@
-/Users/beckmanl/Documents/code/mdbook-latex/docs/src/intro.md
+docs/src/intro.md
