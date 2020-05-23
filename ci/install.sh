@@ -1,8 +1,8 @@
 #!/bin/sh
 set -ex
 
-apt-get update
-apt-get install --yes \
+sudo apt-get update
+sudo apt-get install --yes \
     curl \
     gcc \
     g++ \
