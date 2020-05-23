@@ -1,6 +1,7 @@
 #!/bin/sh
 set -ex
 
+pwd
 sudo apt-get update
 sudo apt-get install --yes \
     curl \
@@ -13,7 +14,6 @@ sudo apt-get install --yes \
     libssl-dev \
     zlib1g-dev
 
-#curl https://sh.rustup.rs -sSf | sh -s -- -y
 rustup self update
 . $HOME/.cargo/env
-cargo install mdbook-latex
+cargo build
