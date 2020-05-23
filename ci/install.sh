@@ -1,7 +1,6 @@
 #!/bin/sh
 set -ex
 
-pwd
 sudo apt-get update
 sudo apt-get install --yes \
     curl \

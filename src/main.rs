@@ -80,17 +80,20 @@ fn main() -> std::io::Result<()> {
             }
 
             // Add chapter path to relative links.
-            //let path_prefix = get_path_prefix(&ch.path);
-            content.push_str(&path_adder(&ch.content, &ch.path.parent()));
+            content.push_str(&relative_path(&ch.content, &ch.path.parent().unwrap()));
         }
     }
 
     if cfg.markdown {
         // Output markdown file.
-        output(".md".to_string(), title.clone(), &content, &ctx.destination);
+        output_markdown(".md".to_string(), title.clone(), &content, &ctx.destination);
     }
 
     if cfg.latex || cfg.pdf {
+        // convert markdown data to LaTeX
+        latex.push_str(&markdown_to_tex(content.to_string()));
+        println!("latex: {}", latex);
+
         // Insert new LaTeX data into template after "%% mdbook-latex begin".
         let begin = "mdbook-latex begin";
         let pos = template.find(&begin).unwrap() + begin.len();
@@ -99,7 +102,7 @@ fn main() -> std::io::Result<()> {
 
     if cfg.latex {
         // Output latex file.
-        output(".tex".to_string(), title.clone(), &template, &ctx.destination);
+        output_markdown(".tex".to_string(), title.clone(), &template, &ctx.destination);
     }
 
     // Output PDF file.
@@ -127,7 +130,7 @@ fn main() -> std::io::Result<()> {
 /// Output plain text file.
 ///
 /// Used for writing markdown and latex data to files.
-fn output<P: AsRef<Path>>(extension: String, mut filename: String, data: &String, destination: P) {
+fn output_markdown<P: AsRef<Path>>(extension: String, mut filename: String, data: &String, destination: P) {
     filename.push_str(&extension);
     let path = Path::new(&filename);
     let display = path.display();
@@ -148,20 +151,23 @@ fn output<P: AsRef<Path>>(extension: String, mut filename: String, data: &String
 }
 
 ///
-fn path_adder(content: &str, chapter_path: &PathBuf) -> String {
-    let mut output = String::new();
-    let mut options = Options::empty();
-    let parser = Parser::new_ext(content, options);
+fn relative_path(content: &str, chapter_path: &Path) -> String {
+    let mut new_content = String::from(content);
+    let mut new_path = String::new();
+    let parser = Parser::new_ext(content, Options::empty());
     for event in parser {
         match event {
-            Event::Start(Tag::Image(_, path, title)) => {
-                // TODO Append chapter_path to path.
+            Event::Start(Tag::Image(_, path, _)) => {
+                new_path.push_str(chapter_path.to_str().unwrap());
+                new_path.push_str("/");
+                new_path.push_str(&path.clone().into_string());
+                new_content = content.replace(&path.into_string(), &new_path);
             }
-            _ => (),
+            _ => ()
         }
     }
 
-    output
+    new_content.to_string()
 }
 
 
@@ -170,11 +176,11 @@ mod test {
     use super::*;
 
     #[test]
-    fn test_path_adder() {
-        let content = "![xyz](./xyz.png)";
-        let path = Path::new("/a/b/c");
-        let new_path = path_adder(content, &path);
-        assert_eq!(new_path, "![xyz])(/a/b/c/./xyz.png)";
+    fn test_relative_path() {
+        let content = "![123](./xyz.png)";
+        let path = PathBuf::from(r"/a/b/c");
+        let new_content = relative_path(content, &path);
+        assert_eq!("![123](/a/b/c/./xyz.png)", new_content);
     }
 }
 
