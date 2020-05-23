@@ -6,6 +6,11 @@ language: rust
 services: docker
 sudo: required
 
+branches:
+  only:
+  - master
+  - dev
+
 env:
   global:
     - CRATE_NAME=mdbook-latex
