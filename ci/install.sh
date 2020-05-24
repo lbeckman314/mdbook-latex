@@ -15,4 +15,5 @@ sudo apt-get install --yes \
 
 rustup self update
 . $HOME/.cargo/env
-cargo build
+cargo rustc --bin mdbook-latex --target $TARGET --release -- -C lto
+
