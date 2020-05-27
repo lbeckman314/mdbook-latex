@@ -12,40 +12,10 @@ env:
 
 matrix:
   include:
-    # Linux
-    #- env: TARGET=arm-unknown-linux-gnueabi
-    #- env: TARGET=armv7-unknown-linux-gnueabihf
-    #- env: TARGET=i686-unknown-linux-gnu
-    #- env: TARGET=i686-unknown-linux-musl
     - env: TARGET=x86_64-unknown-linux-gnu
-    #- env: TARGET=x86_64-unknown-linux-musl
-
-    ## OSX
-    #- env: TARGET=i686-apple-darwin
-      #os: osx
-    #- env: TARGET=x86_64-apple-darwin
-      #os: osx
-
-    ## *BSD
-    #- env: TARGET=i686-unknown-freebsd DISABLE_TESTS=1
-    #- env: TARGET=x86_64-unknown-freebsd DISABLE_TESTS=1
-
-    ## Windows
-    #- env: TARGET=x86_64-pc-windows-gnu
-
-before_install:
-  - set -e
-  - rustup self update
-  - sudo apt-get install -y freetype2 harfbuzz
 
 install:
   - sh ci/install.sh
-  - source ~/.cargo/env || true
-
-script:
-  - bash ci/script.sh
-
-after_script: set +e
 
 before_deploy:
   - sh ci/before_deploy.sh

@@ -17,8 +17,6 @@ main() {
 
     test -f Cargo.lock || cargo generate-lockfile
 
-    cross rustc --bin mdbook-latex --target $TARGET --release -- -C lto
-
     cp target/$TARGET/release/mdbook-latex $stage/
 
     cd $stage

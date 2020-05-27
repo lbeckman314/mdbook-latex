@@ -311,7 +311,8 @@ If you're feeling especially adventurous, create an issue or get in touch with m
 | ❌        | [~~x86_64-apple-darwin~~][x86_64-apple-darwin]                     |
 | ❌        | [~~x86_64-pc-windows-gnu~~][x86_64-pc-windows-gnu]                 |
 | ❌        | [~~x86_64-unknown-freebsd~~][x86_64-unknown-freebsd]               |
-| ✅        | [x86_64-unknown-linux-gnu][x86_64-unknown-linux-gnu]           |
+| ✅        | [x86_64-unknown-linux-gnu][x86_64-unknown-linux-gnu]               |
+|           |                                                                    |
 
 [armv7-unknown-linux-gnueabihf]: https://github.com/lbeckman314/mdbook-latex/releases/
 [i686-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
@@ -319,5 +320,5 @@ If you're feeling especially adventurous, create an issue or get in touch with m
 [x86_64-apple-darwin]: https://github.com/lbeckman314/mdbook-latex/releases/
 [x86_64-unknown-freebsd]: https://github.com/lbeckman314/mdbook-latex/releases/
 [x86_64-unknown-linux-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
-[x86_64-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/mdbook-latex-v0.1.24-x86_64-unknown-linux-gnu.tar.gz
+[x86_64-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/leatest/mdbook-latex-v0.1.24-x86_64-unknown-linux-gnu.tar.gz
 
