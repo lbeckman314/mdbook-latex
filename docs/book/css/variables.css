@@ -9,6 +9,45 @@
 }
 
 /* Themes */
+.dracula {
+    --bg: #131516;
+    --fg: #f8f8f2;
+
+    --sidebar-bg: #282a36;
+    --sidebar-fg: #c8c9db;
+    --sidebar-non-existant: #5c6773;
+    --sidebar-active: #50fa7b;
+    --sidebar-spacer: #f1fa8c;
+
+    --scrollbar: var(--sidebar-fg);
+
+    --icons: #bd93f9;
+    --icons-hover: #b7b9cc;
+
+    --links: #ff79c6;
+
+    --inline-code-color: #ffb86c;
+
+    --theme-popup-bg: #14191f;
+    --theme-popup-border: #5c6773;
+    --theme-hover: #191f26;
+
+    --quote-bg: #282a36;
+    --quote-border: #44475a
+
+    --table-border-color: hsl(210, 25%, 13%);
+    --table-header-bg: #44475a
+    --table-alternate-bg: hsl(210, 25%, 11%);
+
+    --searchbar-border-color: #848484;
+    --searchbar-bg: #424242;
+    --searchbar-fg: #f8f8f2;
+    --searchbar-shadow-color: #44475a;
+    --searchresults-header-fg: #666;
+    --searchresults-border-color: #888;
+    --searchresults-li-bg: #282a36;
+    --search-mark-bg: #ffb86c;
+}
 
 .ayu {
     --bg: hsl(210, 25%, 8%);

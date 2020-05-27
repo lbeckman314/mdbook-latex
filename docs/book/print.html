@@ -8,6 +8,10 @@
         <meta name="robots" content="noindex" />
         
 
+        <!-- Custom HTML head -->
+        
+
+
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -28,6 +32,7 @@
         <link rel="stylesheet" href="highlight.css">
         <link rel="stylesheet" href="tomorrow-night.css">
         <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="dracula.css">
 
         <!-- Custom theme stylesheets -->
         
@@ -82,8 +87,8 @@
         </script>
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
-            <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li></ol>
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="index.html"><strong aria-hidden="true">1.</strong> README</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -92,37 +97,37 @@
 
             <div class="page">
                 
-                <div id="menu-bar" class="menu-bar">
-                    <div id="menu-bar-sticky-container">
-                        <div class="left-buttons">
-                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
-                                <i class="fa fa-paint-brush"></i>
-                            </button>
-                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
-                                <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
-                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
-                            </ul>
-                            
-                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                                <i class="fa fa-search"></i>
-                            </button>
-                            
-                        </div>
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="dracula">Dracula</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
 
-                        <h1 class="menu-title">mdbook-latex</h1>
+                    <h1 class="menu-title">mdbook-latex</h1>
 
-                        <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
-                                <i id="print-button" class="fa fa-print"></i>
-                            </a>
-                            
-                        </div>
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
                     </div>
                 </div>
 
@@ -156,33 +161,33 @@
 <a href="https://docs.rs/crate/mdbook-latex"><img src="https://docs.rs/mdbook-latex/badge.svg" alt="docs badge" /></a>
 <a href="https://travis-ci.org/lbeckman314/mdbook-latex"><img src="https://api.travis-ci.org/lbeckman314/mdbook-latex.svg?branch=master" alt="ci badge" /></a></p>
 <ul>
-<li><a href="intro.html#status-of-rust-bookshelf">Status of Rust Bookshelf</a></li>
-<li><a href="intro.html#installation">Installation</a></li>
-<li><a href="intro.html#uninstallation">Uninstallation</a></li>
-<li><a href="intro.html#primary-dependencies">Primary Dependencies</a></li>
-<li><a href="intro.html#hows-it-work">How's it Work?</a></li>
-<li><a href="intro.html#contributing">Contributing</a>
+<li><a href="index.html#status-of-rust-bookshelf">Status of Rust Bookshelf</a></li>
+<li><a href="index.html#installation">Installation</a></li>
+<li><a href="index.html#uninstallation">Uninstallation</a></li>
+<li><a href="index.html#primary-dependencies">Primary Dependencies</a></li>
+<li><a href="index.html#hows-it-work">How's it Work?</a></li>
+<li><a href="index.html#contributing">Contributing</a>
 <ul>
-<li><a href="intro.html#i-found-a-problem-should-i-create-an-issue-with-mdbook-latex-or-md2tex">I found a problem. Should I create an issue with <code>mdbook-latex</code> or <code>md2tex</code>?</a></li>
+<li><a href="index.html#i-found-a-problem-should-i-create-an-issue-with-mdbook-latex-or-md2tex">I found a problem. Should I create an issue with <code>mdbook-latex</code> or <code>md2tex</code>?</a></li>
 </ul>
 </li>
-<li><a href="intro.html#are-we-stable-yet">Are We Stable Yet?</a></li>
-<li><a href="intro.html#see-also">See Also</a></li>
-<li><a href="intro.html#mdbook-latex-failed-to-build-my-book-now-what-"><code>mdbook-latex</code> failed to build my book! Now what? &gt;:(</a>
+<li><a href="index.html#are-we-stable-yet">Are We Stable Yet?</a></li>
+<li><a href="index.html#see-also">See Also</a></li>
+<li><a href="index.html#mdbook-latex-failed-to-build-my-book-now-what-"><code>mdbook-latex</code> failed to build my book! Now what? &gt;:(</a>
 <ul>
-<li><a href="intro.html#automatic-approach">Automatic Approach</a></li>
-<li><a href="intro.html#manual-approach">Manual Approach</a></li>
-<li><a href="intro.html#finally">Finally</a></li>
+<li><a href="index.html#automatic-approach">Automatic Approach</a></li>
+<li><a href="index.html#manual-approach">Manual Approach</a></li>
+<li><a href="index.html#finally">Finally</a></li>
 </ul>
 </li>
-<li><a href="intro.html#status-of-binary-releases">Status of Binary Releases</a></li>
+<li><a href="index.html#status-of-binary-releases">Status of Binary Releases</a></li>
 </ul>
 <p>An <a href="https://github.com/rust-lang-nursery/mdBook">mdbook</a> backend for generating LaTeX and PDF documents. Utilizes <a href="https://github.com/lbeckman314/md2tex"><code>md2tex</code></a> for the markdown to LaTeX transformation, but with the goal of allowing alternative markdown to LaTeX converters. If you have developed your own markdown to LaTeX converter, I'd love to talk with you or share ideas! I'm at <a href="mailto:liam@liambeckman">liam@liambeckman.com</a>.</p>
 <blockquote>
-<p><strong>Warning</strong>: Not yet stable — may eat, shred, and atomize your laundry! See the <a href="intro.html#are-we-stable-yet%3F"><strong>Are We Stable Yet?</strong></a> section for a roadmap to the production release.</p>
+<p><strong>Warning</strong>: Not yet stable — may eat, shred, and atomize your laundry! See the <a href="index.html#are-we-stable-yet%3F"><strong>Are We Stable Yet?</strong></a> section for a roadmap to the production release.</p>
 </blockquote>
 <blockquote>
-<p><strong>Failure</strong>: For what to do if and when <code>mdbook-latex</code> fails, see <a href="intro.html#mdbook-latex-failed-to-build-my-book-now-what-"><strong><code>mdbook-latex</code> failed to build my book! Now what? &gt;:(</strong></a>. I'm also available via <a href="mailto:liam@liambeckman">e-mail</a> if you have any questions or suggestions!</p>
+<p><strong>Failure</strong>: For what to do if and when <code>mdbook-latex</code> fails, see <a href="index.html#mdbook-latex-failed-to-build-my-book-now-what-"><strong><code>mdbook-latex</code> failed to build my book! Now what? &gt;:(</strong></a>. I'm also available via <a href="mailto:liam@liambeckman">e-mail</a> if you have any questions or suggestions!</p>
 </blockquote>
 <h2><a class="header" href="#status-of-rust-bookshelf" id="status-of-rust-bookshelf">Status of Rust Bookshelf</a></h2>
 <ul>
@@ -274,7 +279,7 @@ Add parallel transformations via <a href="https://github.com/rayon-rs/rayon">Ray
 <li><input disabled="" type="checkbox"/>
 Use <a href="https://github.com/ratmice/lumpy-leandoc">lumpy-leandoc</a>'s method for handling events (replace <code>current</code> event with <code>fold</code>).</li>
 <li><input disabled="" type="checkbox"/>
-Compile <em>The Rust Book</em> and <em>mdbook</em> documentation without any errors or warnings (e.g. missing Unicode characters). See <a href="intro.html#status-of-rust-bookshelf">Status of Rust Bookshelf</a> for up to date progress.</li>
+Compile <em>The Rust Book</em> and <em>mdbook</em> documentation without any errors or warnings (e.g. missing Unicode characters). See <a href="index.html#status-of-rust-bookshelf">Status of Rust Bookshelf</a> for up to date progress.</li>
 <li><input disabled="" type="checkbox"/>
 Put &quot;tectonic&quot; dependency in &quot;pdf&quot; feature configuration.</li>
 <li><input disabled="" type="checkbox"/>
@@ -384,9 +389,10 @@ tectonic book/latex/MY_BOOK.tex
 <tr><td>❌</td><td><a href="https://github.com/lbeckman314/mdbook-latex/releases/"><del>i686-pc-windows-gnu</del></a></td></tr>
 <tr><td>❌</td><td><a href="https://github.com/lbeckman314/mdbook-latex/releases/"><del>i686-unknown-linux-gnu</del></a></td></tr>
 <tr><td>❌</td><td><a href="https://github.com/lbeckman314/mdbook-latex/releases/"><del>x86_64-apple-darwin</del></a></td></tr>
-<tr><td>❌</td><td><a href="https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/mdbook-latex-v0.1.24-x86_64-unknown-linux-gnu.tar.gz"><del>x86_64-pc-windows-gnu</del></a></td></tr>
+<tr><td>❌</td><td><a href="https://github.com/lbeckman314/mdbook-latex/releases/leatest/mdbook-latex-v0.1.24-x86_64-unknown-linux-gnu.tar.gz"><del>x86_64-pc-windows-gnu</del></a></td></tr>
 <tr><td>❌</td><td><a href="https://github.com/lbeckman314/mdbook-latex/releases/"><del>x86_64-unknown-freebsd</del></a></td></tr>
 <tr><td>✅</td><td><a href="https://github.com/lbeckman314/mdbook-latex/releases/">x86_64-unknown-linux-gnu</a></td></tr>
+<tr><td></td><td></td></tr>
 </tbody></table>
 
                     </main>
