@@ -1,4 +1,4 @@
-OUTPUT = docs/book/
+OUTPUT = 'docs/book/'
 PRODUCTION = '/var/www/docs/mdbook-latex'
 
 node {
