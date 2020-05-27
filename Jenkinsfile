@@ -1,3 +1,6 @@
+OUTPUT = 'docs/book/'
+PRODUCTION = '/var/www/docs/mdbook-latex'
+
 node {
     stage('Update') {
         git url: 'https://github.com/lbeckman314/mdbook-latex/'
@@ -6,7 +9,7 @@ node {
         sh "$HOME/.cargo/bin/mdbook build docs"
     }
     stage('Copy') {
-        echo "Master branch received. Copying to production."
+        sh "rsync -r ${OUTPUT} ${PRODUCTION}"
     }
 }
 
