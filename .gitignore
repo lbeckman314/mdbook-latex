@@ -11,3 +11,5 @@ Cargo.lock
 
 ci/book
 ci/mdBook
+
+docs/book

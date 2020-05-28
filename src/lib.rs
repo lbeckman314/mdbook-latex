@@ -1,19 +1,19 @@
+#[cfg(feature = "latex")]
 extern crate md2tex;
 extern crate mdbook;
 extern crate serde;
 #[macro_use]
 extern crate serde_derive;
+#[cfg(feature = "pdf")]
 extern crate tectonic;
 
+#[cfg(feature = "md2tex")]
 use md2tex::markdown_to_tex;
 use mdbook::book::BookItem;
 use mdbook::renderer::RenderContext;
-use std::error::Error;
 use std::fs::{self, File};
-use std::io::{self, Write};
+use std::io::Write;
 use std::path::Path;
-use pulldown_cmark::{Event, Options, Parser, Tag};
-use std::path::PathBuf;
 
 // config definition.
 #[derive(Debug, Default, Serialize, Deserialize)]
@@ -42,12 +42,12 @@ pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
                          .unwrap_or_default();
 
     // Read book's config values (title, authors).
-    let title = ctx.config.book.title.unwrap();
+    let title = ctx.config.book.title.as_ref().unwrap();
     let authors = ctx.config.book.authors.join(" \\and ");
 
     // Copy template data into memory.
     let mut template = if let Some(custom_template) = cfg.custom_template {
-            let mut custom_template_path = ctx.root;
+            let mut custom_template_path = ctx.root.clone();
             custom_template_path.push(custom_template);
             std::fs::read_to_string(custom_template_path)?
         } else {
@@ -57,8 +57,6 @@ pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
     // Add title and author information.
     template = template.replace(r"\title{}", &format!("\\title{{{}}}", title));
     template = template.replace(r"\author{}", &format!("\\author{{{}}}", authors));
-
-    let mut latex = String::new();
 
     // Iterate through markdown source.
     let mut content = String::new();
@@ -70,7 +68,7 @@ pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
             }
 
             // Add chapter path to relative links.
-            content.push_str(&path_adder(&ch.content, &ch.path.parent()));
+            content.push_str(&ch.content);
         }
     }
 
@@ -79,38 +77,44 @@ pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
         output(".md".to_string(), title.clone(), &content, &ctx.destination);
     }
 
+    let mut latex = String::new();
     if cfg.latex || cfg.pdf {
-        // Insert new LaTeX data into template after "%% mdbook-latex begin".
-        let begin = "mdbook-latex begin";
-        let pos = template.find(&begin).unwrap() + begin.len();
-        template.insert_str(pos, &latex);
+        latex = get_latex(content, template);
     }
 
+    // Output latex file.
     if cfg.latex {
-        // Output latex file.
-        output(".tex".to_string(), title.clone(), &template, &ctx.destination);
+        output(".tex".to_string(), title.clone(), &latex, &ctx.destination);
     }
 
     // Output PDF file.
     if cfg.pdf {
-        // Write PDF with tectonic.
-        println!("Writing PDF with Tectonic...");
-        let pdf_data: Vec<u8> = tectonic::latex_to_pdf(&template).expect("processing failed");
-        println!("Output PDF size is {} bytes", pdf_data.len());
-
-        let mut pos = 0;
-
-        let mut file_pdf = title.clone();
-        file_pdf.push_str(".pdf");
-        let mut buffer = File::create(&file_pdf)?;
-
-        while pos < pdf_data.len() {
-            let bytes_written = buffer.write(&pdf_data[pos..])?;
-            pos += bytes_written;
-        }
+        write_pdf(latex);
     }
 
     Ok(())
+}
+
+fn write_pdf(latex: String) {
+    // Write PDF with tectonic.
+    let data: Vec<u8> = tectonic::latex_to_pdf(&latex).expect("processing failed");
+    let mut filename = title.clone();
+    filename.push_str(".pdf");
+    let mut buffer = File::create(&filename)?;
+    while position < data.len() {
+        let bytes_written = buffer.write(data[position..])?;
+        position += bytes_written;
+    }
+}
+
+fn get_latex(content: String, template: String) -> String {
+    // Insert new LaTeX data into template after "%% mdbook-latex begin".
+    let begin = "mdbook-latex begin";
+    let target = template.find(&begin).unwrap() + begin.len();
+    let output = template.clone();
+    let latex = markdown_to_tex(content.clone());
+    output.insert_str(target, &latex);
+    output
 }
 
 /// Output plain text file.
@@ -125,44 +129,14 @@ fn output<P: AsRef<Path>>(extension: String, mut filename: String, data: &String
     let _ = fs::create_dir_all(destination);
 
     let mut file = match File::create(&path) {
-        Err(why) => panic!("Couldn't create {}: {}", display, why.description()),
+        Err(why) => panic!("Couldn't create {}: {}", display, why.to_string()),
         Ok(file) => file,
     };
 
     // Write to file.
     match file.write_all(data.as_bytes()) {
-        Err(why) => panic!("Couldn't write to {}: {}", display, why.description()),
+        Err(why) => panic!("Couldn't write to {}: {}", display, why.to_string()),
         Ok(_) => println!("Successfully wrote to {}", display),
-    }
-}
-
-///
-fn path_adder(content: &str, chapter_path: &PathBuf) -> String {
-    let mut output = String::new();
-    let mut options = Options::empty();
-    let parser = Parser::new_ext(content, options);
-    for event in parser {
-        match event {
-            Event::Start(Tag::Image(_, path, title)) => {
-                // TODO Append chapter_path to path.
-            }
-            _ => (),
-        }
-    }
-
-    output
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    #[test]
-    fn test_path_adder() {
-        let content = "![xyz](./xyz.png)";
-        let path = Path::new("/a/b/c");
-        let new_path = path_adder(content, &path);
-        assert_eq!(new_path, "![xyz])(/a/b/c/./xyz.png)";
     }
 }
 
