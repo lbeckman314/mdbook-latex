@@ -16,7 +16,7 @@
 [docs-badge]: https://docs.rs/mdbook-latex/badge.svg
 
 [ci]: https://travis-ci.org/lbeckman314/mdbook-latex
-[ci-badge]: https://api.travis-ci.org/lbeckman314/mdbook-latex.svg?branch=master
+[ci-badge]: https://img.shields.io/travis/lbeckman314/mdbook-latex
 
 [source]: https://github.com/lbeckman314/mdbook-latex
 [source-badge]: https://img.shields.io/badge/source-github-blue
