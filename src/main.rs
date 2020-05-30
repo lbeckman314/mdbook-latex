@@ -14,7 +14,7 @@ use std::io::{self, Write};
 use std::path::Path;
 
 // config definition.
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(default, rename_all = "kebab-case")]
 pub struct LatexConfig {
     // Chapters that will not be exported.
@@ -34,6 +34,19 @@ pub struct LatexConfig {
 
     // Date to be used in the LaTeX \date{} macro
     pub date: Option<String>,
+}
+
+impl Default for LatexConfig {
+    fn default() -> Self {
+        Self {
+            ignores: Default::default(),
+            latex: true,
+            pdf: false,
+            markdown: false,
+            custom_template: None,
+            date: Some(r#"\today"#.to_string()),
+        }
+    }
 }
 
 fn main() -> std::io::Result<()> {
@@ -68,7 +81,6 @@ fn main() -> std::io::Result<()> {
     } else {
         include_str!("template.tex").to_string()
     };
-
 
     // Add title and author information.
     template = template.replace(r"\title{}", &format!("\\title{{{}}}", title));
