@@ -185,14 +185,11 @@ fn relative_path(content: &str, chapter_path: &Path) -> String {
     let mut new_path = String::new();
     let parser = Parser::new_ext(content, Options::empty());
     for event in parser {
-        match event {
-            Event::Start(Tag::Image(_, path, _)) => {
-                new_path.push_str(chapter_path.to_str().unwrap());
-                new_path.push_str("/");
-                new_path.push_str(&path.clone().into_string());
-                new_content = content.replace(&path.into_string(), &new_path);
-            }
-            _ => (),
+        if let Event::Start(Tag::Image(_, path, _)) = event {
+            new_path.push_str(chapter_path.to_str().unwrap());
+            new_path.push_str("/");
+            new_path.push_str(&path.clone().into_string());
+            new_content = content.replace(&path.into_string(), &new_path);
         }
     }
 
@@ -202,6 +199,7 @@ fn relative_path(content: &str, chapter_path: &Path) -> String {
 #[cfg(test)]
 mod test {
     use super::*;
+    use std::path::PathBuf;
 
     #[test]
     fn test_relative_path() {
