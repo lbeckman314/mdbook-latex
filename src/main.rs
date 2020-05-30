@@ -91,7 +91,7 @@ fn main() -> std::io::Result<()> {
 
     if cfg.latex || cfg.pdf {
         // convert markdown data to LaTeX
-        latex.push_str(&markdown_to_tex(content.to_string()));
+        latex.push_str(&markdown_to_tex(content));
         println!("latex: {}", latex);
 
         // Insert new LaTeX data into template after "%% mdbook-latex begin".
@@ -119,7 +119,7 @@ fn main() -> std::io::Result<()> {
 
         let mut pos = 0;
 
-        let mut file_pdf = title.clone();
+        let mut file_pdf = title;
         file_pdf.push_str(".pdf");
         let mut buffer = File::create(&file_pdf)?;
 
@@ -138,7 +138,7 @@ fn main() -> std::io::Result<()> {
 fn output_markdown<P: AsRef<Path>>(
     extension: String,
     mut filename: String,
-    data: &String,
+    data: &str,
     destination: P,
 ) {
     filename.push_str(&extension);
@@ -177,7 +177,7 @@ fn relative_path(content: &str, chapter_path: &Path) -> String {
         }
     }
 
-    new_content.to_string()
+    new_content
 }
 
 #[cfg(test)]
