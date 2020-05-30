@@ -8,12 +8,10 @@ extern crate tectonic;
 use md2tex::markdown_to_tex;
 use mdbook::book::BookItem;
 use mdbook::renderer::RenderContext;
-use std::error::Error;
+use pulldown_cmark::{Event, Options, Parser, Tag};
 use std::fs::{self, File};
 use std::io::{self, Write};
 use std::path::Path;
-use pulldown_cmark::{Event, Options, Parser, Tag};
-use std::path::PathBuf;
 
 // config definition.
 #[derive(Debug, Default, Serialize, Deserialize)]
@@ -43,12 +41,14 @@ fn main() -> std::io::Result<()> {
     println!("{:?}", ctx);
 
     // Get configuration options from book.toml.
-    let cfg: LatexConfig = ctx.config
-                              .get_deserialized("output.latex")
-                              .unwrap_or_default();
+    let cfg: LatexConfig = ctx
+        .config
+        .get_deserialized_opt("output.latex")
+        .expect("Error reading \"output.latex\" configuration")
+        .unwrap_or_default();
 
     //if !cfg.latex && !cfg.pdf && !cfg.markdown {
-        //Err("No configurations selected.")
+    //Err("No configurations selected.")
     //}
 
     // Read book's config values (title, authors).
@@ -57,12 +57,12 @@ fn main() -> std::io::Result<()> {
 
     // Copy template data into memory.
     let mut template = if let Some(custom_template) = cfg.custom_template {
-            let mut custom_template_path = ctx.root;
-            custom_template_path.push(custom_template);
-            std::fs::read_to_string(custom_template_path)?
-        } else {
-            include_str!("template.tex").to_string()
-        };
+        let mut custom_template_path = ctx.root;
+        custom_template_path.push(custom_template);
+        std::fs::read_to_string(custom_template_path)?
+    } else {
+        include_str!("template.tex").to_string()
+    };
 
     // Add title and author information.
     template = template.replace(r"\title{}", &format!("\\title{{{}}}", title));
@@ -102,7 +102,12 @@ fn main() -> std::io::Result<()> {
 
     if cfg.latex {
         // Output latex file.
-        output_markdown(".tex".to_string(), title.clone(), &template, &ctx.destination);
+        output_markdown(
+            ".tex".to_string(),
+            title.clone(),
+            &template,
+            &ctx.destination,
+        );
     }
 
     // Output PDF file.
@@ -130,7 +135,12 @@ fn main() -> std::io::Result<()> {
 /// Output plain text file.
 ///
 /// Used for writing markdown and latex data to files.
-fn output_markdown<P: AsRef<Path>>(extension: String, mut filename: String, data: &String, destination: P) {
+fn output_markdown<P: AsRef<Path>>(
+    extension: String,
+    mut filename: String,
+    data: &String,
+    destination: P,
+) {
     filename.push_str(&extension);
     let path = Path::new(&filename);
     let display = path.display();
@@ -139,13 +149,13 @@ fn output_markdown<P: AsRef<Path>>(extension: String, mut filename: String, data
     let _ = fs::create_dir_all(destination);
 
     let mut file = match File::create(&path) {
-        Err(why) => panic!("Couldn't create {}: {}", display, why.description()),
+        Err(why) => panic!("Couldn't create {}: {}", display, why),
         Ok(file) => file,
     };
 
     // Write to file.
     match file.write_all(data.as_bytes()) {
-        Err(why) => panic!("Couldn't write to {}: {}", display, why.description()),
+        Err(why) => panic!("Couldn't write to {}: {}", display, why),
         Ok(_) => println!("Successfully wrote to {}", display),
     }
 }
@@ -163,13 +173,12 @@ fn relative_path(content: &str, chapter_path: &Path) -> String {
                 new_path.push_str(&path.clone().into_string());
                 new_content = content.replace(&path.into_string(), &new_path);
             }
-            _ => ()
+            _ => (),
         }
     }
 
     new_content.to_string()
 }
-
 
 #[cfg(test)]
 mod test {
@@ -183,4 +192,3 @@ mod test {
         assert_eq!("![123](/a/b/c/./xyz.png)", new_content);
     }
 }
-
