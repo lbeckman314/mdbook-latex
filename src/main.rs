@@ -31,6 +31,9 @@ pub struct LatexConfig {
 
     // Use user's LaTeX template file instead of default (template.tex).
     pub custom_template: Option<String>,
+
+    // Date to be used in the LaTeX \date{} macro
+    pub date: Option<String>,
 }
 
 fn main() -> std::io::Result<()> {
@@ -55,6 +58,8 @@ fn main() -> std::io::Result<()> {
     let title = ctx.config.book.title.unwrap();
     let authors = ctx.config.book.authors.join(" \\and ");
 
+    let date = cfg.date.unwrap_or_default();
+
     // Copy template data into memory.
     let mut template = if let Some(custom_template) = cfg.custom_template {
         let mut custom_template_path = ctx.root;
@@ -64,9 +69,11 @@ fn main() -> std::io::Result<()> {
         include_str!("template.tex").to_string()
     };
 
+
     // Add title and author information.
     template = template.replace(r"\title{}", &format!("\\title{{{}}}", title));
     template = template.replace(r"\author{}", &format!("\\author{{{}}}", authors));
+    template = template.replace(r"\date{}", &format!("\\date{{{}}}", date));
 
     let mut latex = String::new();
 
