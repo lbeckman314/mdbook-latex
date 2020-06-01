@@ -1293,6 +1293,7 @@ dependencies = [
  "mdbook 0.3.5 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 1.0.104 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_derive 1.0.104 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde_json 1.0.48 (registry+https://github.com/rust-lang/crates.io-index)",
  "tectonic 0.1.12 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 

@@ -20,3 +20,6 @@ serde = "1.0.104"
 serde_derive = "1.0.104"
 tectonic = { version = "0.1.12", optional = true }
 
+[dev-dependencies]
+serde_json = "1.0"
+

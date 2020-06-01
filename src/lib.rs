@@ -12,6 +12,7 @@ use md2tex::markdown_to_tex;
 use mdbook::book::BookItem;
 use mdbook::renderer::RenderContext;
 use std::fs::{self, File};
+use std::io;
 use std::io::Write;
 use std::path::Path;
 
@@ -35,7 +36,7 @@ pub struct Config {
     pub custom_template: Option<String>,
 }
 
-pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
+pub fn generate(ctx: RenderContext) -> std::io::Result<()> {
     // Get configuration options from book.toml.
     let cfg: Config = ctx.config
                          .get_deserialized("output.latex")
@@ -47,12 +48,12 @@ pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
 
     // Copy template data into memory.
     let mut template = if let Some(custom_template) = cfg.custom_template {
-            let mut custom_template_path = ctx.root.clone();
-            custom_template_path.push(custom_template);
-            std::fs::read_to_string(custom_template_path)?
-        } else {
-            include_str!("template.tex").to_string()
-        };
+        let mut custom_template_path = ctx.root.clone();
+        custom_template_path.push(custom_template);
+        std::fs::read_to_string(custom_template_path)?
+    } else {
+        include_str!("template.tex").to_string()
+    };
 
     // Add title and author information.
     template = template.replace(r"\title{}", &format!("\\title{{{}}}", title));
@@ -67,51 +68,59 @@ pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
                 continue;
             }
 
-            // Add chapter path to relative links.
             content.push_str(&ch.content);
         }
     }
 
     if cfg.markdown {
         // Output markdown file.
-        output(".md".to_string(), title.clone(), &content, &ctx.destination);
+        let mut filename = title.clone();
+        filename.push_str(".md");
+        write_file(&content, filename);
     }
 
-    let mut latex = String::new();
-    if cfg.latex || cfg.pdf {
-        latex = get_latex(content, template);
-    }
+    #[cfg(feature = "latex")]
+    {
+        let mut latex = String::new();
+        if cfg.latex || cfg.pdf {
+            latex = get_latex(content, template);
+        }
 
-    // Output latex file.
-    if cfg.latex {
-        output(".tex".to_string(), title.clone(), &latex, &ctx.destination);
-    }
+        // Output latex file.
+        if cfg.latex {
+            let mut filename = title.clone();
+            filename.push_str(".tex");
+            write_file(&latex, filename);
+        }
 
-    // Output PDF file.
-    if cfg.pdf {
-        write_pdf(latex);
+        #[cfg(feature = "pdf")]
+        {
+            // Output PDF file.
+            if cfg.pdf {
+                write_pdf(latex, title.clone());
+            }
+        }
     }
 
     Ok(())
 }
 
-fn write_pdf(latex: String) {
+#[cfg(feature = "pdf")]
+fn write_pdf(latex: String, filename: String) {
     // Write PDF with tectonic.
     let data: Vec<u8> = tectonic::latex_to_pdf(&latex).expect("processing failed");
-    let mut filename = title.clone();
-    filename.push_str(".pdf");
-    let mut buffer = File::create(&filename)?;
-    while position < data.len() {
-        let bytes_written = buffer.write(data[position..])?;
-        position += bytes_written;
-    }
+    let mut file = filename.clone();
+    file.push_str(".pdf");
+    let mut output = File::create(file).unwrap();
+    output.write(&data).unwrap();
 }
 
+#[cfg(feature = "latex")]
 fn get_latex(content: String, template: String) -> String {
     // Insert new LaTeX data into template after "%% mdbook-latex begin".
     let begin = "mdbook-latex begin";
     let target = template.find(&begin).unwrap() + begin.len();
-    let output = template.clone();
+    let mut output = template.clone();
     let latex = markdown_to_tex(content.clone());
     output.insert_str(target, &latex);
     output
@@ -120,13 +129,9 @@ fn get_latex(content: String, template: String) -> String {
 /// Output plain text file.
 ///
 /// Used for writing markdown and latex data to files.
-fn output<P: AsRef<Path>>(extension: String, mut filename: String, data: &String, destination: P) {
-    filename.push_str(&extension);
+fn write_file(data: &String, filename: String) {
     let path = Path::new(&filename);
     let display = path.display();
-
-    // Create output directory/file.
-    let _ = fs::create_dir_all(destination);
 
     let mut file = match File::create(&path) {
         Err(why) => panic!("Couldn't create {}: {}", display, why.to_string()),
@@ -139,4 +144,5 @@ fn output<P: AsRef<Path>>(extension: String, mut filename: String, data: &String
         Ok(_) => println!("Successfully wrote to {}", display),
     }
 }
+
 
