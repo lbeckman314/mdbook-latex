@@ -10,11 +10,13 @@ extern crate tectonic;
 #[cfg(feature = "md2tex")]
 use md2tex::markdown_to_tex;
 use mdbook::book::BookItem;
+use mdbook::config::Config as MdConfig;
 use mdbook::renderer::RenderContext;
 use std::fs::{self, File};
 use std::io;
 use std::io::Write;
 use std::path::Path;
+use std::path::PathBuf;
 
 // config definition.
 #[derive(Debug, Default, Serialize, Deserialize)]
@@ -36,7 +38,7 @@ pub struct Config {
     pub custom_template: Option<String>,
 }
 
-pub fn generate(ctx: RenderContext) -> std::io::Result<()> {
+pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
     // Get configuration options from book.toml.
     let cfg: Config = ctx.config
                          .get_deserialized("output.latex")
@@ -74,8 +76,7 @@ pub fn generate(ctx: RenderContext) -> std::io::Result<()> {
 
     if cfg.markdown {
         // Output markdown file.
-        let mut filename = title.clone();
-        filename.push_str(".md");
+        let filename = output_filename(&ctx.destination, &ctx.config, "md".to_string());
         write_file(&content, filename);
     }
 
@@ -88,8 +89,7 @@ pub fn generate(ctx: RenderContext) -> std::io::Result<()> {
 
         // Output latex file.
         if cfg.latex {
-            let mut filename = title.clone();
-            filename.push_str(".tex");
+            let filename = output_filename(&ctx.destination, &ctx.config, "tex".to_string());
             write_file(&latex, filename);
         }
 
@@ -97,7 +97,8 @@ pub fn generate(ctx: RenderContext) -> std::io::Result<()> {
         {
             // Output PDF file.
             if cfg.pdf {
-                write_pdf(latex, title.clone());
+                let filename = output_filename(&ctx.destination, &ctx.config, "pdf".to_string());
+                write_pdf(latex, filename);
             }
         }
     }
@@ -106,12 +107,10 @@ pub fn generate(ctx: RenderContext) -> std::io::Result<()> {
 }
 
 #[cfg(feature = "pdf")]
-fn write_pdf(latex: String, filename: String) {
+fn write_pdf(latex: String, filename: PathBuf) {
     // Write PDF with tectonic.
     let data: Vec<u8> = tectonic::latex_to_pdf(&latex).expect("processing failed");
-    let mut file = filename.clone();
-    file.push_str(".pdf");
-    let mut output = File::create(file).unwrap();
+    let mut output = File::create(filename).unwrap();
     output.write(&data).unwrap();
 }
 
@@ -129,11 +128,10 @@ fn get_latex(content: String, template: String) -> String {
 /// Output plain text file.
 ///
 /// Used for writing markdown and latex data to files.
-fn write_file(data: &String, filename: String) {
-    let path = Path::new(&filename);
-    let display = path.display();
+fn write_file(data: &String, filename: PathBuf) {
+    let display = filename.display();
 
-    let mut file = match File::create(&path) {
+    let mut file = match File::create(&filename) {
         Err(why) => panic!("Couldn't create {}: {}", display, why.to_string()),
         Ok(file) => file,
     };
@@ -145,4 +143,9 @@ fn write_file(data: &String, filename: String) {
     }
 }
 
-
+pub fn output_filename(dest: &Path, config: &MdConfig, extension: String) -> PathBuf {
+    match config.book.title {
+        Some(ref title) => dest.join(title).with_extension(extension),
+        None => dest.join("book").with_extension(extension),
+    }
+}
