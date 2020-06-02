@@ -7,6 +7,7 @@
 [![crates badge][crates-badge]][crates.io]
 [![docs badge][docs-badge]][docs]
 [![ci badge][ci-badge]][ci]
+[![source badge][source-badge]][source]
 
 [crates.io]: https://crates.io/crates/mdbook-latex
 [crates-badge]: https://img.shields.io/badge/crates.io-v0.1.24-orange.svg?longCache=true
@@ -15,7 +16,12 @@
 [docs-badge]: https://docs.rs/mdbook-latex/badge.svg
 
 [ci]: https://travis-ci.org/lbeckman314/mdbook-latex
-[ci-badge]: https://api.travis-ci.org/lbeckman314/mdbook-latex.svg?branch=master
+[ci-badge]: https://img.shields.io/travis/lbeckman315/mdbook-latex
+
+[source]: https://github.com/lbeckman314/mdbook-latex
+[source-badge]: https://img.shields.io/badge/source-github-blue
+
+<!-- toc -->
 
 - [Status of Rust Bookshelf](#status-of-rust-bookshelf)
 - [Installation](#installation)
@@ -31,6 +37,8 @@
   * [Manual Approach](#manual-approach)
   * [Finally](#finally)
 - [Status of Binary Releases](#status-of-binary-releases)
+
+<!-- tocstop -->
 
 An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents. Utilizes [`md2tex`](https://github.com/lbeckman314/md2tex) for the markdown to LaTeX transformation, but with the goal of allowing alternative markdown to LaTeX converters. If you have developed your own markdown to LaTeX converter, I'd love to talk with you or share ideas! I'm at [liam@liambeckman.com](mailto:liam@liambeckman).
 
@@ -115,18 +123,19 @@ An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating 
 
 ## Installation
 
-First, install the following two programs:
+### Requirements
 
 - [Rust](https://www.rust-lang.org/)
 - [mdbook](https://github.com/rust-lang-nursery/mdBook)
+- [Tectonic + support libraries](https://tectonic-typesetting.github.io/en-US/install.html#the-cargo-install-method)
 
-Then, to install `mdbook-latex`, enter the following in a shell:
+### Cargo install + Configuration
 
 ```sh
 cargo install mdbook-latex
 ```
 
-Finally, add the following `toml` configuration to `book.toml`.
+Add the following `toml` configuration to `book.toml`.
 
 ```toml
 [output.latex]
@@ -217,7 +226,6 @@ The following projects served as guidance for `mdbook-latex` (or are simply cool
 - [no starch press](https://nostarch.com/Rust2018): *The Rust Programming Language* made professionally by a proper publishing company. Guranteed to have fewer errors than `mdbook-latex`!
 - [lumpy-leandoc](https://github.com/ratmice/lumpy-leandoc): A more elegant approach to markdown-LaTeX conversion via `pulldown_cmark` than that currently provided by `md2tex`. Also includes parallelism via [Rayon](https://github.com/rayon-rs/rayon) and syntax highlighting via [syntect](https://github.com/trishume/syntect)!
 
-
 ## `mdbook-latex` failed to build my book! Now what? >:(
 
 ### Automatic Approach
@@ -290,7 +298,7 @@ ed book/latex/MY_BOOK.tex
 tectonic book/latex/MY_BOOK.tex
 ```
 
-Is it an elegant approach? No. Does it work? Sometimes. Is it a pain? Yes.
+Is it an elegant approach? No. Does it work? Sometimes. Is it a pain? Always.
 
 ### Finally
 
@@ -311,7 +319,8 @@ If you're feeling especially adventurous, create an issue or get in touch with m
 | ❌        | [~~x86_64-apple-darwin~~][x86_64-apple-darwin]                     |
 | ❌        | [~~x86_64-pc-windows-gnu~~][x86_64-pc-windows-gnu]                 |
 | ❌        | [~~x86_64-unknown-freebsd~~][x86_64-unknown-freebsd]               |
-| ✅        | [x86_64-unknown-linux-gnu][x86_64-unknown-linux-gnu]           |
+| ✅        | [x86_64-unknown-linux-gnu][x86_64-unknown-linux-gnu]               |
+|           |                                                                    |
 
 [armv7-unknown-linux-gnueabihf]: https://github.com/lbeckman314/mdbook-latex/releases/
 [i686-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
@@ -319,5 +328,5 @@ If you're feeling especially adventurous, create an issue or get in touch with m
 [x86_64-apple-darwin]: https://github.com/lbeckman314/mdbook-latex/releases/
 [x86_64-unknown-freebsd]: https://github.com/lbeckman314/mdbook-latex/releases/
 [x86_64-unknown-linux-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/
-[x86_64-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/download/v0.1.24/mdbook-latex-v0.1.24-x86_64-unknown-linux-gnu.tar.gz
+[x86_64-pc-windows-gnu]: https://github.com/lbeckman314/mdbook-latex/releases/leatest/mdbook-latex-v0.1.24-x86_64-unknown-linux-gnu.tar.gz
 

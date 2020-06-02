@@ -1,0 +1,3 @@
+[submodule "tests/book"]
+	path = tests/book
+	url = https://github.com/rust-lang/book
