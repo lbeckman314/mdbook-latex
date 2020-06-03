@@ -3,8 +3,8 @@ set -ex
 
 if [ $TRAVIS_OS_NAME = 'linux' ]
 then
-    apt-get update
-    apt-get install --yes \
+    sudo apt-get update
+    sudo apt-get install --yes \
         gcc \
         g++ \
         libfontconfig1-dev \
@@ -19,7 +19,6 @@ then
     export DEP_OPENSSL_INCLUDE=$(brew --prefix openssl)/include
     export PKG_CONFIG_PATH=/usr/local/opt/icu4c/lib/pkgconfig
     brew install --only-dependencies tectonic
-    brew install pkg-config
 fi
 
 rustup self update
