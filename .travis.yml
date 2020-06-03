@@ -4,17 +4,36 @@
 language: rust
 sudo: required
 
-os:
-  - linux
-  - osx
+jobs:
+  include:
+    - os: linux
+      dist: buster
+    - os: osx
+      osx_image: xcode11.4
 
 branches:
   only:
   - master
   - dev
+
 env:
   global:
     - CRATE_NAME=mdbook-latex
+
+addons:
+  apt:
+    packages:
+      - libgraphite2-dev
+      - libharfbuzz-dev
+      - libfontconfig1-dev
+      - libicu-dev
+      - libssl-dev
+      - openssl
+      - zlib1g-dev
+  homebrew:
+    packages:
+      - harfbuzz
+      - openssl
 
 install:
   - sh ci/install.sh
