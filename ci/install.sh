@@ -11,5 +11,5 @@ fi
 
 rustup self update
 . $HOME/.cargo/env
-cargo build --release
+cargo build --release --target $TARGET
 
