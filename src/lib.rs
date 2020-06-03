@@ -12,8 +12,7 @@ use md2tex::markdown_to_tex;
 use mdbook::book::BookItem;
 use mdbook::config::Config as MdConfig;
 use mdbook::renderer::RenderContext;
-use std::fs::{self, File};
-use std::io;
+use std::fs::File;
 use std::io::Write;
 use std::path::Path;
 use std::path::PathBuf;
@@ -40,9 +39,12 @@ pub struct Config {
 
 pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
     // Get configuration options from book.toml.
-    let cfg: Config = ctx.config
-                         .get_deserialized("output.latex")
-                         .unwrap_or_default();
+    let context = ctx.config.get("output.latex");
+
+    let cfg: Config = match context {
+        Some(table) => table.clone().try_into()?,
+        None => panic!("Could not read configuration."),
+    };
 
     // Read book's config values (title, authors).
     let title = ctx.config.book.title.as_ref().unwrap();
@@ -76,7 +78,7 @@ pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
 
     if cfg.markdown {
         // Output markdown file.
-        let filename = output_filename(&ctx.destination, &ctx.config, "md".to_string());
+        let filename = output_filename(&ctx.destination, &ctx.config, "md");
         write_file(&content, filename);
     }
 
@@ -89,7 +91,7 @@ pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
 
         // Output latex file.
         if cfg.latex {
-            let filename = output_filename(&ctx.destination, &ctx.config, "tex".to_string());
+            let filename = output_filename(&ctx.destination, &ctx.config, "tex");
             write_file(&latex, filename);
         }
 
@@ -97,7 +99,7 @@ pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
         {
             // Output PDF file.
             if cfg.pdf {
-                let filename = output_filename(&ctx.destination, &ctx.config, "pdf".to_string());
+                let filename = output_filename(&ctx.destination, &ctx.config, "pdf");
                 write_pdf(latex, filename);
             }
         }
@@ -139,11 +141,11 @@ fn write_file(data: &String, filename: PathBuf) {
     // Write to file.
     match file.write_all(data.as_bytes()) {
         Err(why) => panic!("Couldn't write to {}: {}", display, why.to_string()),
-        Ok(_) => println!("Successfully wrote to {}", display),
+        Ok(_) => (),
     }
 }
 
-pub fn output_filename(dest: &Path, config: &MdConfig, extension: String) -> PathBuf {
+pub fn output_filename(dest: &Path, config: &MdConfig, extension: &str) -> PathBuf {
     match config.book.title {
         Some(ref title) => dest.join(title).with_extension(extension),
         None => dest.join("book").with_extension(extension),

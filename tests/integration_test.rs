@@ -7,17 +7,14 @@ extern crate tempdir;
 use failure::{Error, SyncFailure};
 use mdbook::MDBook;
 use mdbook::renderer::RenderContext;
-use mdbook_latex::generate;
-use std::fs::read_to_string;
-use std::io;
 use std::path::Path;
 use tempdir::TempDir;
 
 #[test]
 fn output_files_exists() {
     let (ctx, _md, tmp) = create_book().unwrap();
-    let output_file_tex = mdbook_latex::output_filename(tmp.path(), &ctx.config, "tex".to_string());
-    let output_file_pdf = mdbook_latex::output_filename(tmp.path(), &ctx.config, "pdf".to_string());
+    let output_file_tex = mdbook_latex::output_filename(tmp.path(), &ctx.config, "tex");
+    let output_file_pdf = mdbook_latex::output_filename(tmp.path(), &ctx.config, "pdf");
 
     assert!(!output_file_tex.exists());
     assert!(!output_file_pdf.exists());
