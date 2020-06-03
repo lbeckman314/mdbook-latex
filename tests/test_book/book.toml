@@ -1,0 +1,10 @@
+[book]
+authors = ["lbeckman314"]
+language = "en"
+multilingual = false
+src = "src"
+title = "test book"
+
+[output.latex]
+latex = true
+pdf = true

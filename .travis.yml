@@ -8,6 +8,10 @@ os:
   - linux
   - osx
 
+branches:
+  only:
+  - master
+  - dev
 env:
   global:
     - CRATE_NAME=mdbook-latex
@@ -37,10 +41,4 @@ cache: cargo
 before_cache:
   # Travis can't cache files that are not readable by "others"
   - chmod -R a+r $HOME/.cargo
-
-branches:
-  only:
-    # release tags
-    - /^v\d+\.\d+\.\d+.*$/
-    - master
 
