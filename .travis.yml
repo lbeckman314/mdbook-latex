@@ -7,7 +7,7 @@ sudo: required
 jobs:
   include:
     - os: linux
-      dist: buster
+      dist: bionic
     - os: osx
       osx_image: xcode11.4
 
@@ -35,7 +35,7 @@ addons:
       - harfbuzz
       - openssl
 
-install:
+script:
   - sh ci/install.sh
 
 before_deploy:
