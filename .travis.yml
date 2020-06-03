@@ -8,14 +8,10 @@ jobs:
   include:
     - os: linux
       dist: bionic
+    - env: TARGET=x86_64-unknown-linux-gnu
     - os: osx
       osx_image: xcode11.4
-
-branches:
-  only:
-  - master
-  - dev
-
+      env: TARGET=x86_64-apple-darwin
 env:
   global:
     - CRATE_NAME=mdbook-latex

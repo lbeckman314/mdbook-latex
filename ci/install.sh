@@ -11,5 +11,5 @@ fi
 
 rustup self update
 . $HOME/.cargo/env
-cargo install mdbook-latex
+cargo build --release
 
