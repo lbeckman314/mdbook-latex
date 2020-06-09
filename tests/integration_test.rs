@@ -10,24 +10,27 @@ use mdbook::renderer::RenderContext;
 use std::path::Path;
 use tempdir::TempDir;
 
-#[test]
-fn output_files_exists() {
-    let (ctx, _md, tmp) = create_book().unwrap();
+fn output_files_exists(path: &str) -> bool {
+    let (ctx, _md, tmp) = create_book(path).unwrap();
     let output_file_tex = mdbook_latex::output_filename(tmp.path(), &ctx.config, "tex");
     let output_file_pdf = mdbook_latex::output_filename(tmp.path(), &ctx.config, "pdf");
 
-    assert!(!output_file_tex.exists());
-    assert!(!output_file_pdf.exists());
+    if output_file_tex.exists() || output_file_pdf.exists() {
+        return false;
+    }
+
     mdbook_latex::generate(&ctx).unwrap();
-    assert!(output_file_tex.exists());
-    assert!(output_file_pdf.exists());
+
+    if !output_file_tex.exists() || !output_file_pdf.exists() {
+        return false;
+    }
+
+    true
 }
 
-fn create_book() -> Result<(RenderContext, MDBook, TempDir), Error> {
+fn create_book(path: &str) -> Result<(RenderContext, MDBook, TempDir), Error> {
     let tmp = TempDir::new("mdbook-latex")?;
-    let test_book = Path::new(env!("CARGO_MANIFEST_DIR"))
-                             .join("tests")
-                             .join("test_book");
+    let test_book = Path::new(env!("CARGO_MANIFEST_DIR")).join(path);
 
     let md = MDBook::load(test_book).map_err(SyncFailure::new)?;
 
@@ -38,5 +41,11 @@ fn create_book() -> Result<(RenderContext, MDBook, TempDir), Error> {
         tmp.path().to_path_buf());
 
     Ok((ctx, md, tmp))
+}
+
+#[test]
+fn build_books() {
+    assert!(output_files_exists("test/test_book"));
+    assert!(output_files_exists("docs"));
 }
 
