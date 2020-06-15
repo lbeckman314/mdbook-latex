@@ -194,12 +194,25 @@ fn traverse_markdown(content: &str, chapter_path: &Path, context: &RenderContext
 mod test {
     use super::*;
     use std::path::PathBuf;
+    use std::fs::OpenOptions;
 
     #[test]
     fn test_traverse_markdown() {
+        let imgpath = Path::new("/tmp/test/src/chap/xyz.png");
+        fs::create_dir_all(imgpath.parent().unwrap()).expect("failure while creating testdirs");
+        let _ = match OpenOptions::new().create(true).write(true).open(imgpath) {
+            Ok(_) => Ok(()),
+            Err(e) => Err(e),
+        };
         let content = "![123](./xyz.png)";
-        let path = PathBuf::from(r"/a/b/c");
-        let new_content = traverse_markdown(content, &path);
-        assert_eq!("![123](/a/b/c/./xyz.png)", new_content);
+        let path = PathBuf::from(r"chap/");
+        let context = RenderContext::new(
+            Path::new("/tmp/test/"),
+            mdbook::book::Book::new(),
+            mdbook::Config::default(),
+            Path::new("/tmp/dest/")
+        );
+        let new_content = traverse_markdown(content, &path, &context);
+        assert_eq!("![123](images/chap/xyz.png)", new_content);
     }
 }
