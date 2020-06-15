@@ -214,5 +214,10 @@ mod test {
         );
         let new_content = traverse_markdown(content, &path, &context);
         assert_eq!("![123](images/chap/xyz.png)", new_content);
+        let respath = Path::new("/tmp/dest/images/chap/xyz.png");
+        assert!(respath.exists());
+
+        fs::remove_dir_all("/tmp/test").unwrap();
+        fs::remove_dir_all("/tmp/dest").unwrap();
     }
 }
