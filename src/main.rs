@@ -175,7 +175,6 @@ fn traverse_markdown(content: &str, chapter_path: &Path, context: &RenderContext
                 // creating the path where the image will be copied to
                 let targetimage = context.destination.clone().join(&imagepath);
 
-                println!("Source: {}\nTarget: {}\n", sourceimage.display(), targetimage.display());
                 // creating the directory if neccessary
                 fs::create_dir_all(targetimage.parent().unwrap()).expect("Failure while creating the directories");
                 // copy the image
