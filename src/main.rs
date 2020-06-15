@@ -154,7 +154,6 @@ fn output_markdown<P: AsRef<Path>>(extension: String, mut filename: String, data
 /// Replace the imagepath with a path that references the source image.
 fn traverse_markdown(content: &str, chapter_path: &Path, context: &RenderContext) -> String {
     let mut new_content = String::from(content);
-    let mut new_path = String::new();
     let parser = Parser::new_ext(content, Options::empty());
     for event in parser {
         match event {
@@ -181,9 +180,6 @@ fn traverse_markdown(content: &str, chapter_path: &Path, context: &RenderContext
                 fs::create_dir_all(targetimage.parent().unwrap()).expect("Failure while creating the directories");
                 // copy the image
                 fs::copy(&sourceimage, &targetimage).expect("Failure while copying the image");
-                new_path.push_str(chapter_path.to_str().unwrap());
-                new_path.push_str("/");
-                new_path.push_str(&path.clone().to_string());
                 new_content = new_content.replace(&path.to_string(), &imagepath.to_str().unwrap());
             }
             _ => ()
