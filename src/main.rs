@@ -39,6 +39,7 @@ fn main() -> io::Result<()> {
     // Get markdown source from the mdbook command via stdin
     let ctx = RenderContext::from_json(&mut stdin).unwrap();
 
+
     // Get configuration options from book.toml.
     let cfg: LatexConfig = ctx.config
                               .get_deserialized_opt("output.latex")
@@ -51,6 +52,7 @@ fn main() -> io::Result<()> {
     // Read book's config values (title, authors).
     let title = ctx.config.book.title.clone().unwrap();
     let authors = ctx.config.book.authors.join(" \\and ");
+
 
     // Copy template data into memory.
     let mut template = if let Some(custom_template) = cfg.custom_template {
@@ -73,7 +75,6 @@ fn main() -> io::Result<()> {
 
         // Iterate through each chapter.
         if let BookItem::Chapter(ref ch) = *item {
-            println!("Subitems: {:#?}", ch.parent_names.len());
             if cfg.ignores.contains(&ch.name) {
                 continue;
             }
