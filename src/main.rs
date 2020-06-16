@@ -11,7 +11,8 @@ use mdbook::renderer::RenderContext;
 use std::fs::{self, File};
 use std::io::{self, Write};
 use std::path::Path;
-use pulldown_cmark::{Event, Options, Parser, Tag};
+use pulldown_cmark::{Event, Options, Parser, Tag, LinkType, CowStr};
+use pulldown_cmark_to_cmark::cmark;
 
 // config definition.
 #[derive(Debug, Default, Serialize, Deserialize)]
@@ -151,41 +152,57 @@ fn output_markdown<P: AsRef<Path>>(extension: String, mut filename: String, data
     }
 }
 
-/// Replace the imagepath with a path that references the source image.
+/// This Function parses the markdown file, alters some elements and writes it back to markdown.
+///
+/// Changes done:
+///   * change image paths to be relative to images
+///   * copy the image files into the images directory in the target directory
 fn traverse_markdown(content: &str, chapter_path: &Path, context: &RenderContext) -> String {
-    let mut new_content = String::from(content);
-    let parser = Parser::new_ext(content, Options::empty());
-    for event in parser {
-        match event {
-            Event::Start(Tag::Image(_, path, _)) => {
-                // create the absolute path of the image source
-                // aswell as the absolute path of the location where the image will be copied to
-                // might clone a little much here...
-                // cleaning and converting the path found.
-                let pathstr = path.to_string().replace("./", "");
-                let imagefn = Path::new(&pathstr);
-                // creating the source path of the mdbook
-                let source = context.root.clone().join(context.config.book.src.clone());
-                // creating the relative path of the image by prepending the chapterpath
-                let relpath = chapter_path.clone().join(imagefn);
-                // creating the path of the imagesource
-                let sourceimage = source.join(&relpath);
-                // creating the relative path for the image tag in markdown
-                let imagepath = Path::new("images").join(&relpath);
-                // creating the path where the image will be copied to
-                let targetimage = context.destination.clone().join(&imagepath);
+    let parser = Parser::new_ext(content, Options::all());
+    let parser = parser.map(|event| match event {
+            Event::Start(Tag::Image(link_type, path, title)) => {
+                //Event::Start(Tag::Image(link_type, imagepathcowstr, title))
+                Event::Start(parse_image_tag(link_type, path, title, chapter_path, context))
+            },
+            Event::End(Tag::Image(link_type, path, title)) => {
+                //Event::Start(Tag::Image(link_type, imagepathcowstr, title))
+                Event::End(parse_image_tag(link_type, path, title, chapter_path, context))
+            },
+            _ => event,
+        });
+    let mut new_content = String::new();
 
-                // creating the directory if neccessary
-                fs::create_dir_all(targetimage.parent().unwrap()).expect("Failure while creating the directories");
-                // copy the image
-                fs::copy(&sourceimage, &targetimage).expect("Failure while copying the image");
-                new_content = new_content.replace(&path.to_string(), &imagepath.to_str().unwrap());
-            }
-            _ => ()
-        }
-    }
+    cmark(parser, &mut new_content, None).expect("failed to convert back to markdown");
+    return new_content;
+}
 
-    new_content.to_string()
+fn parse_image_tag<'a> (link_type: LinkType, path: CowStr<'a>, title: CowStr<'a>, chapter_path: &'a Path, context: &'a RenderContext) -> Tag <'a> {
+    //! Take the values of a Tag::Image and create a new Tag::Image
+    //! while simplyfying the path and also copying the image file to the target directory
+
+    // cleaning and converting the path found.
+    let pathstr: String = path.replace("./", "");
+    let imagefn = Path::new(&pathstr);
+    // creating the source path of the mdbook
+    let source = context.root.join(context.config.book.src.clone());
+    // creating the relative path of the image by prepending the chapterpath
+
+    let relpath = chapter_path.join(imagefn);
+    // creating the path of the imagesource
+    let sourceimage = source.join(&relpath);
+    // creating the relative path for the image tag in markdown
+    let imagepath = Path::new("images").join(&relpath);
+    // creating the path where the image will be copied to
+    let targetimage = context.destination.join(&imagepath);
+
+    // creating the directory if neccessary
+    fs::create_dir_all(targetimage.parent().unwrap()).expect("Failed to create the directories");
+    // copy the image
+    fs::copy(&sourceimage, &targetimage).expect("Failed to copy the image");
+    // create the new image
+    let imagepathc:String = imagepath.to_str().unwrap().into();
+    Tag::Image(link_type, imagepathc.into(), title)
+
 }
 
 
@@ -198,7 +215,9 @@ mod test {
     #[test]
     fn test_traverse_markdown() {
         let imgpath = Path::new("/tmp/test/src/chap/xyz.png");
+        // create a temporary directory in /tmp/
         fs::create_dir_all(imgpath.parent().unwrap()).expect("failure while creating testdirs");
+        // touch the mock png file
         let _ = match OpenOptions::new().create(true).write(true).open(imgpath) {
             Ok(_) => Ok(()),
             Err(e) => Err(e),
