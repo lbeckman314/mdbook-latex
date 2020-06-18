@@ -15,7 +15,7 @@ use pulldown_cmark::{Event, Options, Parser, Tag, LinkType, CowStr};
 use pulldown_cmark_to_cmark::cmark;
 
 // config definition.
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(default, rename_all = "kebab-case")]
 pub struct LatexConfig {
     // Chapters that will not be exported.
@@ -32,6 +32,22 @@ pub struct LatexConfig {
 
     // Use user's LaTeX template file instead of default (template.tex).
     pub custom_template: Option<String>,
+
+    // Date to be used in the LaTeX \date{} macro
+    pub date: Option<String>,
+}
+
+impl Default for LatexConfig {
+    fn default() -> Self {
+        Self {
+            ignores: Default::default(),
+            latex: true,
+            pdf: false,
+            markdown: false,
+            custom_template: None,
+            date: Some(r#"\today"#.to_string()),
+        }
+    }
 }
 
 fn main() -> io::Result<()> {
@@ -42,18 +58,19 @@ fn main() -> io::Result<()> {
 
 
     // Get configuration options from book.toml.
-    let cfg: LatexConfig = ctx.config
-                              .get_deserialized_opt("output.latex")
-                              .unwrap_or_default().unwrap();
+    let cfg: LatexConfig = ctx
+        .config
+        .get_deserialized_opt("output.latex")
+        .expect("Error reading \"output.latex\" configuration")
+        .unwrap_or_default();
 
     //if !cfg.latex && !cfg.pdf && !cfg.markdown {
-        //Err("No configurations selected.")
+    //Err("No configurations selected.")
     //}
 
     // Read book's config values (title, authors).
     let title = ctx.config.book.title.clone().unwrap();
     let authors = ctx.config.book.authors.join(" \\and ");
-
 
     // Copy template data into memory.
     let mut template = if let Some(custom_template) = cfg.custom_template {
@@ -67,6 +84,7 @@ fn main() -> io::Result<()> {
     // Add title and author information.
     template = template.replace(r"\title{}", &format!("\\title{{{}}}", title));
     template = template.replace(r"\author{}", &format!("\\author{{{}}}", authors));
+    template = template.replace(r"\date{}", &format!("\\date{{{}}}", date));
 
     let mut latex = String::new();
 
@@ -93,8 +111,7 @@ fn main() -> io::Result<()> {
 
     if cfg.latex || cfg.pdf {
         // convert markdown data to LaTeX
-        latex.push_str(&markdown_to_tex(content.to_string()));
-        //println!("latex: {}", latex);
+        latex.push_str(&markdown_to_tex(content));
 
         // Insert new LaTeX data into template after "%% mdbook-latex begin".
         let begin = "mdbook-latex begin";
@@ -104,7 +121,12 @@ fn main() -> io::Result<()> {
 
     if cfg.latex {
         // Output latex file.
-        output_markdown(".tex".to_string(), title.clone(), &template, &ctx.destination);
+        output_markdown(
+            ".tex".to_string(),
+            title.clone(),
+            &template,
+            &ctx.destination,
+        );
     }
 
     // Output PDF file.
@@ -116,7 +138,7 @@ fn main() -> io::Result<()> {
 
         let mut pos = 0;
 
-        let mut file_pdf = title.clone();
+        let mut file_pdf = title;
         file_pdf.push_str(".pdf");
         let mut buffer = File::create(&file_pdf)?;
 
@@ -132,7 +154,12 @@ fn main() -> io::Result<()> {
 /// Output plain text file.
 ///
 /// Used for writing markdown and latex data to files.
-fn output_markdown<P: AsRef<Path>>(extension: String, mut filename: String, data: &String, destination: P) {
+fn output_markdown<P: AsRef<Path>>(
+    extension: String,
+    mut filename: String,
+    data: &str,
+    destination: P,
+) {
     filename.push_str(&extension);
     let path = Path::new(&filename);
     let display = path.display();
@@ -202,9 +229,7 @@ fn parse_image_tag<'a> (link_type: LinkType, path: CowStr<'a>, title: CowStr<'a>
     // create the new image
     let imagepathc:String = imagepath.to_str().unwrap().into();
     Tag::Image(link_type, imagepathc.into(), title)
-
 }
-
 
 #[cfg(test)]
 mod test {

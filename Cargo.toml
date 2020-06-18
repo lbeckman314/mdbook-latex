@@ -6,7 +6,7 @@ license = "MPL-2.0"
 name = "mdbook-latex"
 readme = "README.md"
 repository = "https://github.com/lbeckman314/mdbook-latex"
-version = "0.1.24"
+version = "0.2.0"
 [dependencies]
 mdbook = "0.3.5"
 pulldown-cmark = "0.7.0"
@@ -16,7 +16,4 @@ serde_derive = "1.0.104"
 tectonic = "0.1.12"
 
 [dependencies.md2tex]
-#path = "../md2tex"
 version = "0.1.4"
-git = "https://github.com/enaut/md2tex.git"
-branch = "independent-book"
