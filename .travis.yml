@@ -31,10 +31,6 @@ addons:
       - harfbuzz
       - openssl
 
-matrix:
-  include:
-    - env: TARGET=x86_64-unknown-linux-gnu
-
 before_install:
 - openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_iv
   -in ci/deploy_rsa.enc -out /tmp/deploy_rsa -d
