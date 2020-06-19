@@ -31,22 +31,32 @@ addons:
       - harfbuzz
       - openssl
 
-script:
-  - sh ci/install.sh
+matrix:
+  include:
+    - env: TARGET=x86_64-unknown-linux-gnu
+
+before_install:
+- openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_iv
+  -in ci/deploy_rsa.enc -out /tmp/deploy_rsa -d
 
 before_deploy:
   - sh ci/before_deploy.sh
 
 deploy:
-  api_key:
-    secure: "AEyawgebBQAeIV4KJv/pMDG/djbcqmNv1mMrro4fLCRHqST9V9K2TDq/flHqToWc5bxCGk9NtAZpixBeQDjX4Ks5jV2I3OHWgw65cuB5pYYs4u7cQQv5dRjRWZPDzApD9pswf3LXOof+PJJuEwbso1rjIKQE48UQ2cNeqDV8VYtkbmPTuh988dqV/JwOVfHk3PQHe0C+eRDLO3Ncof6nQ7eZIC1N2xmIXzhQyuXvYNBeoFfDSme9mpnogcyylWxBcwEaw3CZwxVpYRjot1Fwf/AUG/DEOsF+4s4j9TAsMv4Y2miFJcWMx/0T8l7c4wP/pVeJ+Ck4h8EdW74c/8dJNkMC44aTmYbcj+0hASTyMWH4dhsP0vqfpA88UmXcu5zf7lDOqAyqe2Ludj9Kw5Sf/mf5hxFMZHXwslVCC/L9gDObxdv7FPRXe3qHSInD78UXyWN21vzQwhwSNdgKztoR/zFj9zg+kT379BOZtGPD4YX9YHxEXAkQ1aKCPj8oazElixKTd/6bXiaUoFhKHWX6blIM8Xcp0jWKsfRtgOEWW988eFbF7JJcvS8cnzgo9iyPGw5TKKbbhTaWZXiS9NFG7uCfuZXB6L8IHCmMVlkIiVk/n8pzw6bijYOX6z5Sh4ekxMgafIOpebn4lerUIjvxEI2Un3G9gSxmdZOnOMebiLw="
-  file_glob: true
-  file: $CRATE_NAME-$TRAVIS_TAG-$TARGET.*
-  on:
-    condition: $TRAVIS_RUST_VERSION = stable
+  # Deploy 'tar.gz' release files to github.
+  - provider: releases
+    api_key:
+      secure: "AEyawgebBQAeIV4KJv/pMDG/djbcqmNv1mMrro4fLCRHqST9V9K2TDq/flHqToWc5bxCGk9NtAZpixBeQDjX4Ks5jV2I3OHWgw65cuB5pYYs4u7cQQv5dRjRWZPDzApD9pswf3LXOof+PJJuEwbso1rjIKQE48UQ2cNeqDV8VYtkbmPTuh988dqV/JwOVfHk3PQHe0C+eRDLO3Ncof6nQ7eZIC1N2xmIXzhQyuXvYNBeoFfDSme9mpnogcyylWxBcwEaw3CZwxVpYRjot1Fwf/AUG/DEOsF+4s4j9TAsMv4Y2miFJcWMx/0T8l7c4wP/pVeJ+Ck4h8EdW74c/8dJNkMC44aTmYbcj+0hASTyMWH4dhsP0vqfpA88UmXcu5zf7lDOqAyqe2Ludj9Kw5Sf/mf5hxFMZHXwslVCC/L9gDObxdv7FPRXe3qHSInD78UXyWN21vzQwhwSNdgKztoR/zFj9zg+kT379BOZtGPD4YX9YHxEXAkQ1aKCPj8oazElixKTd/6bXiaUoFhKHWX6blIM8Xcp0jWKsfRtgOEWW988eFbF7JJcvS8cnzgo9iyPGw5TKKbbhTaWZXiS9NFG7uCfuZXB6L8IHCmMVlkIiVk/n8pzw6bijYOX6z5Sh4ekxMgafIOpebn4lerUIjvxEI2Un3G9gSxmdZOnOMebiLw="
+    file_glob: true
+    file: "$CRATE_NAME-$TRAVIS_TAG-$TARGET.*"
+    on:
+      condition: "$TRAVIS_RUST_VERSION = stable"
     tags: true
-  provider: releases
-  skip_cleanup: true
+    skip_cleanup: true
+
+    # Deploy documentation.
+  - provider: script
+    script: rsync -rz --delete --quiet docs/book "$USER@$DOCS_PRODUCTION"
 
 cache: cargo
 before_cache:
@@ -57,4 +67,9 @@ branches:
   only:
     # release tags
     - /^v\d+\.\d+\.\d+.*$/
+    - master
+
+notifications:
+  email:
+    on_success: never
 
