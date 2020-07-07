@@ -182,14 +182,14 @@ fn output_markdown<P: AsRef<Path>>(
 ///
 fn relative_path(content: &str, chapter_path: &Path) -> String {
     let mut new_content = String::from(content);
-    let mut new_path = String::new();
     let parser = Parser::new_ext(content, Options::empty());
     for event in parser {
+        let mut new_path = String::new();
         if let Event::Start(Tag::Image(_, path, _)) = event {
             new_path.push_str(chapter_path.to_str().unwrap());
             new_path.push_str("/");
             new_path.push_str(&path.clone().into_string());
-            new_content = content.replace(&path.into_string(), &new_path);
+            new_content = new_content.replace(&path.into_string(), &new_path);
         }
     }
 
@@ -203,9 +203,12 @@ mod test {
 
     #[test]
     fn test_relative_path() {
-        let content = "![123](./xyz.png)";
+        let content = "![123](./xyz.png)\n![456](./abc.png)";
         let path = PathBuf::from(r"/a/b/c");
         let new_content = relative_path(content, &path);
-        assert_eq!("![123](/a/b/c/./xyz.png)", new_content);
+        assert_eq!(
+            "![123](/a/b/c/./xyz.png)\n![456](/a/b/c/./abc.png)",
+            new_content
+        );
     }
 }
