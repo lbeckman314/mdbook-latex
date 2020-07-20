@@ -8,10 +8,11 @@ extern crate tectonic;
 use md2tex::markdown_to_tex;
 use mdbook::book::BookItem;
 use mdbook::renderer::RenderContext;
-use pulldown_cmark::{Event, Options, Parser, Tag};
 use std::fs::{self, File};
 use std::io::{self, Write};
 use std::path::Path;
+use pulldown_cmark::{Event, Options, Parser, Tag, LinkType, CowStr};
+use pulldown_cmark_to_cmark::cmark;
 
 // config definition.
 #[derive(Debug, Serialize, Deserialize)]
@@ -49,12 +50,12 @@ impl Default for LatexConfig {
     }
 }
 
-fn main() -> std::io::Result<()> {
+fn main() -> io::Result<()> {
     let mut stdin = io::stdin();
 
-    // Get markdown source.
+    // Get markdown source from the mdbook command via stdin
     let ctx = RenderContext::from_json(&mut stdin).unwrap();
-    println!("{:?}", ctx);
+
 
     // Get configuration options from book.toml.
     let cfg: LatexConfig = ctx
@@ -68,19 +69,17 @@ fn main() -> std::io::Result<()> {
     //}
 
     // Read book's config values (title, authors).
-    let title = ctx.config.book.title.unwrap();
+    let title = ctx.config.book.title.clone().unwrap();
     let authors = ctx.config.book.authors.join(" \\and ");
-
-    let date = cfg.date.unwrap_or_default();
 
     // Copy template data into memory.
     let mut template = if let Some(custom_template) = cfg.custom_template {
-        let mut custom_template_path = ctx.root;
-        custom_template_path.push(custom_template);
-        std::fs::read_to_string(custom_template_path)?
-    } else {
-        include_str!("template.tex").to_string()
-    };
+            let mut custom_template_path = ctx.root.clone();
+            custom_template_path.push(custom_template);
+            fs::read_to_string(custom_template_path)?
+        } else {
+            include_str!("template.tex").to_string()
+        };
 
     // Add title and author information.
     template = template.replace(r"\title{}", &format!("\\title{{{}}}", title));
@@ -89,9 +88,10 @@ fn main() -> std::io::Result<()> {
 
     let mut latex = String::new();
 
-    // Iterate through markdown source.
+    // Iterate through markdown source and push the chapters onto one single string.
     let mut content = String::new();
     for item in ctx.book.iter() {
+
         // Iterate through each chapter.
         if let BookItem::Chapter(ref ch) = *item {
             if cfg.ignores.contains(&ch.name) {
@@ -99,10 +99,11 @@ fn main() -> std::io::Result<()> {
             }
 
             // Add chapter path to relative links.
-            content.push_str(&relative_path(&ch.content, &ch.path.parent().unwrap()));
+            content.push_str(&traverse_markdown(&ch.content, &ch.path.parent().unwrap(), &ctx));
         }
     }
 
+    // println!("{}", content);
     if cfg.markdown {
         // Output markdown file.
         output_markdown(".md".to_string(), title.clone(), &content, &ctx.destination);
@@ -111,7 +112,6 @@ fn main() -> std::io::Result<()> {
     if cfg.latex || cfg.pdf {
         // convert markdown data to LaTeX
         latex.push_str(&markdown_to_tex(content));
-        println!("latex: {}", latex);
 
         // Insert new LaTeX data into template after "%% mdbook-latex begin".
         let begin = "mdbook-latex begin";
@@ -179,33 +179,88 @@ fn output_markdown<P: AsRef<Path>>(
     }
 }
 
+/// This Function parses the markdown file, alters some elements and writes it back to markdown.
 ///
-fn relative_path(content: &str, chapter_path: &Path) -> String {
-    let mut new_content = String::from(content);
-    let mut new_path = String::new();
-    let parser = Parser::new_ext(content, Options::empty());
-    for event in parser {
-        if let Event::Start(Tag::Image(_, path, _)) = event {
-            new_path.push_str(chapter_path.to_str().unwrap());
-            new_path.push_str("/");
-            new_path.push_str(&path.clone().into_string());
-            new_content = content.replace(&path.into_string(), &new_path);
-        }
-    }
+/// Changes done:
+///   * change image paths to be relative to images
+///   * copy the image files into the images directory in the target directory
+fn traverse_markdown(content: &str, chapter_path: &Path, context: &RenderContext) -> String {
+    let parser = Parser::new_ext(content, Options::all());
+    let parser = parser.map(|event| match event {
+            Event::Start(Tag::Image(link_type, path, title)) => {
+                //Event::Start(Tag::Image(link_type, imagepathcowstr, title))
+                Event::Start(parse_image_tag(link_type, path, title, chapter_path, context))
+            },
+            Event::End(Tag::Image(link_type, path, title)) => {
+                //Event::Start(Tag::Image(link_type, imagepathcowstr, title))
+                Event::End(parse_image_tag(link_type, path, title, chapter_path, context))
+            },
+            _ => event,
+        });
+    let mut new_content = String::new();
 
-    new_content
+    cmark(parser, &mut new_content, None).expect("failed to convert back to markdown");
+    return new_content;
+}
+
+fn parse_image_tag<'a> (link_type: LinkType, path: CowStr<'a>, title: CowStr<'a>, chapter_path: &'a Path, context: &'a RenderContext) -> Tag <'a> {
+    //! Take the values of a Tag::Image and create a new Tag::Image
+    //! while simplyfying the path and also copying the image file to the target directory
+
+    // cleaning and converting the path found.
+    let pathstr: String = path.replace("./", "");
+    let imagefn = Path::new(&pathstr);
+    // creating the source path of the mdbook
+    let source = context.root.join(context.config.book.src.clone());
+    // creating the relative path of the image by prepending the chapterpath
+
+    let relpath = chapter_path.join(imagefn);
+    // creating the path of the imagesource
+    let sourceimage = source.join(&relpath);
+    // creating the relative path for the image tag in markdown
+    let imagepath = Path::new("images").join(&relpath);
+    // creating the path where the image will be copied to
+    let targetimage = context.destination.join(&imagepath);
+
+    // creating the directory if neccessary
+    fs::create_dir_all(targetimage.parent().unwrap()).expect("Failed to create the directories");
+    // copy the image
+    fs::copy(&sourceimage, &targetimage).expect("Failed to copy the image");
+    // create the new image
+    let imagepathc:String = imagepath.to_str().unwrap().into();
+    Tag::Image(link_type, imagepathc.into(), title)
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
     use std::path::PathBuf;
+    use std::fs::OpenOptions;
 
     #[test]
-    fn test_relative_path() {
+    fn test_traverse_markdown() {
+        let imgpath = Path::new("/tmp/test/src/chap/xyz.png");
+        // create a temporary directory in /tmp/
+        fs::create_dir_all(imgpath.parent().unwrap()).expect("failure while creating testdirs");
+        // touch the mock png file
+        let _ = match OpenOptions::new().create(true).write(true).open(imgpath) {
+            Ok(_) => Ok(()),
+            Err(e) => Err(e),
+        };
         let content = "![123](./xyz.png)";
-        let path = PathBuf::from(r"/a/b/c");
-        let new_content = relative_path(content, &path);
-        assert_eq!("![123](/a/b/c/./xyz.png)", new_content);
+        let path = PathBuf::from(r"chap/");
+        let context = RenderContext::new(
+            Path::new("/tmp/test/"),
+            mdbook::book::Book::new(),
+            mdbook::Config::default(),
+            Path::new("/tmp/dest/")
+        );
+        let new_content = traverse_markdown(content, &path, &context);
+        assert_eq!("![123](images/chap/xyz.png)", new_content);
+        let respath = Path::new("/tmp/dest/images/chap/xyz.png");
+        assert!(respath.exists());
+
+        fs::remove_dir_all("/tmp/test").unwrap();
+        fs::remove_dir_all("/tmp/dest").unwrap();
     }
 }
