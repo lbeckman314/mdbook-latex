@@ -71,6 +71,7 @@ fn main() -> io::Result<()> {
     // Read book's config values (title, authors).
     let title = ctx.config.book.title.clone().unwrap();
     let authors = ctx.config.book.authors.join(" \\and ");
+    let date = cfg.date.unwrap();
 
     // Copy template data into memory.
     let mut template = if let Some(custom_template) = cfg.custom_template {
