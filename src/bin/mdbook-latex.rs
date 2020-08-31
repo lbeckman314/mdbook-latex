@@ -2,7 +2,6 @@ extern crate env_logger;
 extern crate failure;
 extern crate mdbook;
 extern crate mdbook_latex;
-extern crate pulldown_cmark;
 extern crate serde_json;
 extern crate structopt;
 
@@ -22,7 +21,7 @@ pub fn main() {
     if let Err(e) = run(&args) {
         eprintln!("Error: {}", e);
 
-        for carse in e.iter_causes() {
+        for cause in e.iter_causes() {
             eprintln!("\t Caused By: {}", cause);
         }
 
@@ -36,8 +35,8 @@ pub fn main() {
 }
 
 fn run(args: &Args) -> Result<(), Error> {
-    let cts: RenderContext = if args.standalone {
-        let md = MDBook:load(&args.root).map_err(SyncFailure::new)?;
+    let ctx: RenderContext = if args.standalone {
+        let md = MDBook::load(&args.root).map_err(SyncFailure::new)?;
         let dest = md.build_dir_for("latex");
 
         RenderContext::new(md.root, md.book, md.config, dest)
@@ -49,3 +48,16 @@ fn run(args: &Args) -> Result<(), Error> {
 
     Ok(())
 }
+
+#[derive(Debug, Clone, StructOpt)]
+struct Args {
+    #[structopt(
+        short = "s",
+        long = "standalone",
+        help = "Run standalone (i.e. not as a mdbook plugin)"
+    )]
+    standalone: bool,
+    #[structopt(help = "The book to render.", parse(from_os_str), default_value = ".")]
+    root: PathBuf,
+}
+
