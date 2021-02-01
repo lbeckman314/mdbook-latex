@@ -42,7 +42,7 @@
 
 An [mdbook](https://github.com/rust-lang-nursery/mdBook) backend for generating LaTeX and PDF documents. Utilizes [`md2tex`](https://github.com/lbeckman314/md2tex) for the markdown to LaTeX transformation, but with the goal of allowing alternative markdown to LaTeX converters. If you have developed your own markdown to LaTeX converter, I'd love to talk with you or share ideas! I'm at [liam@liambeckman.com](mailto:liam@liambeckman).
 
-> **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet%3F) section for a roadmap to the production release.
+> **Warning**: Not yet stable — may eat, shred, and atomize your laundry! See the [**Are We Stable Yet?**](#are-we-stable-yet) section for a roadmap to the production release.
 
 > **Failure**: For what to do if and when `mdbook-latex` fails, see [**`mdbook-latex` failed to build my book! Now what? >:(**](#mdbook-latex-failed-to-build-my-book-now-what-). I'm also available via [e-mail](mailto:liam@liambeckman) if you have any questions or suggestions!
 
