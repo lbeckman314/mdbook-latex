@@ -2,7 +2,7 @@
 name = "mdbook-latex"
 version = "0.1.24"
 authors = ["lbeckman314 <liam@liambeckman.com>"]
-edition = "2018"
+edition = "2021"
 description = "An mdbook backend for generating LaTeX and PDF documents."
 license = "MPL-2.0"
 readme = "README.md"
@@ -11,20 +11,21 @@ repository = "https://github.com/lbeckman314/mdbook-latex"
 [features]
 default = ["latex", "pdf"]
 latex = ["md2tex"]
-pdf = ["md2tex", "tectonic"]
+pdf = ["latex", "tectonic"]
 
 [dependencies]
-env_logger = "0.7.1"
-failure = "0.1.8"
-md2tex = { version = "0.1.3", optional = true }
-mdbook = "0.3.7"
-serde = "1.0.111"
-serde_derive = "1.0.111"
-serde_json = "1.0.55"
-structopt = "0.3.15"
-tectonic = { version = "0.1.12", optional = true }
+env_logger = "0.9.0"
+anyhow = "1.0.44"
+md2tex = { git = "https://github.com/mateuszkj/md2tex.git", branch = "dev", optional = true }
+# md2tex = { path = "../md2tex", optional = true }
+mdbook = "0.4.13"
+serde = "1.0.130"
+serde_derive = "1.0.130"
+serde_json = "1.0.68"
+structopt = "0.3.25"
+tectonic = { version = "0.8.0", optional = true }
 
 [dev-dependencies]
-serde_json = "1.0.53"
+serde_json = "1.0.68"
 tempdir = "0.3.7"
 

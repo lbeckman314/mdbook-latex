@@ -11,3 +11,5 @@ Cargo.lock
 
 docs/book
 docs/mdBook
+
+/.idea

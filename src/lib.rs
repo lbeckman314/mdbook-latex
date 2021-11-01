@@ -16,6 +16,8 @@ use std::fs::File;
 use std::io::Write;
 use std::path::Path;
 use std::path::PathBuf;
+use tectonic::status::plain::PlainStatusBackend;
+use tectonic::status::ChatterLevel;
 
 // config definition.
 #[derive(Debug, Default, Serialize, Deserialize)]
@@ -111,9 +113,61 @@ pub fn generate(ctx: &RenderContext) -> std::io::Result<()> {
 #[cfg(feature = "pdf")]
 fn write_pdf(latex: String, filename: PathBuf) {
     // Write PDF with tectonic.
-    let data: Vec<u8> = tectonic::latex_to_pdf(&latex).expect("processing failed");
+    let sb = PlainStatusBackend::new(ChatterLevel::Normal);
+    let data: Vec<u8> = latex_to_pdf(&latex, sb).expect("processing failed");
     let mut output = File::create(filename).unwrap();
     output.write(&data).unwrap();
+}
+
+#[cfg(feature = "pdf")]
+pub fn latex_to_pdf<T: AsRef<str>, S: tectonic::status::StatusBackend>(
+    latex: T,
+    mut status: S,
+) -> anyhow::Result<Vec<u8>> {
+    use tectonic::config;
+    use tectonic::driver;
+
+    let auto_create_config_file = false;
+    let config = config::PersistentConfig::open(auto_create_config_file)
+        .map_err(|e| anyhow::anyhow!("failed to open the default configuration file: {:?}", e))?;
+
+    let only_cached = false;
+    let bundle = config
+        .default_bundle(only_cached, &mut status)
+        .map_err(|e| anyhow::anyhow!("failed to load the default resource bundle: {:?}", e))?;
+
+    let format_cache_path = config
+        .format_cache_path()
+        .map_err(|e| anyhow::anyhow!("failed to set up the format cache: {:?}", e))?;
+
+    let mut files = {
+        // Looking forward to non-lexical lifetimes!
+        let mut sb = driver::ProcessingSessionBuilder::default();
+        sb.bundle(bundle)
+            .primary_input_buffer(latex.as_ref().as_bytes())
+            .tex_input_name("texput.tex")
+            .format_name("latex")
+            .format_cache_path(format_cache_path)
+            .keep_logs(false)
+            .keep_intermediates(false)
+            .print_stdout(false)
+            .output_format(driver::OutputFormat::Pdf)
+            .do_not_write_output_files();
+
+        let mut sess = sb.create(&mut status).map_err(|e| {
+            anyhow::anyhow!("failed to initialize the LaTeX processing session: {:?}", e)
+        })?;
+        sess.run(&mut status)
+            .map_err(|e| anyhow::anyhow!("the LaTeX engine failed: {:?}", e))?;
+        sess.into_file_data()
+    };
+
+    match files.remove("texput.pdf") {
+        Some(file) => Ok(file.data),
+        None => Err(anyhow::anyhow!(
+            "LaTeX didn't report failure, but no PDF was created (??)"
+        )),
+    }
 }
 
 #[cfg(feature = "latex")]
