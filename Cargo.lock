@@ -1057,9 +1057,9 @@ dependencies = [
 
 [[package]]
 name = "gimli"
-version = "0.26.0"
+version = "0.26.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "81a03ce013ffccead76c11a15751231f777d9295b845cc1266ed4d34fcbd7977"
+checksum = "78cc372d058dcf6d5ecd98510e7fbc9e5aec4d21de70f65fea8fecebcd881bd4"
 
 [[package]]
 name = "gitignore"
@@ -1550,7 +1550,7 @@ dependencies = [
 [[package]]
 name = "md2tex"
 version = "0.1.4"
-source = "git+https://github.com/mateuszkj/md2tex.git?branch=dev#a61f0173b0606a0102ce3ae7fd587fbebb741a75"
+source = "git+https://github.com/mateuszkj/md2tex.git?branch=dev#5f113071396eafe60a65d5345f996e3e6d75a5c3"
 dependencies = [
  "Inflector",
  "clap",
