@@ -1550,7 +1550,7 @@ dependencies = [
 [[package]]
 name = "md2tex"
 version = "0.1.4"
-source = "git+https://github.com/mateuszkj/md2tex.git?branch=dev#5f113071396eafe60a65d5345f996e3e6d75a5c3"
+source = "git+https://github.com/mateuszkj/md2tex.git?branch=dev#fa0b72dc2d01cb7abe4be25387eb98cd38fcb2e9"
 dependencies = [
  "Inflector",
  "clap",
