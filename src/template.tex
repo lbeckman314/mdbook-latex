@@ -87,8 +87,11 @@
 
 %% Language definitions.
 \lstdefinelanguage{rust}{
-  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
-  ndkeywords={class, export, boolean, throw, implements, import, this},
+  keywords={
+    as, break, const, continue, crate, else, enum, extern, false, fn, for, if, impl,
+    in, let, loop, match, mod, move, mut, pub, ref, return, self, Self, static, struct,
+    super, trait, true, type, unsafe use, where, while, async, await, union, 'static, dyn
+  },
   sensitive=false,
   comment=[l]{//},
   morecomment=[s]{/*}{*/},
@@ -97,8 +100,24 @@
 }
 
 \lstdefinelanguage{rs}{
-  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
-  ndkeywords={class, export, boolean, throw, implements, import, this},
+  keywords={
+    as, break, const, continue, crate, else, enum, extern, false, fn, for, if, impl,
+    in, let, loop, match, mod, move, mut, pub, ref, return, self, Self, static, struct,
+    super, trait, true, type, unsafe use, where, while, async, await, union, 'static, dyn
+  },
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{compile_fail}{
+  keywords={
+    as, break, const, continue, crate, else, enum, extern, false, fn, for, if, impl,
+    in, let, loop, match, mod, move, mut, pub, ref, return, self, Self, static, struct,
+    super, trait, true, type, unsafe use, where, while, async, await, union, 'static, dyn
+  },
   sensitive=false,
   comment=[l]{//},
   morecomment=[s]{/*}{*/},
