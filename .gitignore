@@ -13,3 +13,6 @@ docs/book
 docs/mdBook
 
 /.idea
+
+tests/rust-book/*.pdf
+tests/rust-book/book
