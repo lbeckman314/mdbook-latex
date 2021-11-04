@@ -16,3 +16,6 @@ docs/mdBook
 
 tests/rust-book/*.pdf
 tests/rust-book/book
+
+/.idea
+/.settings
