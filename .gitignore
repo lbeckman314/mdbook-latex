@@ -19,3 +19,5 @@ tests/rust-book/book
 
 tests/rust-by-example/*.pdf
 tests/rust-by-example/book
+
+/.settings
