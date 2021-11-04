@@ -11,3 +11,13 @@ Cargo.lock
 
 docs/book
 docs/mdBook
+
+/.idea
+
+tests/rust-book/*.pdf
+tests/rust-book/book
+
+tests/rust-by-example/*.pdf
+tests/rust-by-example/rust-by-example
+
+/.settings

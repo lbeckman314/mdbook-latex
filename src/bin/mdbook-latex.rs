@@ -1,14 +1,12 @@
 extern crate env_logger;
-extern crate failure;
 extern crate mdbook;
 extern crate mdbook_latex;
 extern crate serde_json;
 extern crate structopt;
 
-use failure::{Error, ResultExt, SyncFailure};
+use anyhow::{Context, Result};
 use mdbook::renderer::RenderContext;
 use mdbook::MDBook;
-use std::env;
 use std::io;
 use std::path::PathBuf;
 use std::process;
@@ -21,11 +19,12 @@ pub fn main() {
     if let Err(e) = run(&args) {
         eprintln!("Error: {}", e);
 
-        for cause in e.iter_causes() {
+        for cause in e.chain() {
             eprintln!("\t Caused By: {}", cause);
         }
 
-        if env::var("RUST_BACKTRACE").is_ok() {
+        #[cfg(any(backtrace, feature = "backtrace"))]
+        if std::env::var("RUST_BACKTRACE").is_ok() {
             eprintln!();
             eprintln!("{}", e.backtrace());
         }
@@ -34,9 +33,9 @@ pub fn main() {
     }
 }
 
-fn run(args: &Args) -> Result<(), Error> {
+fn run(args: &Args) -> Result<()> {
     let ctx: RenderContext = if args.standalone {
-        let md = MDBook::load(&args.root).map_err(SyncFailure::new)?;
+        let md = MDBook::load(&args.root)?;
         let dest = md.build_dir_for("latex");
 
         RenderContext::new(md.root, md.book, md.config, dest)
@@ -60,4 +59,3 @@ struct Args {
     #[structopt(help = "The book to render.", parse(from_os_str), default_value = ".")]
     root: PathBuf,
 }
-
