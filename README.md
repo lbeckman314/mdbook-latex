@@ -2,7 +2,7 @@
 
 ![mdbook-latex logo][logo]
 
-[logo]: mdbook-latex.png
+[logo]: https://github.com/user-attachments/assets/6f7aa30a-070d-4716-94f0-cb2480f487da
 
 [![crates badge][crates-badge]][crates.io]
 [![docs badge][docs-badge]][docs]
